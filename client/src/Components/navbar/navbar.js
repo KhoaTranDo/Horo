@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Button } from "./Button";
 import {MemuItems} from './menu'
 import './navbar.css';
+import {logOut} from '../../action/auth'
+import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 class navbar extends Component {
   state = { clicked: false }
@@ -28,10 +30,28 @@ class navbar extends Component {
                       )
                   })}
               </ul>
-              <Button>Sign Up</Button>
+              {
+                
+                this.props.isLoggedIn ? (
+                    <div>
+                        <h1>You are Logged in</h1>
+                        <br/>
+                        <Link to ='/'><button onClick={()=>this.props.logOut()}>Login out</button></Link>
+                    </div>
+                )
+                :
+                (
+                    <div>
+                          <Link to='/register' style={{color:'white'}}><button type="button" className="btn btn-info">Login</button></Link>
+                    </div>
+                )
+            }
           </nav>
       )
   }
 }
 
-export default navbar
+function mapStateToProps(state){
+    return{  isLoggedIn: state.isLoggedIn}
+};
+export default connect(mapStateToProps,{logOut})(navbar);

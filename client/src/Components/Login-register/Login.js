@@ -14,7 +14,7 @@ const Login = ({isLoggedIn,loginUser }) => {
     phone: 'Mess Alert',
     password: 'Mess Alert',
   });
-  if (isLoggedIn===true){ return <Redirect to="/" />;}
+  if (isLoggedIn===true){ return <Redirect to="/Detail" />;}
  
   let {phone, password } = data;
   
