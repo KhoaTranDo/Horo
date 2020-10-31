@@ -31,6 +31,9 @@ class loginRegister extends Component {
   render() {
     return (
       <div>
+      <video autoPlay muted loop>
+        <source src='../'></source>
+      </video>
         <Navbar />
         <div className={this.state.animation} id="container">
           {/* Register */}
@@ -62,7 +65,7 @@ class loginRegister extends Component {
                 <button
                   className="ghost"
                   id="signUp"
-                  onClick={this.handleClick}
+                  onClick={this.handleClick}git
                 >
                   Sign Up
                 </button>
