@@ -40,14 +40,14 @@ export default class DisplayMapClass extends React.Component {
                     container: this.mapContainer,
                     style: "mapbox://styles/mapbox/streets-v11",
                     center: [position.coords.longitude, position.coords.latitude],
-                    zoom: this.state.zoom,
+                    zoom: 15,
                   });
                 this.setState={
                     lat : position.coords.latitude,
                     lng : position.coords.longitude,
                 }
                   var marker = new mapboxgl.Marker()
-                    .setLngLat([this.setState.lng, this.state.lat])
+                    .setLngLat([position.coords.longitude, position.coords.latitude])
                     .addTo(map);
                 });
     
