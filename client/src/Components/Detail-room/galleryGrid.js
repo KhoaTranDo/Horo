@@ -21,11 +21,13 @@ const GalleryGrid = ({gallery,handleClick}) =>{
 }
 
 const styles = {
-    height: '100%',
-    width: '100%',
+    "display": "flex",
+    "flexWrap": "wrap",
+    height: '40%',
+    width: '40%',
     background: 'yellow',
-    display: 'flex',
-    flexDirection: "column"
+    flexDirection:'row',
+    flex:'1',
 }
 
 export default GalleryGrid

@@ -10,9 +10,10 @@ const ActiveGallery = ({activeGallery}) =>{
 
 const styles = {
     height: '100%',
-    width: '80%',
+    width: '100%',
+    flex:'3',
     background: '#333',
-    position: 'relative'
+    position: 'relative',
 }
 
 export default ActiveGallery

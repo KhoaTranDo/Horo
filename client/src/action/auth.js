@@ -34,7 +34,7 @@ export const registerUser = (name,phone,password) => async dispatch =>{
         const body = JSON.stringify({name,phone,password});
 
         console.log(body);
-        const response= await axios.post('http://localhost:6001/register',body,config);
+        const response= await axios.post('http://localhost:6001/account/register',body,config);
         dispatch({
             type: REGISTER_SUCCESS,
             payload: response.data
@@ -54,7 +54,7 @@ export const loginUser = (phone,password) => async dispatch =>{
             }
         }
         const body = JSON.stringify({phone,password});
-        const response= await axios.post('http://localhost:6001/login',body,config);
+        const response= await axios.post('http://localhost:6001/account/login',body,config);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: response.data

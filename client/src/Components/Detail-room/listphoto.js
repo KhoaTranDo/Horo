@@ -18,8 +18,8 @@ const Listphoto = ({imgUrl,handleClick,index}) =>{
 }
 
 const styles = {
-    height: '50%',
-    width: '25%',
+    height: '62.5%',
+    width: '50%',
     float:'right'
 }
 

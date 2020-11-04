@@ -17,16 +17,16 @@ export default class Gallery extends Component{
     }
     renderGallery = () => {
         const {gallery,activeIndex,wait} = this.state
-        setTimeout(() => {
-            if(activeIndex <gallery.length-1){
-            this.setState({activeIndex: activeIndex+1 });
-            console.log(activeIndex)
-            }
-            else if(activeIndex === gallery.length-1){
-            this.setState({activeIndex: 0});
-            console.log(activeIndex)
-            }
-          }, 1000);
+        // setTimeout(() => {
+        //     if(activeIndex <gallery.length-1){
+        //     this.setState({activeIndex: activeIndex+1 });
+        //     // console.log(activeIndex)
+        //     }
+        //     else if(activeIndex === gallery.length-1){
+        //     this.setState({activeIndex: 0});
+        //     // console.log(activeIndex)
+        //     }
+        //   }, 1000);
         if(gallery.length){
             return(
                 <>
@@ -85,5 +85,7 @@ const GalleryStyles ={
     width:'1024px',
     margin:'40px auto',
     marginTop:'150px',
-    display: 'flex'
+    display: 'flex',
+    "borderRadius": "20px",
+    "overflow": "hidden"
 }
