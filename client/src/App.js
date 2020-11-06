@@ -23,13 +23,19 @@ function App(){
       <Navbar/>
       <Provider store={store}>
         <Router>
+          <div>
+         <Navbar/>
+         </div>
+          <div style={{marginTop:'0px'}}>
         <Switch>
          <Route exact path='/register' component={Register}/>
          <Route exact path='/' component={Dashboard}/>
          <Route exact path='/login' component={Login}/>
         </Switch>
+        </div>
         </Router>
         </Provider>
+        
       </div> 
   );
 }
