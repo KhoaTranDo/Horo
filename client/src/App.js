@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import Navbar from './Components/navbar/navbar'
+import Navbar from './Components/navbar/Navbar'
 import './App.css';
 import store from './store'
 import Homepage from './Components/Homepage/Homepage'
@@ -10,6 +10,8 @@ import { loadUser } from './action/auth';
 import { setToken } from './setToken';
 import loginRegister from './Components/Login-register/loginRegister';
 import {MainSearch} from './Components/SearchMap/MainSearch'
+
+
 if(localStorage.getItem('token')){
   setToken(localStorage.getItem('token'));
 }
@@ -20,26 +22,26 @@ function App(){
   },[])
 
   return (
-    <div className='App'  style={GalleryStyles} >
+    <>
+    {/* <div className='App'> */}
       <Provider store={store}>
         <Router>
-          <div>
          <Navbar/>
-         </div>
+         
+  
           <div style={{marginTop:'70px'}}>
         <Switch>
          <Route exact path='/account' component={loginRegister}/>
          <Route exact path='/' component={Homepage}/>
-         <Route exact path='/Detail' component={Detail}/>
+         <Route exact path='/rooms' component={Detail}/>
         </Switch>
          </div>
         </Router>
         </Provider>
           {/* <MainSearch/> */}
-      </div> 
+      {/* </div>  */}
+      </>
   );
 }
-const GalleryStyles ={
-  display: 'grid'
-}
+
 export default App;

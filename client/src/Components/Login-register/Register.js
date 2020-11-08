@@ -3,6 +3,7 @@ import "./loginRegister.css";
 import { registerUser } from "../../action/auth";
 import { connect } from "react-redux";
 import { Redirect} from 'react-router-dom';
+import axios from "axios";
 
 const Register = ({isLoggedIn,registerUser}) => {
 	
@@ -18,6 +19,8 @@ const Register = ({isLoggedIn,registerUser}) => {
   });
   let {name,phone,password} = data;  
   if(isLoggedIn) return <Redirect to='/'/>
+  
+ 
   const onchange = (e) => {
     setData({ ...data,[e.target.name]:e.target.value })
     if(e.target.value===''){
@@ -35,7 +38,23 @@ const Register = ({isLoggedIn,registerUser}) => {
       password === ""
     )
    return alert("Empty value");
-    else registerUser(name,phone,password);
+    else {registerUser(name,phone,password);
+        const errms = {
+          name: data.name,
+          phone: data.phone,
+          password: data.password,
+        };
+        if (isLoggedIn === false) {
+      const errormsg =axios
+      .post("http://localhost:6001/account/register", errms)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {         
+        document.getElementById("demo").innerHTML=error.response.data.msg
+      });
+    }
+  }
   };
 
   return (
@@ -69,6 +88,7 @@ const Register = ({isLoggedIn,registerUser}) => {
             name="password"
           />
            <span className={tb.password} name="password">Vui lòng nhập mật khẩu</span>
+           <p id="demo"></p>
            <br/>
           <button onClick={(e) => submitData(e)}>Sign Up</button>
         </form>

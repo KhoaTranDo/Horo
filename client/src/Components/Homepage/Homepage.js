@@ -5,6 +5,10 @@ import {Carousel} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.css';
 import {Gallery} from './Gallery'
 import axios from 'axios';
+import Home from './pages/Home';
+import './style.css'
+
+
 
 const Homepage = ({isLoggedIn , logOut}) => {
   const [data, setData] = useState([]);
@@ -29,7 +33,7 @@ const Homepage = ({isLoggedIn , logOut}) => {
             {/* /.col-lg-3 */}
             <div className="col-lg-10 mx-auto ">
         <Gallery/>
-
+      <Home/>
 <div className="row" style={{float:'left'}}>   
            <div className="col-lg-3 sidebar">
         <div className="list-group">
