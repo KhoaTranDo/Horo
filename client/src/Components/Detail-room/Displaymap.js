@@ -42,10 +42,7 @@ export default class DisplayMapClass extends React.Component {
                     center: [position.coords.longitude, position.coords.latitude],
                     zoom: 15,
                   });
-                this.setState={
-                    lat : position.coords.latitude,
-                    lng : position.coords.longitude,
-                }
+                
                   var marker = new mapboxgl.Marker()
                     .setLngLat([position.coords.longitude, position.coords.latitude])
                     .addTo(map);

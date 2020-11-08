@@ -30,13 +30,6 @@ class loginRegister extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-      <video autoPlay muted loop>
-        <source src='../'></source>
-      </video>
-        <Navbar />
-=======
->>>>>>> demo1
         <div className={this.state.animation} id="container">
           {/* Register */}
           <Provider store={store}>

@@ -138,7 +138,7 @@ h6 {
 }
 @media screen and (max-width: 600px) {
   .nav-btn {
-  
+    display: none;
   }
   .nav-center {
     max-width: 1270px;
