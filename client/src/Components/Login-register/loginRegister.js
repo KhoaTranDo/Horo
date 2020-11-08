@@ -2,7 +2,6 @@ import React, { Component} from "react";
 import "./loginRegister.css";
 import { Provider} from "react-redux";
 import store from "../../store";
-import Navbar from "../../Components/navbar/navbar";
 import Register from "./Register";
 import Login from "./Login";
 import { connect } from "react-redux";
@@ -31,10 +30,13 @@ class loginRegister extends Component {
   render() {
     return (
       <div>
+<<<<<<< HEAD
       <video autoPlay muted loop>
         <source src='../'></source>
       </video>
         <Navbar />
+=======
+>>>>>>> demo1
         <div className={this.state.animation} id="container">
           {/* Register */}
           <Provider store={store}>

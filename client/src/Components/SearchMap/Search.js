@@ -14,6 +14,10 @@ function geocoderSearch(){
             map.addObject(new H.map.Marker(result.items[0].access[0]));
             map.addObject(new H.map.Marker(result.items[0].position));
             
+<<<<<<< HEAD
+=======
+           
+>>>>>>> demo1
     }
 
     geocoder.geocode(geocodeParam,onResult,alert);

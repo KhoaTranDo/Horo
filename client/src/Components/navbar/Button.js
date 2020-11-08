@@ -1,6 +1,6 @@
 import React from 'react'
-import './Button.css'
-
+// import './Button.css'
+import './navbar.css';
 const STYLES = [
     'btn--primary',
     'btn--outline'

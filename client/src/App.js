@@ -1,14 +1,17 @@
 import React,{useEffect} from 'react';
-import Navbar from './Components/navbar/navbar'
-import Register from './Components/Login-register/loginRegister'
-import Login from './Components/Login-register/Login' 
+import Navbar from './Components/navbar/Navbar'
 import './App.css';
 import store from './store'
-import Dashboard from './Components/dashboard/dashboard'
+import Homepage from './Components/Homepage/Homepage'
+import Detail from './Components/Detail-room/RoomDetail'
 import {  BrowserRouter  as Router, Route , Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { loadUser } from './action/auth';
 import { setToken } from './setToken';
+import loginRegister from './Components/Login-register/loginRegister';
+import {MainSearch} from './Components/SearchMap/MainSearch'
+
+
 if(localStorage.getItem('token')){
   setToken(localStorage.getItem('token'));
 }
@@ -19,24 +22,25 @@ function App(){
   },[])
 
   return (
-    <div className='App'>
-      <Navbar/>
+    <>
+    {/* <div className='App'> */}
       <Provider store={store}>
         <Router>
-          <div>
          <Navbar/>
-         </div>
-          <div style={{marginTop:'0px'}}>
+         
+  
+          <div style={{marginTop:'70px'}}>
         <Switch>
-         <Route exact path='/register' component={Register}/>
-         <Route exact path='/' component={Dashboard}/>
-         <Route exact path='/login' component={Login}/>
+         <Route exact path='/account' component={loginRegister}/>
+         <Route exact path='/' component={Homepage}/>
+         <Route exact path='/rooms' component={Detail}/>
         </Switch>
-        </div>
+         </div>
         </Router>
         </Provider>
-        
-      </div> 
+          {/* <MainSearch/> */}
+      {/* </div>  */}
+      </>
   );
 }
 
