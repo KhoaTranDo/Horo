@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import Navbar from './Components/navbar/Navbar'
+import Navbar from './Components/navbar/navbar'
 import './App.css';
 import store from './store'
 import Homepage from './Components/Homepage/Homepage'
@@ -29,7 +29,7 @@ function App(){
          <Navbar/>
          
   
-          <div style={{marginTop:'70px'}}>
+          <div>
         <Switch>
          <Route exact path='/account' component={loginRegister}/>
          <Route exact path='/' component={Homepage}/>

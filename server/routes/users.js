@@ -21,4 +21,12 @@ const AccountController = require('../controllers/Account')
     ],
     AccountController.Login);
 
+    router.post('/forgot',
+    [
+    check('phone',' Type proper Phone').isNumeric(),
+   
+    ],
+    AccountController.Login);//Forgot password
+    
+
 module.exports = router;

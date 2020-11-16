@@ -31,33 +31,22 @@ export default class DisplayMapClass extends React.Component {
                 lat: map.getCenter().lat.toFixed(5),
                 zoom: map.getZoom().toFixed(3)
                 });
-                });   
-            }
-        currentPoint=()=>{
-            // Bat chuwc nawng quet
-                navigator.geolocation.getCurrentPosition((position) => {
-                  let map = new mapboxgl.Map({
-                    container: this.mapContainer,
-                    style: "mapbox://styles/mapbox/streets-v11",
-                    center: [position.coords.longitude, position.coords.latitude],
-                    zoom: 15,
-                  });
-                this.setState={
-                    lat : position.coords.latitude,
-                    lng : position.coords.longitude,
+                });  
+                map.addControl(
+                    new mapboxgl.GeolocateControl({
+                    positionOptions: {
+                    enableHighAccuracy: true
+                    },
+                    trackUserLocation: true,
+                }     
+                    ) )
                 }
-                  var marker = new mapboxgl.Marker()
-                    .setLngLat([position.coords.longitude, position.coords.latitude])
-                    .addTo(map);
-                });
-    
-        }
+       
     render(){
         return(
-            <div style={{width:'50%',height:'500px'}}>
+            <div style={{width:'30%',height:'500px'}}>
             <div className='sidebarStyle'>
             <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
-            <div><button type='text' placeholder='Dau la dau' onClick={this.currentPoint}></button></div>
             </div>
             <div ref={el => this.mapContainer = el} className='mapContainer' />
             </div>

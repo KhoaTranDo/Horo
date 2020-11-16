@@ -16,13 +16,7 @@
   --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
 }
 /* globals */
-body {
-  padding-top: 66px;
-  color: var(--mainBlack);
-  background: var(--mainWhite);
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  line-height: 1.4;
-}
+
 h1 {
   font-size: 2em;
   line-height: 1;
@@ -120,39 +114,45 @@ h6 {
 .nav-links a {
   display: block;
   text-decoration: none;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   color: var(--mainBlack);
   transition: var(--mainTransition);
   text-align: center;
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: var(--mainSpacing);
+  margin: 0 auto;
 }
 .nav-links a:hover {
   color: var(--primaryColor);
+  text-decoration: none;
 }
 
 .show-nav {
-  min-height: 200px;
-  height: auto;
+  height: 300px;
 }
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 600px) {
   .nav-btn {
-  
+    display: none;
   }
   .nav-center {
     max-width: 1270px;
     margin: 0 auto;
     display: flex;
+    justify-content: space-between;
   }
   .nav-links {
-    height: 200px;
+    height: auto;
     display: flex;
     margin-left: 4rem;
   }
   .nav-links a {
     margin: 0 1rem;
     padding: 0.5rem 0;
+  }
+  li{
+    margin: auto;
+    margin: 10px 0 0 0;
   }
 }
 /* end of navbar */

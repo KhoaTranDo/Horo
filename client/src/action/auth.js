@@ -15,7 +15,7 @@ export const loadUser = () => async dispatch =>{
     if(localStorage.getItem('token'))
          setToken(localStorage.getItem('token'));
     try{
-        const response = await axios.get('http://localhost:6001');
+        const response = await axios.get('http://localhost:6001/account');
         dispatch({
             type: LOAD_USER,
             payload: response.data

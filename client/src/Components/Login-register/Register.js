@@ -51,7 +51,7 @@ const Register = ({isLoggedIn,registerUser}) => {
         console.log(response);
       })
       .catch((error) => {         
-        document.getElementById("demo").innerHTML=error.response.data.msg
+        document.getElementById("error-register").innerHTML=error.response.data.msg
       });
     }
   }
@@ -88,7 +88,7 @@ const Register = ({isLoggedIn,registerUser}) => {
             name="password"
           />
            <span className={tb.password} name="password">Vui lòng nhập mật khẩu</span>
-           <p id="demo"></p>
+           <p id="error-register"></p>
            <br/>
           <button onClick={(e) => submitData(e)}>Sign Up</button>
         </form>

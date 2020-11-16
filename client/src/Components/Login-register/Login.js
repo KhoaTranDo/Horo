@@ -54,7 +54,7 @@ const Login = ({ isLoggedIn, loginUser }) => {
             console.log(response);
           })
           .catch((error) => {         
-            document.getElementById("demo").innerHTML=error.response.data.msg
+            document.getElementById("error-login").innerHTML=error.response.data.msg
           });
        
       }
@@ -85,7 +85,7 @@ const Login = ({ isLoggedIn, loginUser }) => {
         </span>
         <span name="name">{tb.mess}</span>
         <a href="/#">Forgot your password?</a>
-        <p id="demo"></p>
+        <p id="error-login"></p>
         <button onClick={(e) => loginAccount(e)}>Sign In</button>
       </form>
     </div>
