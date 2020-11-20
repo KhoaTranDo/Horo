@@ -9,8 +9,12 @@ export default class Gallery extends Component {
     activeIndex: 0,
   };
   componentDidMount() {
+<<<<<<< HEAD
     axios
       .get(
+=======
+    axios.get(
+>>>>>>> 8233be0a16398ad03e25436c422052742a3f4962
         "https://gist.githubusercontent.com/DZuz14/56b7f363e9787fb4c0240eb145bc2b9f/raw/e0b67d18352704d155929b7e27e0dae08cc383b6/data.json"
       )
       .then((res) => {

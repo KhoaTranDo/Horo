@@ -12,7 +12,7 @@ const route = require('./routes');
 app.use(cors())
 app.use(express.json({extended: false}));
 
-app.use('/', require('./routes/users'));
+// app.use('/', require('./routes/users'));
 
 route(app);
 

@@ -53,7 +53,7 @@ class loginRegister extends Component {
                 </button>
               </div>
               <div className="overlay-panel overlay-right">
-                <h1>Hello, Huy Wibu!</h1>
+                <h1>Hello, friend!</h1>
                 <p>
                   Enter your personal details and start find a place for you
                 </p>

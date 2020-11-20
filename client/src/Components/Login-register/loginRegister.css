@@ -1,4 +1,4 @@
-
+/* 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
@@ -6,7 +6,7 @@
 }
 
 body {
-	/* background-image: url("./img/background.jpg"); */
+	
 	background-color: white;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -172,8 +172,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 .overlay {
 	background: #5c27fe;
-	/* background: -webkit-linear-gradient(to bottom  right, #1153fc, #5c27fe);
-	background: linear-gradient(to bottom  right, #c165dd, #5c27fe); */
+	
 	background-image: url("./img/img-2.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -268,4 +267,4 @@ footer a {
 }
 .Alert{
 	display: none;
-}	
+}	 */

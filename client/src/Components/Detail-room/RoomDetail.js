@@ -29,12 +29,19 @@ export default class main extends Component {
           </div>
           {/* Map this room */}
           <div className=" col-lg-12 mb-4 grid-margin ">
+<<<<<<< HEAD
             <div className="float-left col-lg-8 mb-4 grid-margin">
                 <DisplayMapClass style={{zIndex:2000}} />
               <div className="card h-50">
               </div>
             </div>
             <div className=" float-left col-lg-4 mb-4 grid-margin">
+=======
+            <div className="float-left col-lg-6 mb-5 grid-margin div-map">
+                <DisplayMapClass/>
+            </div>
+            <div className=" float-left col-lg-6 mb-4 grid-margin">
+>>>>>>> 8233be0a16398ad03e25436c422052742a3f4962
               <div className="card h-10">
                 <h1>Lessor detail</h1>
                 <p>Name:</p>
@@ -43,7 +50,11 @@ export default class main extends Component {
           </div>
 
           {/* room describe */}
+<<<<<<< HEAD
           <div className="col-lg-12 mb-4 grid-margin">
+=======
+          <div className=" mb-4  grid-margin">
+>>>>>>> 8233be0a16398ad03e25436c422052742a3f4962
             <div className="card h-100 content1">
               <h4 className="card-header">Room Detail</h4>
               <div className="card-body">

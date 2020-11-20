@@ -26,7 +26,7 @@ class Account {
     }
     async Register(req,res){
         try {
-            let {name,phone,password}=req.body;
+            let {firstname,lastname,email,phone,password}=req.body;
             let user = await UserSchema.findOne({phone})
             const errors = validationResult(req);
             if(!errors.isEmpty()){
@@ -38,7 +38,9 @@ class Account {
             const salt = await bcryptjs.genSalt(10);
             password= await bcryptjs.hash(password,salt);
             user= new UserSchema({
-                name,
+                firstname,
+                lastname,
+                email,
                 phone,
                 password
             })
