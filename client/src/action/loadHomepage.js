@@ -1,16 +1,16 @@
-// // import axios from 'axios';
-// // export const LOAD_USER = 'LOAD_USER'
+// import axios from 'axios';
+// export const LOAD_USER = 'LOAD_USER'
 
-// // export const background= () => async dispatch =>{
-// //     const response = await axios.get('http://localhost:6001/Add');
-// //     dispatch({
-// //         type: LOAD_USER,
-// //         payload: response.data
-// //     })
-// //     const re = JSON.parse(response);
-// //     console.log(re);
+// export const background= () => async dispatch =>{
+//     const response = await axios.get('http://localhost:6001/Add');
+//     dispatch({
+//         type: LOAD_USER,
+//         payload: response.data
+//     })
+//     const re = JSON.parse(response);
+//     console.log(re);
        
-// // }
+// }
 
 // background(){
 //     // Where we're fetching data from

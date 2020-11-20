@@ -7,8 +7,9 @@ import { Gallery } from "./Gallery";
 import axios from "axios";
 import Home from "./pages/Home";
 import "./style.css";
-import Listroom from './Listroom'
+import Listroom from './Listroom';
 import Caterology from './Caterology'
+
 const Homepage = ({ isLoggedIn, logOut }) => {
   const [data, setData] = useState([]);
 
@@ -27,10 +28,10 @@ const Homepage = ({ isLoggedIn, logOut }) => {
       {/* Page Content */}
 
       <div className="row ">
-        {/* Gallery */}
         {/* /.col-lg-3 */}
         <div className="col-lg-10 mx-auto ">
-          <Gallery />
+          {/*SlideImage */}
+          {/* <Gallery /> */}
           <Home />
           <div className="row" style={{ float: "left" }}>
             <div className="col-lg-3 sidebar">
@@ -38,8 +39,7 @@ const Homepage = ({ isLoggedIn, logOut }) => {
             </div>
             <div className="col-lg-9">
               <div className="row">
-                <Listroom/>
-                
+              <Listroom/>
 
               </div>
             </div>

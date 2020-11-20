@@ -1,23 +1,27 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-class Caterology extends Component{
-    render(){
-        return(
-            <>
-               <div className="list-group">
-                <a href="/#" className="list-group-item">
-                  Category 1
-                </a>
-                <a href="/#" className="list-group-item">
-                  Category 2
-                </a>
-                <a href="/#" className="list-group-item">
-                  Category 3
-                </a>
-              </div>
-           </>
-        )
-    }
+const roomtype = [
+  { id: 1, name: "room" },
+  { id: 2, name: "Full House" },
+  { id: 3, name: "Bedsit" },
+  { id: 4, name: "Dorm" },
+  { id: 5, name: "Flat" },
+];
+class Caterology extends Component {
+  render() {
+    return (
+      <>
+      {/* List Caterogy room */}
+        <div className="list-group">
+          {roomtype.map((room) => (
+            <a href={'./'+room.id} className="list-group-item">
+              {room.name}
+            </a>
+          ))}
+        </div>
+      </>
+    );
+  }
 }
 
-export default Caterology
+export default Caterology;

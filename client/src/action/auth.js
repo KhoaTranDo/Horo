@@ -24,15 +24,15 @@ export const loadUser = () => async dispatch =>{
         dispatch({ type: AUTH_ERROR, payload:error});
     }
 }
-export const registerUser = (name,phone,password) => async dispatch =>{
+export const registerUser = (firstname,lastname,email,phone,password) => async dispatch =>{
     try{
         const config={
             headers:{
                 'Content-Type': 'application/json'
             }
         }
-        const body = JSON.stringify({name,phone,password});
-
+        const body = JSON.stringify({firstname,lastname,email,phone,password});
+        
         console.log(body);
         const response= await axios.post('http://localhost:6001/account/register',body,config);
         dispatch({

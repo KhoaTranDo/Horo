@@ -1,12 +1,7 @@
 export const MemuItems = [
     {
         title:'Home',
-        url: '/Detail',
-        cName : 'nav-links'
-    },
-    {
-        title:'Services',
-        url: '#',
+        url: '/',
         cName : 'nav-links'
     },
     {

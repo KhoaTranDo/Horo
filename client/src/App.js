@@ -10,7 +10,12 @@ import { loadUser } from './action/auth';
 import { setToken } from './setToken';
 import loginRegister from './Components/Login-register/loginRegister';
 import {MainSearch} from './Components/SearchMap/MainSearch'
+import SingleRoom from './Components/Homepage/pages/SingleRoom'
+import Rooms from './Components/Homepage/pages/Rooms'
 
+// demo
+import register from './Components/Login-register/Signup'
+import login from './Components/Login-register/Signin'
 
 if(localStorage.getItem('token')){
   setToken(localStorage.getItem('token'));
@@ -27,15 +32,16 @@ function App(){
       <Provider store={store}>
         <Router>
          <Navbar/>
-         
-  
-          <div>
         <Switch>
-         <Route exact path='/account' component={loginRegister}/>
+        <Route exact path='/account' component={login}/>
+        <Route exact path='/register' component={register}/>
          <Route exact path='/' component={Homepage}/>
-         <Route exact path='/rooms' component={Detail}/>
+         <Route exact path='/rooms' component={Rooms}/>
+         <Route exact path='/room/' component={Detail}/>
+         <Route exact path='/searchmap' component={MainSearch}/>
+         <Route exact path="/rooms/:slug" component={SingleRoom} />
         </Switch>
-         </div>
+       
         </Router>
         </Provider>
           {/* <MainSearch/> */}

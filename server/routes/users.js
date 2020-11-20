@@ -9,7 +9,9 @@ const AccountController = require('../controllers/Account')
     router.get('/Detail',auth,AccountController.LoginS);
     router.post('/register',
     [
-        check('name','Name is required').not().isEmpty(),
+        check('firstname','Name is required').not().isEmpty(),
+        check('lastname','Name is required').not().isEmpty(),
+        check('email','email is required').not().isEmpty(),
         check('phone',' Type proper Phone').isNumeric(),
         check('password','Password is required').not().isEmpty()
     ],AccountController.Register);
