@@ -85,7 +85,7 @@ export default class SingleRoom extends Component {
                 <article className="info">
                   <h3>info</h3>
                   <h6>{formatter.format(price)} VNĐ</h6>
-                  <h6>size : {size} M2</h6>
+                  <h6>size : {size} M3</h6>
                   <h6>
                     max capacity :
                     {capacity > 1 ? `${capacity} people` : `${capacity} person`}
