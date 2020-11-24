@@ -1,0 +1,36 @@
+<div class="mt-4">
+    <h3>Cập nhật thông tin phòng trọ</h3>
+    <form method="POST" action="/lessor/{{roles._id}}?_method=PUT">
+        <div class="form-group">
+
+            <label for="room">Room name : </label>
+            <input class="form-control" type="text" value="{{roles.room}}" name="room" style="width: 80%;">
+            <label for="price">Price : </label>
+            <input class="form-control" type="text" value="{{roles.price}}" name="price" style="width: 80%;">
+            <label for="img">Room owner : </label>
+            <input class="form-control" type="text" value="{{roles.slug}}" name="slug" style="width: 80%;">
+
+
+        </div>
+        {{!-- <h3>Loại phòng</h3>
+        <div class="form-group">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" checked> Active
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2"> Radio
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3"> Radio
+                </label>
+                </div>
+        </div> --}}
+
+        <a href="/lessor/stores">
+            <button type="submit" class="btn btn-primary" style="width: 30%;">Lưu</button>
+        </a>
+        <a class="btn btn-primary" href="/lessor/stores/post">Quay về danh sách chỉnh sửa</a>
+
+    </form>
+</div>

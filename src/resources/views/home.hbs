@@ -1,0 +1,21 @@
+<h1>Home Page1</h1>
+
+{{#each roles}}
+<div class="col-sm-6 col-lg-4">
+    <div class="card card-course-item">
+        <a href="lessor/{{this.slug}}">
+            <img class="card-img-top" src="{{this.img}}" alt="{{this.location}}">
+
+        </a>
+        <div class="card-body">
+            <a href="lessor/{{this.slug}}">
+                <h5 class="card-title">Room's name : {{this.room}}</h5>
+            </a>
+            <h5 class="card-title">Room's address : {{this.address}}</h5>
+
+        </div>
+    </div>
+</div>
+
+
+{{/each}}

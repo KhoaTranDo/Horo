@@ -1,0 +1,40 @@
+<div class="mt-4">
+    <h3>Đăng thông tin phòng trọ</h3>
+    <form method="POST" action="/lessor/store">
+        <div class="form-group">
+            <label for="location">Location : </label>
+            <input class="form-control" placeholder="Location" type="text" name="location" style="width: 80%;">
+            <label for="address">Address : </label>
+            <input class="form-control" placeholder="Number Address" type="text" name="address" style="width: 80%;">
+            <label for="room">Room name : </label>
+            <input class="form-control" placeholder="Room name" type="text" name="room" style="width: 80%;">
+            <label for="author">Author : </label>
+            <input class="form-control" placeholder="Author" type="text" name="slug" style="width: 80%;">
+            <label for="price">Price : </label>
+            <input class="form-control" placeholder="Price" type="text" name="price" style="width: 80%;">
+            <label for="img">Room image : </label>
+            <input class="form-control" placeholder="Image" type="text" name="img" style="width: 80%;">
+        </div>
+        {{!-- <h3>Loại phòng</h3>
+        <div class="form-group">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" checked> Active
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2"> Radio
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3"> Radio
+                </label>
+                </div>
+        </div> --}}
+
+        <a  href="/lessor/stores">
+            <button type="submit" class="btn btn-primary" style="width: 30%;">Đăng phòng</button> 
+        </a> 
+        <a class="btn btn-primary" href="/lessor">Quay về danh sách</a>
+        
+
+    </form>
+</div>

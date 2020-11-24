@@ -1,0 +1,44 @@
+//Cai node js
+
+//npm init  
+//Cai npm express
+
+// chay expressjs
+
+//Cai nodemon  tu dong update su thay doi trong code khi load
+
+//add git
+
+//cai mogan
+
+//cai npm install express-handlebars
+
+//tai npm sass 
+//code css tren file sass roi npm run sang css khong nen code tren file css
+
+
+//gitignore tranh commit len git cac file trong gitignore
+
+//Cai prettier để format lại các code 
+//lint-staged //chay file tren git neu khong co tren git khong chay
+//husky
+
+npm i prettier lint-staged husky --save-dev
+
+//prettier vao do de xem cau truc fotmat theo tung file
+//
+
+//Cai mongoose để quản lý dữ liệu chặc chẻ hơn 
+//quang ly mongodb giong mysql
+
+//slug: dung slug trong database se hien data len
+
+//dung handlebars
+
+//dung mongoose de truy van du lieu
+
+mongoose generation de lay slug
+ 
+  cai $ npm install response-time de update data
+
+  Cai npm install mongoose-delete de thuc hien xoa data
