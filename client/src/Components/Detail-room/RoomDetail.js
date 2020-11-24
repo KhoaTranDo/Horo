@@ -1,18 +1,29 @@
 import React, { Component } from "react";
-import DisplayMapClass from "./Displaymap";
+import DisplayMapClass from "./Gallery/Displaymap";
 import './RoomStyle.css'
 import { Button, Table } from "react-bootstrap";
-import Gallery from "./Gallery";
+import Gallery from "./Gallery/Gallery";
+import Footer from './Footer'
+
 
 export default class main extends Component {
+  constructor (props){
+    super(props);
+    this.state = {
+        slug: this.props.match.params.slug,
+    };
+}
   render() {
+    // const { getRoom } = this.context;
+    //     const room = getRoom(this.state.slug);
     return (
+      <>
       <div
         className="main"
       >
           <div className="row">
             {/* Image Show */}
-            <Gallery />
+            <Gallery/>
           </div>
         <div className="content">
           <div className="row mt-7 mb-5 title">
@@ -27,68 +38,65 @@ export default class main extends Component {
               </Button>
             </div>
           </div>
-          {/* Map this room */}
-          <div className=" col-lg-12 mb-4 grid-margin ">
-            <div className="float-left col-lg-6 mb-5 grid-margin div-map">
-                <DisplayMapClass/>
-            </div>
-            <div className=" float-left col-lg-6 mb-4 grid-margin">
-              <div className="card h-10">
-                <h1>Lessor detail</h1>
-                <p>Name:</p>
-              </div>
-            </div>
-          </div>
 
-          {/* room describe */}
+          {/* room dcribe address */}
           <div className=" mb-4  grid-margin">
             <div className="card h-100 content1">
-              <h4 className="card-header">Room Detail</h4>
-              <div className="card-body">
-                <p className="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Reiciendis ipsam eos, nam perspiciatis natus commodi similique
-                  totam consectetur praesentium molestiae atque exercitationem
-                  ut consequuntur, sed eveniet, magni nostrum sint fuga.
-                </p>
+              <div>
+                <h1>Address</h1>
+                <p></p>
               </div>
             </div>
           </div>
           {/* extention on room */}
 
-          <div className="col-lg-12 mb-4 grid-margin">
+          <div className="mb-4 grid-margin">
             <div className="card h-100 content1">
-              <h4 className="card-header">Extention</h4>
-              <div className="card-body">
-                <p className="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Sapiente esse necessitatibus neque.
+              <div>
+                <h1>Place Detail</h1>
+                <p>
+
                 </p>
-              </div>
-              <div className="card-footer">
-                <Button variant="btn btn-primary">Learn More</Button>
               </div>
             </div>
           </div>
 
           {/* ROle of room */}
 
-          <div className="col-lg-12 mb-4 grid-margin">
+          <div className="mb-4 grid-margin">
             <div className="card h-100 content1">
-              <h4 className="card-header">Extention</h4>
-              <div className="card-body">
-                <p className="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Sapiente esse necessitatibus neque.
-                </p>
-              </div>
-              <div className="card-footer">
-                <Button variant="btn btn-primary">Learn More</Button>
+                <div>
+                  <h1>Rules</h1>
+                </div>
+            </div>
+          </div>
+           {/* ROle of room */}
+
+           <div className="mb-4 grid-margin">
+            <div className="card h-100 content1">
+                <div>
+                  <h1>Rental conditions</h1>
+                </div>
+            </div>
+          </div>
+          {/* Map this room */}
+          <div className="mb-4 grid-margin ">
+            <div className="float-left col-lg-6 mb-5 grid-margin div-map">
+                <DisplayMapClass/>
+            </div>
+            <div className=" float-left col-lg-6 mb-4 grid-margin">
+              <div className="card h-10">
+                <div>
+                <h1>Lessor detail</h1>
+                <p>Name:</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+        <Footer/>
+        </>
     );
   }
 }

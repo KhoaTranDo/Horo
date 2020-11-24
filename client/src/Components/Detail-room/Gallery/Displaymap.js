@@ -3,12 +3,7 @@ import ReactDOM from "react-dom";
 import mapboxgl from "mapbox-gl"; // or "const mapboxgl = require('mapbox-gl');"
 mapboxgl.accessToken =
   "pk.eyJ1Ijoia2hvYXRyYW5kbyIsImEiOiJja2VjYjVwaXcwYTRzMnFwM2F1ajRubTZqIn0.lNjQnHcGloiZU3dZ9E_1-w";
-// const map = new mapboxgl.Map({
-//     container: 'map',
-//     style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-//     center: [-74.5, 40], // starting position [lng, lat]
-//     zoom: 9 // starting zoom
-// });
+
 export default class DisplayMapClass extends React.Component {
   constructor(props) {
     super(props);

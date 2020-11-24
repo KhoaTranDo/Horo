@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "./style.css";
 import { Provider } from "react-redux";
 import store from "../../store";
-import Register from "./Register";
-import Login from "./Login";
+
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import axios from "axios";

@@ -1,6 +1,0 @@
-
-
-npm i redux-devtools-extension --save
-npm i redux redux-thunk axios --save
-npm install react-router-dom
- npm i cors --save
