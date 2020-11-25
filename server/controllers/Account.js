@@ -59,7 +59,7 @@ class Account {
                 } 
             )
         } catch(error){
-            console.log(error.message);
+            // console.log(error.message);
             return res.status(500).json({ msg: "Server Error..."});
         }
     }
@@ -92,7 +92,7 @@ class Account {
                  )
              }else return res.status(401).json({msg:"Password Wrong"})
         }catch(error){
-             console.log(error.message);
+            //  console.log(error.message);
              return res.status(500).json({msg: "Server Error"});
         }
     }
