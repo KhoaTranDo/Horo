@@ -7,8 +7,8 @@ import {
     AUTH_ERROR,
     LOG_OUT
 } from '../constants/constants';
-
 import axios from 'axios';
+
 import {setToken} from '../setToken';
 
 export const loadUser = () => async dispatch =>{
@@ -19,10 +19,13 @@ export const loadUser = () => async dispatch =>{
         dispatch({
             type: LOAD_USER,
             payload: response.data
+
         })
+        
     } catch (error){
         dispatch({ type: AUTH_ERROR, payload:error});
     }
+
 }
 export const registerUser = (firstname,lastname,email,phone,password) => async dispatch =>{
     try{

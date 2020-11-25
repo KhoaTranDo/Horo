@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { FaAlignRight } from "react-icons/fa";
 import "./navbar.css";
-import { logOut } from "../../action/auth";
+import { loadUser, logOut } from "../../action/auth";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { MemuItems } from "./menu";
-import { NavDropdown } from "react-bootstrap";
+import axios from 'axios';
+
 import {
   MDBDropdown,
   MDBDropdownToggle,
@@ -18,7 +19,19 @@ class Navbar extends Component {
     isOpen: false,
     // old nav
     clicked: false,
+    name: ''
   };
+  componentDidMount(){
+    const a=localStorage.token;
+    const respone = axios.get(`http://localhost:6001/account`,{
+      'x-auth-token':a
+    }).then((respone)=> {this.setState({
+      name: respone.data.name
+    }) })
+   
+   
+  }
+  
   handleTooggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
   };
@@ -28,7 +41,7 @@ class Navbar extends Component {
     this.setState({ clicked: !this.state.clicked });
   };
 
-  render() {
+  render() {  
     return (
       <>
         <nav className="navbar">
@@ -68,6 +81,8 @@ class Navbar extends Component {
                   <MDBDropdown>
                     <MDBDropdownToggle nav caret>
                       <MDBIcon icon="user" />
+            <span> {this.state.name}</span>
+                      
                     </MDBDropdownToggle>
                     <MDBDropdownMenu className="dropdown-default">
                       <MDBDropdownItem href="#!">Action</MDBDropdownItem>

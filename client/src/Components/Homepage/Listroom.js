@@ -26,11 +26,11 @@ export default function Listroom () {
                       {item.fields.extras[0]}
                       </p>
                     </div>
-                    <div className="card-footer">
+                    {/* <div className="card-footer">
                       <small className="text-muted">
                         &#9733; &#9733; &#9733; &#9733; &#9734;
                       </small>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                  )

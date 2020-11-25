@@ -1,20 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./Mapstyle.css";
 import data from '../ListRoom/data'
-import context from "react-bootstrap/esm/AccordionContext";
-import Room from "../ListRoom/Room";
+// import context from "react-bootstrap/esm/AccordionContext";
+// import Room from "../ListRoom/Room";
 
 import markerIcon from '../img/marker.png'
 mapboxgl.accessToken =
   "pk.eyJ1Ijoia2hvYXRyYW5kbyIsImEiOiJja2VjYjVwaXcwYTRzMnFwM2F1ajRubTZqIn0.lNjQnHcGloiZU3dZ9E_1-w";
-const geocoder = new MapboxGeocoder({
-  accessToken: mapboxgl.accessToken,
-  mapboxgl: mapboxgl,
-});
+
 export default class MapBox extends React.Component {
   constructor(props) {
     super(props);

@@ -8,6 +8,7 @@
     background-color: #111;
     overflow-x: hidden;
     padding-top: 86px;
+    float: left;
   }
   
   .sidenav a {
@@ -27,7 +28,11 @@
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
   }
-  
+  .containt{
+    float: left;
+    margin-left: 160px;
+    margin-top:86px;
+  }
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
