@@ -1,6 +1,22 @@
 
 import React, { Component } from 'react'
 import './Addstyle.css'
+import AddImage from'./AddImage'
+
+const roomtype = [
+    { id: 1, name: "room" },
+    { id: 2, name: "Full House" },
+    { id: 3, name: "Bedsit" },
+    { id: 4, name: "Dorm" },
+    { id: 5, name: "Flat" },
+  ];
+  const extend = [
+    { id: 1, name: "Wifi" },
+    { id: 2, name: "Show" },
+    { id: 3, name: "Kitchen" },
+    { id: 4, name: "Dorm" },
+    { id: 5, name: "Flat" },
+  ];
 class Addroom extends Component{
     state={
         selectedFile : null
@@ -11,6 +27,7 @@ class Addroom extends Component{
     fileUpload =(files)=>{
         console.log(files[0])
     }
+    
     render(){
         return(
             // Div Main
@@ -22,29 +39,55 @@ class Addroom extends Component{
   <a href="#clients">Clients</a>
   <a href="#contact">Contact</a>
 </div>
+
                 {/* div containt */}
                 <div className="containt">
                     {/* Add image */}
                     <div>
-                        {/* <input type='file' onChange={this.fileSelectedHandler}></input>
-                        <button onClick={this.fileUpload}>Upload</button> */}
-                        <input type='file' onChange={(e)=>{this.fileUpload(e.target.files)}}></input>
-                        <button onClick={this.fileUpload}>Upload</button>
+                   <AddImage/>
+                   
+                      
                     </div>
+                          {/* Add address */}
+                          <div>
+                              <h1>Address</h1>
+                              <input type='text'></input>
+                              <h2>City</h2>
+                              <input type='text'></input>
+                              <h2>Quan Huyen</h2>
+                              <input type='text'></input>
+                              <h2>Phuong Xa</h2>
+                              <input type='text'></input>
+                              <h2>Ten Duong</h2>
+                              <input type='text'></input>
+                              <h2>So Nha</h2>
+                              <input type='text'></input>
+                          </div>
+                          {/* Add address on Map */}
+                          <div>
+                                  
+                          </div>
+                      
                      {/* Add place detail */}
                      <div>
                         {/* Tyle of room */}
                         <ul>
-                            <li>Ky tuc xa</li>
-                            <li>Ky tuc xa</li>
-                            <li>Ky tuc xa</li>
-                            <li>Ky tuc xa</li>
+                        <div class="btn-group">
+
+                        <select class="custom-select" id="inputGroupSelect01">
+    {roomtype.map((room) => (
+            <option value={'./'+room.id}>
+              {room.name}
+            </option>
+          ))}
+  </select> 
+             
+</div>
                         </ul>
                         {/* Number of room */}
                         <span>Number of Room</span>
                         <input type='number'></input>
                         {/* People */}
-                        <span>Persion/room</span>
                         <input type='number'></input>
                         <span>Area</span>
                         <input type='text'></input>
@@ -62,28 +105,17 @@ class Addroom extends Component{
   <label for="other">Other</label>
   </form>
                         <span>Feature</span>
-                        <radio>dsf</radio>
+                        <div>
+                        <label class="waves-effect waves-light btn btn-flat">
+  <input type="checkbox" name="countries[]" value="african" />African</label>
+<label class="waves-effect waves-light btn btn-flat">
+  <input type="checkbox" name="countries[]" value="british" />British</label>
+<label class="waves-effect waves-light btn btn-flat">
+  <input type="checkbox" name="countries[]" value="french" />French</label>
+<label class="waves-effect waves-light btn btn-flat">
+  <input type="checkbox" name="countries[]" value="german" />German</label>
+                        </div>
                     </div>
-                    {/* Add address */}
-                    <div>
-                        <h1>Address</h1>
-                        <input type='text'></input>
-                        <h2>City</h2>
-                        <input type='text'></input>
-                        <h2>Quan Huyen</h2>
-                        <input type='text'></input>
-                        <h2>Phuong Xa</h2>
-                        <input type='text'></input>
-                        <h2>Ten Duong</h2>
-                        <input type='text'></input>
-                        <h2>So Nha</h2>
-                        <input type='text'></input>
-                    </div>
-                    {/* Add address on Map */}
-                    <div>
-                            
-                    </div>
-                
                     {/* price:*/}
                     <div>
                         <span>Prices</span>

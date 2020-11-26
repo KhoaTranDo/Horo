@@ -92,7 +92,7 @@ class Navbar extends Component {
                       <MDBDropdownItem href="#!">
                       <span>Your Bookmark</span>
                       </MDBDropdownItem>
-                        <Link to="/" onClick={() => this.props.logOut()}>
+                        <Link to="/" onClick={() => {localStorage.clear();this.props.logOut()}}>
                       <MDBDropdownItem href="">
                           <span>Log Out</span>
                       </MDBDropdownItem>
