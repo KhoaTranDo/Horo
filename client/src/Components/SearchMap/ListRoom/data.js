@@ -288,7 +288,7 @@ export default [
         "ĐẶT CỌC 20000000 đồng",
         "SỨC CHỨA 2 NGƯỜI",
         "WIFI MIỄN PHÍ",
-        "ĐỊA CHỈ K43/16 LÊ HỮU TRÁC, AN HẢI ĐÔNG, SƠN TRÀ, ĐÀ NẴNG"
+        "ĐỊA CHỈ K42342/16 LÊ HỮU TRÁC, AN HẢI ĐÔNG, SƠN TRÀ, ĐÀ NẴNG"
         ],
       extras: [
       "K43/16 LÊ HỮU TRÁC, AN HẢI ĐÔNG, SƠN TRÀ, ĐÀ NẴNG",
@@ -366,10 +366,10 @@ export default [
         "ĐẶT CỌC 20,00,0000 đồng",
         "SỨC CHỨA 2 NGƯỜI",
         "WIFI MIỄN PHÍ",
-        "ĐỊA CHỈ K43/16 LÊ HỮU TRÁC, AN HẢI ĐÔNG, SƠN TRÀ, ĐÀ NẴNG"
+        "ĐỊA CHỈ K42343/16 LÊ HỮU TRÁC, AN HẢI ĐÔNG, SƠN TRÀ, ĐÀ NẴNG"
         ],
       extras: [
-      "K43/16 LÊ HỮU TRÁC, AN HẢI ĐÔNG, SƠN TRÀ, ĐÀ NẴNG",
+      "K431231/16 LÊ HỮU TRÁC, AN HẢI ĐÔNG, SƠN TRÀ, ĐÀ NẴNG",
       "Cách chợ 300m ",
       "Trang bị đầy đủ máy nước nóng, giường, bàn ghế, tủ đồ",
       "**********************************",

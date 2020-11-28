@@ -16,9 +16,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0.75rem 2rem;
-  background: var(--offWhite);
-  z-index: 1;
+  height: 68px;
+  background: var(--darkGrey);
+  z-index: 99;
 }
 .nav-header {
   display: flex;
@@ -60,6 +60,9 @@
   height: 300px;
 }
 @media screen and (min-width: 600px) {
+  .navbar {
+    height: auto;
+  }
   .nav-btn {
     display: none;
   }

@@ -12,10 +12,12 @@ export class MainSearch extends Component {
         <div style={styleMap}>
                 {/* <DisplayMapClass/> */}
                 <Roomprovide>
-                <MapBox/>
+                <MapBox style={{zIndex:-1}}/>
                 <Rooms/>
                 </Roomprovide>
+                
         </div>
+        
     );
   }
 }

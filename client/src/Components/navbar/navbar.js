@@ -76,7 +76,7 @@ class Navbar extends Component {
 
             {this.props.isLoggedIn ? (
               <>
-              <a href='/room'>My Place</a>
+              <a href='/addroom'>My Place</a>
                 <Link to="/">
                   <MDBDropdown>
                     <MDBDropdownToggle nav caret>

@@ -8,7 +8,7 @@ export default function Listroom () {
      <>
                {data.map((item,index)=>{
                  return(
-      <div className="col-lg-3 col-md-6 mb-4">
+      <div key={index} className="col-lg-3 col-md-6 mb-4">
                   <div className="card h-100">
                     <a href={"/rooms/"+item.fields.slug}>
                       <img

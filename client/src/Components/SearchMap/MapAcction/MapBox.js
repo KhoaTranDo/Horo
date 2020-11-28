@@ -1,14 +1,14 @@
 import React from "react";
-// import ReactDOM from "react-dom";
+import ReactDOM from "react-dom";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./Mapstyle.css";
-import data from '../ListRoom/data'
-// import context from "react-bootstrap/esm/AccordionContext";
-// import Room from "../ListRoom/Room";
+import data from "../ListRoom/data";
+import context from "react-bootstrap/esm/AccordionContext";
+import Room from "../ListRoom/Room";
 
-import markerIcon from '../img/marker.png'
+import markerIcon from "../img/marker.png";
 mapboxgl.accessToken =
   "pk.eyJ1Ijoia2hvYXRyYW5kbyIsImEiOiJja2VjYjVwaXcwYTRzMnFwM2F1ajRubTZqIn0.lNjQnHcGloiZU3dZ9E_1-w";
 
@@ -19,18 +19,36 @@ export default class MapBox extends React.Component {
       lng: 108.22363,
       lat: 16.07465,
       zoom: 13,
+      Stores: "",
     };
-    
   }
-  
+
   componentDidMount() {
+    const getStore = () => {
+      const stores = data.map((room) => {
+        return {
+          type: "Feature",
+          properties: {
+            description: room.fields.description[4],
+          },
+          geometry: room.fields.geometry,
+        };
+      });
+      return stores;
+    };
+    console.log(getStore());
     let map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom,
     });
-   
+    const search = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      countries: "vn", //Vietnam only
+      mapboxgl: mapboxgl,
+    });
+    document.getElementById("search").appendChild(search.onAdd(map));
     // Load ban do mac dih
     map.on("move", () => {
       this.setState({
@@ -39,16 +57,7 @@ export default class MapBox extends React.Component {
         zoom: map.getZoom().toFixed(3),
       });
     });
-  
-    // Search map
-    map.addControl(
-      new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        countries: "vn", //Vietnam only
-        mapboxgl: mapboxgl,
-      }),
-      "top-left"
-    );
+
     // Get Current Position
     map.addControl(
       new mapboxgl.GeolocateControl({
@@ -62,10 +71,8 @@ export default class MapBox extends React.Component {
     map.on("click", function (e) {
       console.log("A click event has occurred at " + e.lngLat);
     });
-    
-    // data
-    data.map((Room)=>{
 
+    // data
     map.on("load", function () {
       map.loadImage(
         markerIcon,
@@ -74,67 +81,10 @@ export default class MapBox extends React.Component {
           if (error) throw error;
           map.addImage("custom-marker", image);
           map.addSource("places", {
-          
             type: "geojson",
             data: {
               type: "FeatureCollection",
-              features: [
-                {
-                  type: "Feature",
-                  properties: {
-                    description:
-                    data[0].fields.description[4],
-                  },
-                  geometry: 
-                    data[0].fields.geometry
-                   
-                  
-                },
-                {
-                  type: "Feature",
-                  properties: {
-                    description:
-                    data[1].fields.description[4],
-                  },
-                  geometry: 
-                    data[1].fields.geometry
-                   
-                  
-                },
-                {
-                  type: "Feature",
-                  properties: {
-                    description:
-                    data[2].fields.description[4],
-                  },
-                  geometry: 
-                    data[2].fields.geometry
-                   
-                  
-                },
-                {
-                  type: "Feature",
-                  properties: {
-                    description:
-                    data[3].fields.description[4],
-                  },
-                  geometry: 
-                    data[3].fields.geometry
-                  
-                  
-                },
-                {
-                  type: "Feature",
-                  properties: {
-                    description:
-                    data[4].fields.description[4],
-                  },
-                  geometry: 
-                    data[4].fields.geometry
-                   
-                  
-                },
-              ],
+              features: getStore(),
             },
           });
           map.addLayer({
@@ -149,7 +99,7 @@ export default class MapBox extends React.Component {
         }
       );
     });
-  })
+
     // Marker
     // Create a popup, but don't add it to the map yet.
     var popup = new mapboxgl.Popup({
@@ -186,23 +136,30 @@ export default class MapBox extends React.Component {
   }
 
   render() {
-    console.log( data[0].fields.properties)
-    return (
-      <div className="container">
-        <div>
-          Longitude: {this.state.lng}|Latitude: {this.state.lat}|Zoom:{" "}
-          {this.state.zoom}
-        </div>
-        <div>
-          <button
-            type="text"
-            placeholder="Dau la dau"
-            onClick={this.currentPoint}
-          ></button>
-        </div>
+    console.log(this.state.Stores);
 
-        <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
-      </div>
+    return (
+      <>
+        <div className="search" id="search"></div>
+        <div className="container">
+          <div>
+            Longitude: {this.state.lng}|Latitude: {this.state.lat}|Zoom:{" "}
+            {this.state.zoom}
+          </div>
+          <div>
+            <button
+              type="text"
+              placeholder="Dau la dau"
+              onClick={this.currentPoint}
+            ></button>
+          </div>
+
+          <div
+            ref={(el) => (this.mapContainer = el)}
+            className="mapContainer"
+          />
+        </div>
+      </>
     );
   }
 }

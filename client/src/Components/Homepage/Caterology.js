@@ -13,8 +13,8 @@ class Caterology extends Component {
       <>
       {/* List Caterogy room */}
         <div className="list-group">
-          {roomtype.map((room) => (
-            <a href={'./'+room.id} className="list-group-item">
+          {roomtype.map((room,index) => (
+            <a key={index} href={'./'+room.id} className="list-group-item">
               {room.name}
             </a>
           ))}

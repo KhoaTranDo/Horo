@@ -8,11 +8,13 @@ import {  BrowserRouter  as Router, Route , Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { loadUser } from './action/auth';
 import { setToken } from './setToken';
-
+import rootRoutes from './Components/admin/rootRoutes';
+import NoMatch from './Components/nomatch';
 
 import {MainSearch} from './Components/SearchMap/MainSearch'
 import SingleRoom from './Components/Homepage/pages/SingleRoom'
 import Rooms from './Components/Homepage/pages/Rooms'
+import Profile from './Components/Profile/Profile'
 
 // demo
 import register from './Components/Login-register/Signup'
@@ -47,6 +49,9 @@ function App(){
          <Route exact path='/addroom' component={AddRoom}/>
          <Route exact path='/searchmap' component={MainSearch}/>
          <Route exact path="/rooms/:slug" component={SingleRoom} />
+         <Route exact path='/admin' component={rootRoutes} />
+         <Route exact path='/profile' component={Profile} />
+					<Route component={NoMatch} />
         </Switch>
        
         </Router>
