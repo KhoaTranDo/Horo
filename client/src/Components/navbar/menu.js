@@ -5,13 +5,18 @@ export const MemuItems = [
         cName : 'nav-links'
     },
     {
-        title:'Product',
-        url: '#',
-        cName : 'nav-links'
+        title:'Rooms',
+        url: '/',
+        cName : 'rooms'
     },
     {
-        title:'Contact us',
-        url: '#',
-        cName : 'nav-links'
+        title:'About',
+        url: '/',
+        cName : 'about'
+    },
+    {
+        title:'Contact',
+        url: '/',
+        cName : 'contact'
     },
 ]

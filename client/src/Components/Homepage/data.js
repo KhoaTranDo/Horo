@@ -39,7 +39,7 @@ export default [
       BepGa: false,
       GacLung: false,
       TuLanh: false,
-      featured: false,
+      featured: true,
       description:[
         "GIÁ PHÒNG 1,000,000 đồng ",
         "ĐẶT CỌC 10,000,000 đồng",
@@ -114,7 +114,7 @@ export default [
       BepGa: true,
       GacLung: false,
       TuLanh: false,
-      featured: false,
+      featured: true,
       description:[
         "GIÁ PHÒNG 1,500,000 đồng ",
         "ĐẶT CỌC 15,000,000 đồng",
@@ -185,7 +185,7 @@ export default [
       BepGa: true,
       GacLung: false,
       TuLanh: true,
-      featured: false,
+      featured: true,
       description:[
         "GIÁ PHÒNG 1,500,000 đồng ",
         "ĐẶT CỌC 15,000,000 đồng",
@@ -259,7 +259,7 @@ export default [
       BepGa: true,
       GacLung: false,
       TuLanh: false,
-      featured: false,
+      featured: true,
       description:[
         "GIÁ PHÒNG 2,000,000 đồng ",
         "ĐẶT CỌC 20,000,000 đồng",
@@ -329,7 +329,7 @@ export default [
       BepGa: true,
       GacLung: false,
       TuLanh: false,
-      featured: false,
+      featured: true,
       description:[
         "GIÁ PHÒNG 3,000,000 đồng ",
         "ĐẶT CỌC 30,000,000 đồng",
@@ -400,7 +400,7 @@ export default [
       BepGa: true,
       GacLung: true,
       TuLanh: true,
-      featured: false,
+      featured: true,
       description:[
         "GIÁ PHÒNG 3,000,000 đồng ",
         "ĐẶT CỌC 30,000,000 đồng",

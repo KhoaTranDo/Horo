@@ -17,6 +17,9 @@
   "homepage": "https://github.com/KhoaTranDo/Horo-login#readme",
   "description": "",
   "dependencies": {
-    "axios": "^0.20.0"
+    "axios": "^0.20.0",
+    "jquery": "^3.5.1",
+    "react-datepicker": "^3.3.0",
+    "react-scroll": "^1.8.1"
   }
 }
