@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { FaAlignRight } from "react-icons/fa";
-import "./navbar.css";
 import { loadUser, logOut } from "../../action/auth";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -21,16 +20,16 @@ class Navbar extends Component {
     clicked: false,
     name: ''
   };
-  componentDidMount(){
-    const a=localStorage.token;
-    const respone = axios.get(`http://localhost:6001/account`,{
-      'x-auth-token':a
-    }).then((respone)=> {this.setState({
-      name: respone.data.name
-    }) })
+  // componentWillMount(){
+  //   const a=localStorage.token;
+  //   const respone = axios.get(`http://localhost:6001/account`,{
+  //     'x-auth-token':a
+  //   }).then((respone)=> {this.setState({
+  //     name: respone.data.name
+  //   }) })
    
    
-  }
+  // }
   
   handleTooggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
@@ -100,6 +99,7 @@ class Navbar extends Component {
                     </MDBDropdownMenu>
                   </MDBDropdown>
                 </Link>
+                <button  onClick={() => {localStorage.clear();this.props.logOut()}}>asdasd</button>
               </>
             ) : (
               <span className='login-span'>

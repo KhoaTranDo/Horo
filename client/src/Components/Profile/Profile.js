@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./Addstyle.css";
 import AddImage from "./AddImage";
 
 const roomtype = [

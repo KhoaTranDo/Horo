@@ -9,7 +9,7 @@ import {
 } from '../constants/constants';
 import axios from 'axios';
 
-import {setToken} from '../setToken';
+import {setToken} from '.././api/setToken';
 
 export const loadUser = () => async dispatch =>{
     if(localStorage.getItem('token'))
@@ -29,6 +29,7 @@ export const loadUser = () => async dispatch =>{
 }
 export const registerUser = (firstname,lastname,email,phone,password) => async dispatch =>{
     try{
+      
         const config={
             headers:{
                 'Content-Type': 'application/json'
@@ -36,7 +37,6 @@ export const registerUser = (firstname,lastname,email,phone,password) => async d
         }
         const body = JSON.stringify({firstname,lastname,email,phone,password});
         
-        console.log(body);
         const response= await axios.post('http://localhost:6001/account/register',body,config);
         dispatch({
             type: REGISTER_SUCCESS,

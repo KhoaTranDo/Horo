@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
 
-const ImageRoomSchema = new mongoose.Schema({
+let ImageRoomSchema = mongoose.Schema({
    
     cloudinary_id:{
         type: String,
     },
     imageUrl:{
         type: String,
-    },
-})
+    }
+},{
+    timestamps:true,
+});
 
-module.exports = mongoose.model('ImageRoom',ImageRoomSchema)
+module.exports = ImageRoomSchema = mongoose.model('ImageRoom',ImageRoomSchema)

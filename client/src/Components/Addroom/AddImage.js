@@ -11,9 +11,13 @@ function AddImage() {
         URL.createObjectURL(file)
       );
       console.log(fileArray);
-
+      const DataImage = Array.from(e.target.files).map((file) =>
+      file
+    );
+    console.log(fileArray);
       setSelectedImage((prevImages) => prevImages.concat(fileArray));
       Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
+      console.log(selectedImages)
     }
     setcount(count+1);
     if(count===4){
@@ -49,6 +53,7 @@ function AddImage() {
               onChange={imageHandleChange}
               id="inputGroupFile02"
               disabled={disable}
+              multiple
             ></input>
             <label class="custom-file-label" for="inputGroupFile02">
               Choose file

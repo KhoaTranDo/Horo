@@ -7,7 +7,7 @@ import Detail from './Components/Detail-room/RoomDetail'
 import {  BrowserRouter  as Router, Route , Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { loadUser } from './action/auth';
-import { setToken } from './setToken';
+import { setToken } from './api/setToken';
 import rootRoutes from './Components/admin/rootRoutes';
 import NoMatch from './Components/nomatch';
 

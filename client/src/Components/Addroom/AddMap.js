@@ -14,16 +14,35 @@ export default class MapBox extends React.Component {
       lng: 108.22363,
       lat: 16.07465,
       zoom: 13,
+      center: [108.22363, 16.07465],
+      location: [],
     };
   }
+  //Update data after render componen
+  componentWillReceiveProps(nextProps) {
+    // this.setState({center:this.props.geo})
+    if (nextProps.getLocation != null) {
+      //Cut lng lat of data location
+      var a = nextProps.getLocation.toString();
+      var b = a.slice(0, a.indexOf(","));
+      var c = a.slice(a.indexOf(",") + 1);
 
-  componentDidMount() {
-    let map = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [this.state.lng, this.state.lat],
-      zoom: this.state.zoom,
-    });
+      //set new value
+      this.setState({ center: [c, b] });
+      this.setState({ lng: c, lat: b });
+      //  this.setState({center:nextProps.geo})
+    }
+  }
+  //set condition if have update
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.getLocation == null) return false;
+    if (nextProps.getLocation !== this.props.getLocation) {
+      return true;
+    }
+    return false;
+  }
+
+  ControlMap = (map) => {
     var marker = new mapboxgl.Marker({
       draggable: true,
     })
@@ -38,11 +57,12 @@ export default class MapBox extends React.Component {
         zoom: map.getZoom().toFixed(3),
       });
     });
-
-    function onDragEnd() {
+    // drag marker
+    const onDragEnd = () => {
       var lngLat = marker.getLngLat();
-      console.log(lngLat);
-    }
+      this.setState({ location: [lngLat.lng, lngLat.lat] });
+      this.props.position(this.state.location);
+    };
 
     marker.on("dragend", onDragEnd);
     // Get Current Position
@@ -55,9 +75,10 @@ export default class MapBox extends React.Component {
         showAccuracyCircle: false,
       })
     );
-    map.on("click", function (e) {
+    map.on("click", (e) => {
       marker.setLngLat(e.lngLat);
-      console.log(e.lngLat);
+      this.setState({ location: [e.lngLat.lng, e.lngLat.lat] });
+      this.props.position(this.state.location);
     });
 
     map.addControl(
@@ -101,12 +122,44 @@ export default class MapBox extends React.Component {
     //Marker End
     // Add controll
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
-  }
+  };
 
+  componentDidUpdate() {
+    const removeElements = (elms) => elms.forEach((el) => el.remove());
+
+    // Remove Old Map after Load new
+    removeElements(document.querySelectorAll(".mapboxgl-canary"));
+    removeElements(document.querySelectorAll(".mapboxgl-canvas-container"));
+    removeElements(document.querySelectorAll(".mapboxgl-control-container"));
+
+    let map = new mapboxgl.Map({
+      container: this.mapContainer,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: this.state.center,
+      zoom: this.state.zoom,
+    });
+
+    this.ControlMap(map);
+  }
+  componentDidMount() {
+    let map = new mapboxgl.Map({
+      container: this.mapContainer,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: this.state.center,
+      zoom: this.state.zoom,
+    });
+    document.getElementsByClassName("mapContainer").ref = (el) =>
+      (this.mapContainer = el);
+    this.ControlMap(map);
+  }
   render() {
     return (
       <>
-        <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
+        <div
+          ref={(el) => (this.mapContainer = el)}
+          id="mapContainer"
+          className="mapContainer"
+        />
       </>
     );
   }

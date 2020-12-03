@@ -36,7 +36,6 @@ const SignUp = ({ isLoggedIn, registerUser }) => {
     if (firstname === "" && lastname==="" &&email==="" && phone === "" && password === "")
       return alert("Empty value");
     else {
-      console.log(data)
       registerUser(firstname,lastname,email,phone,password);
       const errms = {
         firstname: data.firstname,
@@ -45,17 +44,16 @@ const SignUp = ({ isLoggedIn, registerUser }) => {
         phone: data.phone,
         password: data.password,
       };
-      if (isLoggedIn === false) {
-        const errormsg = axios
-          .post("http://localhost:6001/account/register", errms)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            document.getElementById("error-register").innerHTML =
-              error.response.data.msg;
-          });
-      }
+      // if (isLoggedIn === false) {
+      //   const errormsg = axios
+      //     .post("http://localhost:6001/account/register", errms)
+      //     .then((response) => {
+      //     })
+      //     .catch((error) => {
+      //       document.getElementById("error-register").innerHTML =
+      //         error.response.data.msg;
+      //     });
+      // }
     }
   };
 
@@ -94,6 +92,8 @@ const SignUp = ({ isLoggedIn, registerUser }) => {
           <label>Email address</label>
           <input
             type="email"
+            id='email'
+            pattern=".+@globex.com"
             className="form-control"
             placeholder="Enter email"
             onChange={(e) => onchange(e)}

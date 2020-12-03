@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Provider } from "react-redux";
 import store from "../../store";
-
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
@@ -29,43 +28,42 @@ const Signin = ({ isLoggedIn, loginUser }) => {
         phone: data.phone,
         password: data.password,
     };
-
     const onchange = (e) => {
-        setData({...data, [e.target.name]: e.target.value });
-        if (e.target.value === "") {
-            setTb({...tb, phone: "Mess" });
-        } else {
-            setTb({...tb, phone: "Mess Alert" });
-        }
+      setData({...data, [e.target.name]: e.target.value });
+      if (e.target.value === "") {
+        setTb({...tb, phone: "Mess" });
+      } else {
+        setTb({...tb, phone: "Mess Alert" });
+      }
     };
     const loginAccount = (e) => {
-        e.preventDefault();
-
-        if (data.password === "") {
-            setTb({...tb, password: "Mess" });
-        } else {
-            setTb({...tb, password: "Mess Alert" });
+      e.preventDefault();
+      
+      if (data.password === "") {
+        setTb({...tb, password: "Mess" });
+      } else {
+        setTb({...tb, password: "Mess Alert" });
+      }
+      
+      if (data.phone !== "" && data.password !== "") {
+        // errormsg();
+        
+        loginUser(phone, password);
+        if (isLoggedIn === false) {
+          const errormsg = axios
+          .post("http://localhost:6001/account/login", errms)
+          .then((response) => {
+          })
+          .catch((error) => {
+            document.getElementById("error-login").innerHTML=
+            error.response.data.msg;
+          });
         }
-
-        if (data.phone !== "" && data.password !== "") {
-            // errormsg();
-
-            loginUser(phone, password);
-            if (isLoggedIn === false) {
-                const errormsg = axios
-                    .post("http://localhost:6001/account/login", errms)
-                    .then((response) => {
-                    })
-                    .catch((error) => {
-                        document.getElementById("error-login").innerHTML=
-                            error.response.data.msg;
-                    });
-            }
-        }
+      }
     };
-
-
-  return (
+    
+ 
+    return (
     <div className="container" id="container">
       <form>
         <h3>Sign In</h3>

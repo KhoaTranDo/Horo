@@ -1,83 +1,92 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select/creatable";
-import data from './DataAddress.json'
-import AddMap from './AddMap'
-function Address() {
+import data from "./DataAddress.json";
+import AddMap from "./AddMap";
+function Address(props) {
   const [country, setCountry] = useState(null);
   const [city, setcity] = useState(null);
   const [cityList, setcityList] = useState([]);
   const [xa, setXa] = useState(null);
   const [xaList, setXaList] = useState([]);
- 
+  const [location, setLocation] = useState(null);
+  const [position, setPosition] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [result, setResult] = useState(null);
   // handle change event of the country dropdown
   const handleCountryChange = (obj) => {
     setCountry(obj);
     setcityList(obj.huyen);
-    setcity(null); 
+    setcity(null);
+    setResult({ ...result, country: obj.name });
   };
- 
+  useEffect(() => {
+    setResult({ ...result, location: position });
+    props.address(result);
+  }, [position,address]);
   // handle change event of the language dropdown
-  const handleLanguageChange = (obj) => {
+  const handleCityChange = (obj) => {
     setcity(obj);
     setXaList(obj.xa);
     setXa(null);
-    console.log(obj)
+    setResult({ ...result, City: obj.name });
   };
   const handleXaChange = (obj) => {
     setXa(obj);
-   
+    setLocation(obj.location);
+    setResult({ ...result, xa: obj.name });
   };
-  const handleResult =() => {
-   const result ={
-     'country':country.name,
-     'city':city.name,
-     'xa':xa.name,
-   }
-   console.log(result)
-  }
+  const handleAddress = (e) => {
+    setAddress(e.target.value);
+    setResult({ ...result, address: e.target.value });
+    console.log(address);
+  };
+ 
+  const getPosition = (item) => {
+    setPosition(item);
+  };
+
   return (
-      <div className='row'>
+    <div className="row">
       <div className="column">
         <b>Province:</b>
-        <Select style={{width:'50%'}}
+        <Select
+          style={{ width: "50%" }}
           value={country}
           options={data}
           onChange={handleCountryChange}
-          getOptionLabel={x => x.name}
-          getOptionValue={x => x.name}
+          getOptionLabel={(x) => x.name}
+          getOptionValue={(x) => x.name}
         />
-       
+
         <br />
         <b>City:</b>
         <Select
-          placeholder="Select Language"
+          placeholder="Select City"
           value={city}
           options={cityList}
-          onChange={handleLanguageChange}
-          getOptionLabel={x => x.name}
-          getOptionValue={x => x.name}
+          onChange={handleCityChange}
+          getOptionLabel={(x) => x.name}
+          getOptionValue={(x) => x.name}
         />
         <b>Dictric:</b>
         <Select
-          placeholder="Select Language"
+          placeholder="Select Area"
           value={xa}
           options={xaList}
           onChange={handleXaChange}
-          getOptionLabel={x => x.name}
-          getOptionValue={x => x.name}
+          getOptionLabel={(x) => x.name}
+          getOptionValue={(x) => x.name}
         />
-        <button onClick={handleResult}>luu</button>
         <span>Address:</span>
-            <input type="text"></input>
+        <input type="text" className="form-control" onChange={handleAddress}></input>
       </div>
-      <div className='column'>
-        <div className='container'>
-      <AddMap geo={xa}/>
-      </div>
+      <div className="column">
+        <div className="container">
+          <AddMap getLocation={location} position={getPosition.bind(this)} />
+        </div>
       </div>
     </div>
-      
   );
 }
- 
+
 export default Address;

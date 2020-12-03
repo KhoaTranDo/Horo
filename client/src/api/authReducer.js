@@ -6,7 +6,7 @@ import {
     LOAD_USER,
     AUTH_ERROR,
     LOG_OUT,
-} from './constants/constants';
+} from '../constants/constants';
 
 
 const initialState = {

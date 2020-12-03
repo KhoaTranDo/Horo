@@ -11,11 +11,15 @@ let UserSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique:true,
     },
     phone: {
         type: String,
-        required: true
+        required: true,
+        unique:true,
+        minlength:9,
+        maxlength:10
     },
     password: {
         type: String,

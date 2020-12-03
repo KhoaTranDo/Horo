@@ -4,14 +4,15 @@ const app= express();
 const connectToDatabase = require('./config/connectToDatabase');
 const upload = require('./multer')
 const bodyParser = require('body-parser')
-const cloudinary = require('./cloudinary')
+
+
 //Ket noi database
 connectToDatabase();
+const UploadImage = require('./controllers/AddImage')
 
-//upload image
-const fs = require('fs')
 //router
 const route = require('./routes');
+const { url } = require('inspector');
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
@@ -20,30 +21,7 @@ app.use(express.json({extended: false}));
 
 // app.use('/', require('./routes/users'));
 // make a post request
-app.use('/upload-images',upload.array('image'),async(req,res)=>{
-    const uploader = async (path) => await cloudinary.uploads(path,'Images')
-    if(req.method==='POST')
-    {
-        const urls =[]
-        const files = req.files
-        for(const file of files){
-            const{path}=file
-            const newPath = await uploader(path)
-            urls.push(newPath)
-
-            fs.unlinkSync(path)
-            console.log(urls)
-        }
-        res.status(200).json({
-            message: "Images Uploaded Successfully",
-            data: urls
-        })
-    }else {
-        res.status(405).json({
-            err:'Image not uploaded  Successfully'
-        })
-    }
-})
+app.use('/upload-images',upload.array('image'),UploadImage.Upload)
 
 route(app);
 
