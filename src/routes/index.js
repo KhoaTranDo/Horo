@@ -1,3 +1,4 @@
+const chatRouter = require('./roomchat')
 const lessorRouter = require('./lessor')
 const homeRouter = require('./home')
 const rolesRouter = require('./role')
@@ -9,6 +10,7 @@ const siteRouter = require('./site')
 
 function route(app) {
     //app.use('/home', homeRouter)
+    app.use('/chat',chatRouter)
     app.use('/lessor', lessorRouter)
     app.use('/lessor', rolesRouter)
     app.use('/register', registerRouter)

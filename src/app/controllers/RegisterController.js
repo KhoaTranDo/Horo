@@ -10,7 +10,7 @@ class RegisterControllers {
         
     }
     create(req,res,next){
-        UserModel.findOne({ email: req.params.email })
+        UserModel.findOne({ email: req.params.email, password : req.params.password,role: req.params.role, })
         .then(users => res.redirect('/login', { users: mongooseToObject(users) }))
         .catch(next)
     }
@@ -20,8 +20,8 @@ class RegisterControllers {
     store(req, res, err) {
         const user = new UserModel(req.body)
         user.save()
-            .then(() => res.send('Account was existed'))
-            .catch(err => res.send('Account was existed'))
+            .then(() => res.redirect('/login'))
+            .catch(err => res.redirect('back'))
 
     }
 

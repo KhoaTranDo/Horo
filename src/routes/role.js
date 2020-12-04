@@ -3,11 +3,12 @@ const router = express.Router();
 
 const roleControllers = require('../app/controllers/RoleControllers')
 
-router.get('/search/show',roleControllers.search)
+router.get('/search',roleControllers.search)
 router.delete('/:id', roleControllers.delete)
 router.put('/:id', roleControllers.edit)
 router.post('/store', roleControllers.store)
 router.get('/:id/update', roleControllers.update)
+router.post('/create', roleControllers.create)
 router.get('/create', roleControllers.create)
 router.get('/:slug', roleControllers.show)
 router.get('/', roleControllers.index)

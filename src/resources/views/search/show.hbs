@@ -1,2 +1,24 @@
-<h1>show</h1>
-<h3 class="card-title">Owner : {{roles.slug}} </h3>
+<div class="container">
+
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <div class="col-md-12">
+            <p>
+            <form action="/lessor/search" method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="room" class="form-control">
+                    <input type="submit" value="Search" class="btn btn-default">
+                </div>
+            </form>
+            </p>
+        </div>
+        {{#each roles}}
+        <div class="col-md-3 col-sm-6">
+            <div class="thumbnail"> 
+                <div class="caption">
+                    <h4>{{this.room}}</h4>
+                </div>
+
+            </div>
+        </div>
+        {{/each}}
+    </div>

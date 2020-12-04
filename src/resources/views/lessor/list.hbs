@@ -1,8 +1,5 @@
 <div class="mt-4">
     <h3>Rooms profile list</h3>
-    
-
-
     <table class="table mt-4">
         <thead>
             <tr>
@@ -21,7 +18,7 @@
                 <td>{{this.slug}}</td>
                 <td>
                     <a href="/lessor/{{this._id}}/update" class="btn btn-link">Sửa</a>
-                    <a href="" class="btn btn-link" data-id={{this.slug}} data-toggle="modal"
+                    <a href="" class="btn btn-link" data-id={{this._id}} data-toggle="modal"
                         data-target="#delete-rooms">Xóa</a>
                 </td>
             </tr>
@@ -56,35 +53,21 @@
 
 {{!-- Delete form --}}
 <form method="POST" name='delete-form'></form>
-<form method="GET"  action="/lessor/{{this.slug}}"  name='search-form'></form>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var btnDeleteRooms = document.getElementById('btn-delete-rooms')
-        var btnSearchRooms = document.getElementById('btn-search-rooms')
         var roomID
         var deleteForm = document.forms['delete-form']
-        var searchForm = document.forms['search-form']
         $('#delete-rooms').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             roomID = button.data('id')
         })
-        $('#search-rooms').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            roomID = button.data('id')
-
-        })
-        btnSearchRooms.onclick = function () {
-            alert(roomID)
-            //deleteForm.action = '/lessor/' + roomID + '?_method=DELETE'
-            //deleteForm.submit() 
-        }
         btnDeleteRooms.onclick = function () {
-            alert(roomID)
-            //deleteForm.action = '/lessor/' + roomID + '?_method=DELETE'
-            //deleteForm.submit() 
+            deleteForm.action = '/lessor/' + roomID + '?_method=DELETE'
+            deleteForm.submit()
         }
-
     })
 
 

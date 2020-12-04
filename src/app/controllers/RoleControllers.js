@@ -2,7 +2,7 @@ const { multipleMongooseToObject, mongooseToObject } = require('../../util/mongo
 const Role = require('../models/Role')
 
 class RoleControllers {
-    
+
     // get news
     index(req, res, next) {
 
@@ -34,7 +34,7 @@ class RoleControllers {
 
     store(req, res, next) {
         const formData = req.body
-        formData.image = `${req.body.img}`
+        formData.image = `${req.body.image}`
         const role = new Role(req.body)
         role.save()
             .then(() => res.redirect('/lessor'))
@@ -58,33 +58,43 @@ class RoleControllers {
 
     //DELETE
     delete(req, res, next) {
-        Role.deleteOne({ slug: req.params.slug })
+        Role.deleteOne({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next)
     }
 
     search(req, res, next) {
-        const slug = req.body.slug
-        
-        Role.findOne({
-            slug:slug
-        })
-            .then(data => {
-                if (data) {
-                    res.redirect('/lessor/search/show')
-                } else {
-                    res.send('Nothing')
-                }
-            })
-            .catch(err => {
-                res.json('Server denined')
-            })
-        
+        res.send(req.query.room)
+        res.render('lessor/search')
+        //const slug = req.body.slug
+        // Role.find(
+        //     { $text: { $search: "Horo 233" } },
+        //     { score: { $meta: "textScore" } }
+        // ).sort({ score: { $meta: "textScore" } }).limit(1)
+        // var noMatch = null;
+        // if (req.query.search) {
+        //     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        //     // Get all campgrounds from DB
+        //     Role.find({ room: regex }, function (err, allRooms) {
+        //         if (err) {
+        //             console.log(err);
+        //         } else {
+        //             if (allRooms.length < 1) {
+        //                 noMatch = "No campgrounds match that query, please try again.";
+        //             }
+        //             res.render("search/show", { campgrounds: allRooms, noMatch: noMatch });
+        //         }
+        //     });
+        // } else {
+        //     // Get all campgrounds from DB
+        //     Role.find({}, function (err, allRooms) {
+        //         if (err) {
+        //             console.log(err);
+        //         } else {
+        //             res.render("search/show", { roles: allRooms, noMatch: noMatch });
+        //         }
+        //     });
+        // }
     }
-
-
 }
-//get /news/:slug
-
-
 module.exports = new RoleControllers;

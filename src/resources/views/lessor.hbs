@@ -6,12 +6,12 @@
     <a class="btn" href="/lessor/stores/post">
         <button>Sửa thông tin phòng</button>
     </a>
-    {{!-- <form method="GET" action="lessor/search/show">
-        <div>
-            <input type="text" name="slug" value={{this.slug}}>
-            <button type="submit" class="btn btn-warning btn-lg">Search</button>
+    <form action="/lessor/search" method="GET" class="form-inline">
+        <div class="form-group">
+            <input type="text" name="room" class="form-control">
+            <input type="submit" value="Search" class="btn btn-default">
         </div>
-    </form> --}}
+    </form>
 
 
     {{#each roles}}
@@ -19,7 +19,7 @@
         <div class="card card-course-item">
             <a href="lessor/{{this.slug}}">
 
-                <img class="card-img-top" src="{{this.img}}" alt="{{this.location}}">
+                <img class="card-img-top" src="/upload/{{this.image}}" alt="{{this.location}}">
 
             </a>
             <div class="card-body">

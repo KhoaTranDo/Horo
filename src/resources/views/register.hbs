@@ -26,6 +26,19 @@
                     <label>Password</label>
                     <input type="password" class="form-control" name="password" value={{this.password}}>
                 </div>
+                <div class="form-group">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary ">
+                            <input type="radio" name="role" value={{this.role}} renter> Renter
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="role" value={{this.role}} lessor> Lessor
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="role" value={{this.role}} admin> Admin
+                        </label>
+                    </div>
+                </div>
 
                 <button type="submit" class="btn btn-warning btn-lg">Signup</button>
             </form>
