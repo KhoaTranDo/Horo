@@ -10,6 +10,7 @@ import {
 import axios from 'axios';
 
 import {setToken} from '.././api/setToken';
+import { clearPrewarmedResources } from 'mapbox-gl';
 
 export const loadUser = () => async dispatch =>{
     if(localStorage.getItem('token'))
@@ -18,9 +19,12 @@ export const loadUser = () => async dispatch =>{
         const response = await axios.get('http://localhost:6001/account');
         dispatch({
             type: LOAD_USER,
-            payload: response.data
-
-        })
+            payload: response.data,
+            
+        },)
+       localStorage.setItem('user',JSON.stringify(response.data._id))
+     
+      
         
     } catch (error){
         dispatch({ type: AUTH_ERROR, payload:error});
@@ -29,14 +33,13 @@ export const loadUser = () => async dispatch =>{
 }
 export const registerUser = (firstname,lastname,email,phone,password) => async dispatch =>{
     try{
-      
         const config={
             headers:{
                 'Content-Type': 'application/json'
             }
         }
         const body = JSON.stringify({firstname,lastname,email,phone,password});
-        
+        console.log(body)
         const response= await axios.post('http://localhost:6001/account/register',body,config);
         dispatch({
             type: REGISTER_SUCCESS,
@@ -49,14 +52,14 @@ export const registerUser = (firstname,lastname,email,phone,password) => async d
         dispatch({ type: REGISTER_FAIL, payload: error});
     }
 }
-export const loginUser = (phone,password) => async dispatch =>{
+export const loginUser = (email,password) => async dispatch =>{
     try{
         const config={
             headers:{
                 'Content-Type': 'application/json'
             }
         }
-        const body = JSON.stringify({phone,password});
+        const body = JSON.stringify({email,password});
         const response= await axios.post('http://localhost:6001/account/login',body,config);
         dispatch({
             type: LOGIN_SUCCESS,
@@ -71,7 +74,11 @@ export const loginUser = (phone,password) => async dispatch =>{
 }
 
 export const logOut =() => async dispatch =>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
     dispatch({
         type: LOG_OUT
     })
+    
+    
 }

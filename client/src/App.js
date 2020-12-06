@@ -22,7 +22,8 @@ import login from './Components/Login-register/Signin'
 
 //Book Room
 import BookRoom from './Components/BookRoom/BookRoom'
-import AddRoom from './Components/Addroom/Addroom'
+import Add from './Components/leesor/Addroom/Add'
+import ListRoom from './Components/leesor/Listroom/ListRoom'
 
 if(localStorage.getItem('token')){
   setToken(localStorage.getItem('token'));
@@ -46,11 +47,14 @@ function App(){
          <Route exact path='/rooms' component={Rooms}/>
          <Route exact path='/room/' component={Detail}/>
          <Route exact path='/bookroom' component={BookRoom}/>
-         <Route exact path='/addroom' component={AddRoom}/>
+         <Route exact path='/profile' component={Profile} />
+         {/* Leesorr */}
+         <Route exact path='/addroom' component={Add}/>
+         <Route exact path='/room/list' component={ListRoom}/>
          <Route exact path='/searchmap' component={MainSearch}/>
          <Route exact path="/rooms/:slug" component={SingleRoom} />
+        {/* Admin */}
          <Route exact path='/admin' component={rootRoutes} />
-         <Route exact path='/profile' component={Profile} />
 					<Route component={NoMatch} />
         </Switch>
        

@@ -5,7 +5,11 @@ class LessorControllers {
 
     // url
     storesPost(req, res, next) {
-     
+        Role.find({})
+        .then(roles => res.render('lessor/list',{
+            roles : multipleMongooseToObject(roles)
+        }) )
+        .catch(next)
         
     }
 

@@ -10,6 +10,7 @@ class AddImage {
         const uploader = async (path) => await cloudinary.uploads(path,'Images')
         if(req.method==='POST')
         {
+            console.log(uploader)
             const urls =[]
             const files = req.files
             for(const file of files){

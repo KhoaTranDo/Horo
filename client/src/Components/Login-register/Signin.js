@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./style.css";
-import { Provider } from "react-redux";
-import store from "../../store";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
@@ -9,12 +7,12 @@ import { loginUser } from "../../action/auth";
 
 const Signin = ({ isLoggedIn, loginUser }) => {
     let [data, setData] = useState({
-        phone: "",
+        email: "",
         password: "",
         inCheck:false,
     });
     let [tb, setTb] = useState({
-        phone: "Mess Alert",
+        email: "Mess Alert",
         password: "Mess Alert",
         mess: "",
     });
@@ -22,18 +20,18 @@ const Signin = ({ isLoggedIn, loginUser }) => {
         return <Redirect to = "/" /> ;
     }
 
-    let { phone, password } = data;
+    let { email, password } = data;
 
     const errms = {
-        phone: data.phone,
+        email: data.email,
         password: data.password,
     };
     const onchange = (e) => {
       setData({...data, [e.target.name]: e.target.value });
       if (e.target.value === "") {
-        setTb({...tb, phone: "Mess" });
+        setTb({...tb, email: "Mess" });
       } else {
-        setTb({...tb, phone: "Mess Alert" });
+        setTb({...tb, email: "Mess Alert" });
       }
     };
     const loginAccount = (e) => {
@@ -45,10 +43,10 @@ const Signin = ({ isLoggedIn, loginUser }) => {
         setTb({...tb, password: "Mess Alert" });
       }
       
-      if (data.phone !== "" && data.password !== "") {
+      if (data.email !== "" && data.password !== "") {
         // errormsg();
         
-        loginUser(phone, password);
+        loginUser(email, password);
         if (isLoggedIn === false) {
           const errormsg = axios
           .post("http://localhost:6001/account/login", errms)
@@ -69,15 +67,15 @@ const Signin = ({ isLoggedIn, loginUser }) => {
         <h3>Sign In</h3>
 
         <div className="form-group">
-          <label>Phone Number</label>
+          <label>email</label>
           <input
-            type="number"
+            type="email"
             className="form-control"
-            name="phone"
-            placeholder="Phone number"
+            name="email"
+            placeholder="email "
             onChange={(e) => onchange(e)}
           />
-           <span className={tb.phone} name="name">
+           <span className={tb.email} name="name">
           Vui lòng nhập số điện thoại{" "}
         </span>
         </div>

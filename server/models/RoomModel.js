@@ -1,82 +1,97 @@
-const mongoose = require('mongoose');
-let RoomSchema = mongoose.Schema({
+const mongoose = require("mongoose");
+let RoomSchema = mongoose.Schema(
+  {
     type: Object,
-    required: [],
+    UserID: { type: String, required: true },
     properties: {
-    Size: {
+      Size: {
         type: String,
-        required: true
-    },
-    NumberRoom: {
+        required: true,
+      },
+      NumberRoom: {
         type: String,
-        required: true
-    },
-    NumberPeople: {
+        required: true,
+      },
+      NumberPeople: {
         type: String,
-        required: true
-    },
-    address: {
+        required: true,
+      },
+      address: {
         type: "object",
         required: [],
         properties: {
           location: {
             type: Array,
             items: {
-              type: Number
-            }
+              type: Number,
+            },
           },
           country: {
-            type: String
+            type: String,
           },
           City: {
-            type: String
+            type: String,
           },
           xa: {
-            type: String
+            type: String,
           },
           address: {
-            type: String
-          }
-        }
-    },
-    roomtype: {
+            type: String,
+          },
+        },
+      },
+      roomtype: {
         type: String,
-        required: true
-    },
-    feature:  {
+        required: true,
+      },
+      feature: {
         type: Array,
         items: {
-        type: Object,
+          type: Object,
           required: [],
           properties: {
             id: {
-              type: Number
+              type: Number,
             },
             name: {
-              type: String
-            }
-          }
-        }
+              type: String,
+            },
+          },
+        },
       },
-    genderRules: {
+      genderRules: {
         type: String,
-        required: true
+        required: true,
+      },
+      describe: {
+        type: String,
+        required: true,
+      },
+      firstprice: {
+        type: String,
+        required: true,
+      },
+      prices: {
+        type: String,
+        required: true,
+      },
+      image: {
+        type: Array,
+        properties: {
+          id: {
+            type: Number,
+          },
+          name: {
+            type: String,
+          },
+        },
+      },
+      date: { type: Date, default: Date.now },
     },
-    describe: {
-        type: String,
-        required: true
-    },
-    firstprice: {
-        type: String,
-        required: true
-    },
-    prices: {
-        type: String,
-        required: true
-    }
-}},
-{
-    timestamps:true,
-});
+  },
+  {
+    timestamps: true,
+  }
+);
 
-module.exports = RoomSchema = mongoose.model('Room', RoomSchema);
+module.exports = RoomSchema = mongoose.model("Room", RoomSchema);

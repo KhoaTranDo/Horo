@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React,{useState} from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./Mapstyle.css";
 import data from "../ListRoom/data";
-import context from "react-bootstrap/esm/AccordionContext";
-import Room from "../ListRoom/Room";
+import axios from "axios";
+// import context from "react-bootstrap/esm/AccordionContext";
+// import Room from "../ListRoom/Room";
 
 import markerIcon from "../img/marker.png";
 mapboxgl.accessToken =
@@ -20,18 +20,36 @@ export default class MapBox extends React.Component {
       lat: 16.07465,
       zoom: 13,
       Stores: "",
+      data:[],
     };
   }
-
+  
   componentDidMount() {
+    axios
+    .get("http://localhost:6001/room/PostAllRoom")
+    .then((res) => {
+      this.setState({ 
+        data: res.data
+      })
+     
+    })
+    .catch((err) => console.log(err));
+
     const getStore = () => {
-      const stores = data.map((room) => {
+     
+      this.state.data.map((room)=>{
+        console.log(room.properties.address.location[0])
+      })
+      const stores = this.state.data.map((room) => {
         return {
           type: "Feature",
           properties: {
-            description: room.fields.description[4],
+            description: '<h1>This is room</h1><img src="https://lh3.googleusercontent.com/proxy/6djulgiuUzmiQXp5wVK6RlbBXe4tNQYVdTKwC5thCdxdZ8gs64CRqH_bSfNVY_f0MIdTzn9YRix---Gnl9bb7eP8dhEg3vU"></img>'+room.properties.prices+'VND',
           },
-          geometry: room.fields.geometry,
+          geometry: {
+            type: "Point",
+            coordinates: [room.properties.address.location[0], room.properties.address.location[1]],
+          },
         };
       });
       return stores;
@@ -43,13 +61,14 @@ export default class MapBox extends React.Component {
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom,
     });
+    // Search on Map
     const search = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       countries: "vn", //Vietnam only
       mapboxgl: mapboxgl,
     });
     document.getElementById("search").appendChild(search.onAdd(map));
-    // Load ban do mac dih
+    // Action move on map
     map.on("move", () => {
       this.setState({
         lng: map.getCenter().lng.toFixed(5),
@@ -68,11 +87,13 @@ export default class MapBox extends React.Component {
         showAccuracyCircle: false,
       })
     );
+    // Action click on map
     map.on("click", function (e) {
+      
       console.log("A click event has occurred at " + e.lngLat);
     });
 
-    // data
+    // Load room on database 
     map.on("load", function () {
       map.loadImage(
         markerIcon,
@@ -136,8 +157,9 @@ export default class MapBox extends React.Component {
   }
 
   render() {
-    console.log(this.state.Stores);
-
+    //console.log(this.state.Stores);
+  
+   // console.log(this.state.data)
     return (
       <>
         <div className="search" id="search"></div>

@@ -18,7 +18,7 @@ export default class Sidebar extends Component {
                                     <a className="nav-link sub_nav_link" href="/admin/shop/create">Add Shop</a>
                                 </nav>
                             </div>
-                            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
+                            <a className="nav-link collapsed" href="/#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
                                 <div className="sb-nav-link-icon"><i className="fas fa-box" /></div>
                                 Rooms
                                 <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
@@ -62,7 +62,7 @@ export default class Sidebar extends Component {
                                 <div className="sb-nav-link-icon"><i className="fas fa-cloud-upload-alt" /></div>
                                 Updater
         </a>
-                            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
+                            <a className="nav-link collapsed" href="/#" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
                                 <div className="sb-nav-link-icon"><i className="fas fa-cog" /></div>
                                 Setting
           <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
