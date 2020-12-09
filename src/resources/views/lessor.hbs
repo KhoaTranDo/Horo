@@ -8,7 +8,7 @@
     </a>
     <form action="/lessor/search" method="GET" class="form-inline">
         <div class="form-group">
-            <input type="text" name="room" class="form-control">
+            <input type="text" name="slug" class="form-control">
             <input type="submit" value="Search" class="btn btn-default">
         </div>
     </form>
@@ -23,14 +23,10 @@
 
             </a>
             <div class="card-body">
-
                 <a href="lessor/{{this.slug}}">
-
-
-
                     <h5 class="card-title">Room's name : {{this.room}}</h5>
                 </a>
-                <h5 class="card-title">Room's address : {{this.address}}</h5>
+                
 
             </div>
         </div>

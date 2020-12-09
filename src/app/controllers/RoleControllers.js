@@ -21,7 +21,10 @@ class RoleControllers {
 
         Role.findOne({ slug: req.params.slug })
             .then(roles => res.render('lessor/show', { roles: mongooseToObject(roles) }))
+            // .then(roles => { res.render('lessor', { roles: mongooseToObject(roles) }) })
             .catch(next)
+
+
 
     }
     create(req, res, next) {
@@ -64,37 +67,12 @@ class RoleControllers {
     }
 
     search(req, res, next) {
-        res.send(req.query.room)
-        res.render('lessor/search')
-        //const slug = req.body.slug
-        // Role.find(
-        //     { $text: { $search: "Horo 233" } },
-        //     { score: { $meta: "textScore" } }
-        // ).sort({ score: { $meta: "textScore" } }).limit(1)
-        // var noMatch = null;
-        // if (req.query.search) {
-        //     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        //     // Get all campgrounds from DB
-        //     Role.find({ room: regex }, function (err, allRooms) {
-        //         if (err) {
-        //             console.log(err);
-        //         } else {
-        //             if (allRooms.length < 1) {
-        //                 noMatch = "No campgrounds match that query, please try again.";
-        //             }
-        //             res.render("search/show", { campgrounds: allRooms, noMatch: noMatch });
-        //         }
-        //     });
-        // } else {
-        //     // Get all campgrounds from DB
-        //     Role.find({}, function (err, allRooms) {
-        //         if (err) {
-        //             console.log(err);
-        //         } else {
-        //             res.render("search/show", { roles: allRooms, noMatch: noMatch });
-        //         }
-        //     });
-        // }
+            Role.findOne({ slug: req.query.slug})
+            .then(roles => res.render('lessor/search', { roles: mongooseToObject(roles) }))
+            // .then(roles => { res.render('lessor', { roles: mongooseToObject(roles) }) })
+            .catch(next)
     }
+
 }
+
 module.exports = new RoleControllers;

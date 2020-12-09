@@ -5,30 +5,13 @@ var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser')
 var multer = require('multer');
 const jwt = require('jsonwebtoken')
-var Role = require('./app/models/Role')
-
-// mongoose.connect('mongodb://localhost:27017/horo_online', {
-
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true
-
-// }, (err) => {
-//   if (err) {
-//     console.log('success')
-//   } else {
-//     console.log('fail')
-//   }
-// }
-// );
-
+const cookieParser = require('cookie-parser')
+var mongoose = require("mongoose");
 var route = require('./routes');
 var db = require('./confiq/db');
 
 //Connect Models
 var Role = require('./app/models/Role')
-var UserModel = require('./app/models/User')
-
 
 //connect to db
 db.connect()
@@ -69,6 +52,8 @@ var storage = multer.diskStorage({
     cb(null, Date.now() + "-" + file.originalname)
   }
 });
+
+// Định dạng file kiểu file ảnh
 var upload = multer({
   storage: storage,
   fileFilter: function (req, file, cb) {
@@ -85,7 +70,7 @@ app.get('/lessor/create', (req, res) => {
   res.render('lessor/create')
 })
 
-
+// Khai báo và lấy dữ liệu trong mongodb
 app.post('/lessor/store', (req, res) => {
   upload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
@@ -115,73 +100,11 @@ app.post('/lessor/store', (req, res) => {
   });
 })
 
-// Phan quyen Roles
-app.get('/signup', (req, res) => {
-  res.render('signup')
-})
-app.post('/signup', (req, res) => {
-  var email = req.body.email
-  var password = req.body.password
-
-  UserModel.findOne({ email: email, password: password })
-    .then(data => {
-      if (data) {
-        // return res.send('success')
-        var token = jwt.sign({ _id: data._id }, 'mk')
-        return res.json({ message: 'success', token: token })
-      } else {
-        return res.json('fail')
-      }
-    })
-    .catch(err => {
-      res.json('loi server')
-    })
-
-})
-// var checkLogin = (req,res,next) =>{
-//   try{
-//     var token = req.cookies.token
-//     var idUser = jwt.verify(token,'mk')
-//     UserModel.findOne({
-//       _id : idUser
-//     })
-//     .then(data =>{
-//       if(data){
-//         next()
-//       }else{
-//         res.send('Not permission')
-//       }
-//     })
-//     .catch(err =>{})
-//   }catch(err){
-//     res.json('Token indentify')
-//   }
-// }
-app.get('/admin/:token', (req, res, next) => {
-  try {
-    var token = req.params.token
-    var kq = jwt.verify(token, 'mk')
-    if (kq) {
-      next()
-    }
-  } catch (error) {
-    return res.send('You must pre-login')
-  }
-}, (req, res, next) => {
-  res.json('admin')
-})
-
-app.get('/lessor', (req, res) => {
-  res.send('lessor')
-})
-app.get('/renter', (req, res) => {
-  res.send('renter')
-})
 route(app);
 
 
 
-//127.0.0.1 -localhost:
+//Connect socket.io
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('disconnect', () => {
