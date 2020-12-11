@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import Navbar from './Components/navbar/navbar'
 import './App.css';
 import store from './store'
@@ -18,6 +18,7 @@ import About from './Components/Homepage/pages/About';
 
 import Contact from './Components/Homepage/pages/Contact';
 import Booknow from './Components/Homepage/pages/Booknow';
+
 
 // demo
 import register from './Components/Login-register/Signup'
@@ -43,7 +44,6 @@ function App(){
         <Route exact path='/register' component={register}/>
         <Route exact path='/' component={Homepage}/>
          <Route exact path='/rooms' component={Rooms}/>
-         
          <Route exact path='/searchmap' component={MainSearch}/>
          <Route exact path="/rooms/:slug" component={SingleRoom} />
          <Route exact path="/about" component={About} />
@@ -52,7 +52,7 @@ function App(){
          <Route exact path='/admin' component={rootRoutes} />
 					<Route component={NoMatch} />
         </Switch>
-      
+       
         </Router>
         </Provider>
           {/* <MainSearch/> */}

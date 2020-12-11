@@ -170,13 +170,7 @@ export default class Booknow extends Component {
                     <div className="row my-4">
                         <div className="col-md-6 col-12">
                             <div className="form-group">
-                                <label htmlFor="payment" className="font-weight-bolder">Payment Options</label>
-                                <select className="form-control">
-                                    <option disabled>Select payment option</option>
-                                    <option value="Credit">Credit Card</option>
-                                    <option value="Debit">Debit Card</option>
-                                    <option value="checkin">Pay during Checkin</option>
-                                </select>
+                                <label htmlFor="payment" className="font-weight-bolder">Contact information</label>
                             </div>
                         </div>
                         <div className="col-md-6 col-12 my-auto">
