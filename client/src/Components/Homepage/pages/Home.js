@@ -4,6 +4,7 @@ import Hero from "../Hero";
 import Banner from "../Banner";
 import Services from "../Services";
 import FeturedRooms from "../FeaturedRooms";
+import SearchDetails from "../SearchDetails";
 
 const Home = () => {
   return (
@@ -14,16 +15,12 @@ const Home = () => {
         <Banner title="Rent a home in Da Nang city">
           <Link to="/rooms" className="btn-primary">
             our rooms
-          </Link>
-          <form className="searchform cf" style={{ display: "flex" }}>
-            <input type="text" placeholder="Is it me you’re looking for?" />
-            <Link to="/searchmap">
-            <button type="submit">Search</button>
-            </Link>
+          </Link> 
+          <SearchDetails />
             <Link to="/searchmap">
               <button type="button">Search on Map</button>
             </Link>
-          </form>
+          
         </Banner>
       </Hero>
       <Services />

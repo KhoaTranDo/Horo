@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { logOut } from "../../action/auth";
 import { connect } from "react-redux";
-import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import { Gallery } from "./Gallery";
 import axios from "axios";
 import Home from "./pages/Home";
 import "./style.css";
-import Listroom from './Listroom';
 import Caterology from './Caterology'
 
 const Homepage = ({ isLoggedIn, logOut }) => {
@@ -39,7 +36,7 @@ const Homepage = ({ isLoggedIn, logOut }) => {
             </div>
             <div className="col-lg-9">
               <div className="row">
-              <Listroom/>
+              
 
               </div>
             </div>

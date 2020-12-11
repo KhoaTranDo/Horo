@@ -18,7 +18,7 @@ class FeaturedRooms extends Component {
         <Title title="featured rooms" />
         <div className="featured-rooms-center">
           {loading ? <Loading /> : rooms}
-          {rooms}
+          
         </div>
       </section>
     );

@@ -1,5 +1,16 @@
 import React, { createContext, Component } from "react";
 import items from "./data";
+const reducer =(state,action)=>{
+  switch(action.type){
+    case 'SEARCH_TRACKS':
+    return {
+      rooms: action.payload,
+      type: 'Search Results'
+    };
+    default:
+      return state;
+  }
+}
 
 // Call Data
 const RoomContext = createContext();
@@ -7,6 +18,7 @@ const RoomContext = createContext();
 export default class RoomProvider extends Component {
   state = {
     rooms: [],
+    dispath: action =>this.setState(state=> reducer(state,action)),
     sortedRooms: [],
     featuredRooms: [],
     loading: true,

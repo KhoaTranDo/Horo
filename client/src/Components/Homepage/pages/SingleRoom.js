@@ -112,6 +112,13 @@ export default class SingleRoom extends Component {
                   <li key={index}>- {item}</li>
                 ))}
               </ul>
+              <div className="p-4 clearfix">
+                    <div className="row">
+                       <div className="col-md-3 col-12 ml-auto">
+                          <Link to={`/booknow/${this.state.slug}`} className="btn btn-outline-primary btn-block btn-lg float-right ">Book Now</Link>
+                       </div>
+                    </div>
+                </div>
             </section>
           </>
         );

@@ -1,104 +1,43 @@
-import React, { Component } from "react";
-import { FaAlignRight } from "react-icons/fa";
-import "./navbar.css";
-import { logOut } from "../../action/auth";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { MemuItems } from "./menu";
-import { NavDropdown } from "react-bootstrap";
-import {
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-  MDBIcon,
-} from "mdbreact";
-class Navbar extends Component {
-  state = {
-    isOpen: false,
-    // old nav
-    clicked: false,
-  };
-  handleTooggle = () => {
-    this.setState({ isOpen: !this.state.isOpen });
-  };
-
-  // Action
-  handleClick = () => {
-    this.setState({ clicked: !this.state.clicked });
-  };
-
-  render() {
+import React from 'react';
+import {NavLink,Link} from 'react-router-dom';
+import { FaAlignRight } from 'react-icons/fa';
+import jquery from 'jquery';
+jquery(window).scroll(function() {
+    jquery('nav').toggleClass('scrolled', jquery(this).scrollTop() > 0);
+    })
+const Navbar = () => {
     return (
-      <>
-        <nav className="navbar">
-          <div className="nav-center" style={{ width: "100%" }}>
-            <div className="nav-header">
-              <div>
-                <h1> HORO </h1>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  className="nav-btn"
-                  onClick={this.handleTooggle}
-                >
-                  <FaAlignRight className="nav-icon" />
-                </button>
-              </div>
+    <>
+        <nav className="navbar navbar-expand-sm navbar-dark bg-transparent py-2 fixed-top">
+            <div className="container-fluid ">
+                <span className="navbar-brand font-weight-bolder">HORO</span>
+                <a href="void(0)" className="navbar-toggler border-0" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span>
+                        <FaAlignRight className="nav-icon" /></span>
+                </a>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="active_class" exact to="/">Home</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="active_class" exact to="/rooms">Rooms</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="active_class" exact to="/about">About</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="active_class" exact to="/contact">Contact</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" activeClassName="active_class" exact to="/account">Login</Link>
+                        </li>
+                        
+                    </ul>
+                </div>
             </div>
-            <ul
-              className={this.state.isOpen ? "nav-links show-nav" : "nav-links"}
-            >
-              {MemuItems.map((item, index) => {
-                return (
-                  <li key={index}>
-                    <a className={item.cName} href={item.url}>
-                      {item.title}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {this.props.isLoggedIn ? (
-              <>
-              <a href='/room'>My Place</a>
-                <Link to="/">
-                  <MDBDropdown>
-                    <MDBDropdownToggle nav caret>
-                      <MDBIcon icon="user" />
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu className="dropdown-default">
-                      <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                      <MDBDropdownItem href="#!">
-                      <span>User Profile</span>
-                      </MDBDropdownItem>
-                      <MDBDropdownItem href="#!">
-                      <span>Your Bookmark</span>
-                      </MDBDropdownItem>
-                        <Link to="/" onClick={() => this.props.logOut()}>
-                      <MDBDropdownItem href="">
-                          <span>Log Out</span>
-                      </MDBDropdownItem>
-                        </Link>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </Link>
-              </>
-            ) : (
-              <span className='login-span'>
-                <Link to="/account">Login</Link>
-              </span>
-            )}
-          </div>
         </nav>
-      </>
+    </>
     );
-  }
 }
-function mapStateToProps(state) {
-  return { isLoggedIn: state.isLoggedIn };
-}
-
-export default connect(mapStateToProps, { logOut })(Navbar);
+export default Navbar;
