@@ -67,7 +67,7 @@ class RoleControllers {
     }
 
     search(req, res, next) {
-            Role.findOne({ slug: req.query.slug})
+        Role.findOne({ slug: req.query.slug })
             .then(roles => res.render('lessor/search', { roles: mongooseToObject(roles) }))
             // .then(roles => { res.render('lessor', { roles: mongooseToObject(roles) }) })
             .catch(next)

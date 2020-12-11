@@ -42,7 +42,13 @@ app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser())
 
+var problemMiddleware = function(request, response, next) {
+  response.setHeader("Content-Type", "text/html");
+  response.write("<p>Hello World</p>");
+  next();
+};
 //upload files
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {

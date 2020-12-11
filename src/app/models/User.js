@@ -11,7 +11,7 @@ const Schema = mongoose.Schema
 const User = new Schema({
 
     email: { type: String, minlength:6,required: true, unique: true },
-    password: { type: String, minlength:6 },
+    password: { type: String, minlength:6,required: true },
     role : {type : String,unique:true}
 },
     { collection: 'users' }
