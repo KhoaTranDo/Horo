@@ -43,13 +43,11 @@ export default class RoomProvider extends Component {
           featuredRooms,
           sortedRooms: rooms,
           loading: false,
-          
           price: maxPrice,
           maxPrice,
           maxSize
         });
       }
-
     formatData(items)
     {
         let tempItems =items.map(item => {
@@ -80,6 +78,7 @@ export default class RoomProvider extends Component {
           this.filterRooms
         );
       };
+      
       filterRooms = () => {
         let {
           rooms,

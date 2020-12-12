@@ -1,69 +1,72 @@
-import React,{useEffect} from 'react';
-import Navbar from './Components/navbar/navbar'
-import './App.css';
-import store from './store'
-import Homepage from './Components/Homepage/Homepage'
-import Detail from './Components/Detail-room/RoomDetail'
-import {  BrowserRouter  as Router, Route , Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { loadUser } from './action/auth';
-import { setToken } from './api/setToken';
-import rootRoutes from './Components/admin/rootRoutes';
-import NoMatch from './Components/nomatch';
+import React, { useEffect } from "react";
+import Footer from "./Components/footer/footer";
+import Navbar from "./Components/navbar/navbar";
+import "./App.css";
+import store from "./store";
+import Homepage from "./Components/Homepage/Homepage";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import { loadUser } from "./action/auth";
+import { setToken } from "./api/setToken";
+import rootRoutes from "./Components/admin/rootRoutes";
+import NoMatch from "./Components/nomatch";
 
-import {MainSearch} from './Components/SearchMap/MainSearch'
-import SingleRoom from './Components/Homepage/pages/SingleRoom'
-import Rooms from './Components/Homepage/pages/Rooms'
-import Profile from './Components/Profile/Profile'
-
+import { MainSearch } from "./Components/SearchMap/MainSearch";
+import SingleRoom from "./Components/Homepage/pages/SingleRoom";
+import Rooms from "./Components/Homepage/pages/Rooms";
+import Profile from "./Components/Profile/Profile";
+import About from "./Components/Homepage/pages/About";
+import Contact from "./Components/Homepage/pages/Contact";
 // demo
-import register from './Components/Login-register/Signup'
-import login from './Components/Login-register/Signin'
+import register from "./Components/Login-register/Signup";
+import login from "./Components/Login-register/Signin";
 
 //Book Room
-import BookRoom from './Components/BookRoom/BookRoom'
-import Add from './Components/leesor/Addroom/Add'
-import ListRoom from './Components/leesor/Listroom/ListRoom'
+import BookRoom from "./Components/BookRoom/BookRoom";
+import Add from "./Components/leesor/Addroom/Add";
+import ListRoom from "./Components/leesor/Listroom/ListRoom";
 
-if(localStorage.getItem('token')){
-  setToken(localStorage.getItem('token'));
+if (localStorage.getItem("token")) {
+  setToken(localStorage.getItem("token"));
 }
-function App(){
-
-  useEffect(()=>{
+function App() {
+  useEffect(() => {
     store.dispatch(loadUser());
-  },[])
+  }, []);
 
   return (
     <>
-    {/* <div className='App'> */}
+      {/* <div className='App'> */}
       <Provider store={store}>
         <Router>
-         <Navbar/>
-        <Switch>
-        <Route exact path='/account' component={login}/>
-        <Route exact path='/register' component={register}/>
-         <Route exact path='/' component={Homepage}/>
-         <Route exact path='/rooms' component={Rooms}/>
-         <Route exact path='/room/' component={Detail}/>
-         <Route exact path='/bookroom' component={BookRoom}/>
-         <Route exact path='/profile' component={Profile} />
-         {/* Leesorr */}
-         <Route exact path='/addroom' component={Add}/>
-         <Route exact path='/room/list' component={ListRoom}/>
-         <Route exact path='/searchmap' component={MainSearch}/>
-         <Route exact path="/rooms/:slug" component={SingleRoom} />
-        {/* Admin */}
-         <Route exact path='/admin' component={rootRoutes} />
-					<Route component={NoMatch} />
-        </Switch>
-       
+          <Navbar />
+          <div style={{ marginTop: "100px" }}>
+            <Switch>
+              <Route exact path="/account" component={login} />
+              <Route exact path="/register" component={register} />
+              <Route exact path="/" component={Homepage} />
+              <Route exact path="/rooms" component={Rooms} />
+              <Route exact path="/bookroom" component={BookRoom} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/contact" component={Contact} />
+              {/* Leesorr */}
+              <Route exact path="/room/addroom" component={Add} />
+              <Route exact path="/room/list" component={ListRoom} />
+              <Route exact path="/searchmap" component={MainSearch} />
+              <Route exact path="/rooms/detail/:slug" component={SingleRoom} />
+              {/* Admin */}
+              <Route exact path="/admin" component={rootRoutes} />
+              <Route component={NoMatch} />
+            </Switch>
+          </div>
         </Router>
-        </Provider>
-        
-          {/* <MainSearch/> */}
+      </Provider>
+      {/* <Footer/> */}
+
+      {/* <MainSearch/> */}
       {/* </div>  */}
-      </>
+    </>
   );
 }
 

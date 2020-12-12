@@ -24,11 +24,16 @@ const options = [
 ];
 const extend = [
   { id: 1, name: "Wifi" },
-  { id: 2, name: "Show" },
-  { id: 3, name: "Kitchen" },
-  { id: 4, name: "Dorm" },
-  { id: 5, name: "Flat" },
+  { id: 2, name: "Air-Conditioner"},
+  { id: 3, name: "Washing Machine" },
+  { id: 4, name: "Television" },
+  { id: 5, name: "Parking Space" },
+  { id: 4, name: "Balcony" },
+  { id: 5, name: "Water Purifier" },
+  { id: 4, name: "Microwave" },
+  { id: 5, name: "Fridge" },
 ];
+
 
 class Add extends Component {
 
@@ -46,7 +51,8 @@ class Add extends Component {
       describe: "",
       firstprice: "",
       prices: "",
-      UserID:''
+      UserID:'',
+      title:''
     };
   }
 
@@ -70,15 +76,11 @@ class Add extends Component {
         }
     }
     // Get name image
-    console.log(img);
     this.state.image=img
       this.state.UserID= JSON.parse(localStorage.getItem('user'))
       const body = JSON.stringify(obj); 
-      console.log(body)
        axios.post('http://localhost:6001/room/add',body,config);
-
-        return(<Redirect to='/'/>)
-        
+      
     }catch(error){
        console.log('error')
     }
@@ -109,12 +111,14 @@ class Add extends Component {
     console.log(files[0]);
   };
   postRoom = () => {
-    if(!this.state.address||!this.state.address.location){
-      alert('Field address')
-    }
-    else{
-    this.postServerRoom(this.state)
-    }
+    // if(!this.state.address||!this.state.address.location){
+    //   alert('Field address')
+    // }
+    // else{
+    // this.postServerRoom(this.state)
+    // }
+    this.props.history.push('/')
+   
   };
   render() {
     return (
@@ -138,6 +142,14 @@ class Add extends Component {
               </div>
               {/* Add place detail */}
               <div>
+                {/* Title */}
+                <span>Title</span>
+                <input
+                  type="text"
+                  name="title"
+                  className="form-control"
+                  onChange={this.handleChange}
+                ></input>
                 {/* AreaArea */}
                 <span>Area</span>
                 <input
@@ -227,6 +239,15 @@ class Add extends Component {
               >
                 Post this Room
               </button>
+              <div className="alert alert-success">
+  <button type="button" className="close" data-dismiss="alert" aria-hidden="true">
+    ×</button>
+  <span className="glyphicon glyphicon-ok" /> <strong>Success Message</strong>
+  <hr className="message-inner-separator" />
+  <p>
+    You successfully read this important alert message.</p>
+</div>
+
             </div>
             </div>
             </div>

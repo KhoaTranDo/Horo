@@ -1,40 +1,65 @@
-import React from 'react'
-import Room from '../SearchMap/ListRoom/Room';
-import data from './data'
-
-export default function Listroom () {
+import React, { useState,useEffect } from "react";
+import axios from 'axios'
+import { Link } from "react-router-dom";
+export default function Listroom() {
+  //format prices
+  const formatNumber = (num) => {
+   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   
-    return (
-     <>
-               {data.map((item,index)=>{
-                 return(
-      <div key={index} className="col-lg-3 col-md-6 mb-4">
-                  <div className="card h-100">
-                    <a href={"/rooms/"+item.fields.slug}>
-                      <img
-                        className="card-img-top"
-                        src={item.fields.images[1].fields.file.url}
-                        alt=""
-                      ></img>
-                    </a>
-                    <div className="card-body">
-                      <h4 className="card-title">
-                        <a href={"/rooms/"+item.fields.slug}>{item.fields.name}</a>
-                      </h4>
-                      <h5>${item.fields.price}</h5>
-                      <p className="card-text">
-                      {item.fields.extras[0]}
-                      </p>
-                    </div>
-                    {/* <div className="card-footer">
-                      <small className="text-muted">
-                        &#9733; &#9733; &#9733; &#9733; &#9734;
-                      </small>
-                    </div> */}
-                  </div>
+  };
+  const [data1,setData1]=useState([])
+  useEffect(() => {
+    axios
+      .get("http://localhost:6001/room/PostAllRoom")
+      .then((res) => {
+        setData1(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  return (
+    <>
+
+      <div className="row">
+        {data1.map((item, index) => (
+          <div className="col-12 col-sm-6 col-md-4 col-xl-4" key={index}>
+            <div className="Card wow fadeInUp" data-wow-delay="0.3s">
+              <div className="cardhome">
+              
+                <img
+                  className="card-img"
+                  src={`http://localhost:6001/${item.properties.image[0]}`}
+                  alt="Card"
+             
+                />
+                <div className="cardhome__tym">
+        <span>Save</span>
                 </div>
-                 )
-                 })}
-     </>
-    );
-  }
+                <div className="cardhome__price">
+                  <span>
+                    {formatNumber(item.properties.prices)
+                      ? formatNumber(item.properties.prices) + " VND"
+                      : ""}
+                  </span>
+                </div>
+              </div>
+              <div className="taghome">
+                <Link
+                  to={`/rooms/detail/${item.properties.slug}`}
+                  className="Link-detail-news"
+                >
+                  {item.properties.describe}
+                </Link>
+                {/* <link className="Link-detail-news" onClick={this.NewsDeitail} id={item._id} to={`trang-chu/thong-tin-chi-tiet/${item._id}`}>{item.fields.description}</link> */}
+                <div className="taghome-location">
+                  {/* <span> {this.state.NameDistricts[index] + ", "+this.state.NameCity[index]}</span> */}
+                  <span> {item.properties.title}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}

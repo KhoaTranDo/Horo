@@ -1,115 +1,206 @@
-const jwt = require('jsonwebtoken');
-const bcryptjs = require('bcryptjs')
-const {validationResult} = require('express-validator');
-const UserSchema = require('../models/User');
-const config = require('config');
+const jwt = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
+const { validationResult, body } = require("express-validator");
+const UserSchema = require("../models/User");
+const config = require("config");
+// Verify OTP
+const Nexmo = require("nexmo");
+// library ramdom number
+var rn = require("random-number");
 
+var keyOTP = [];
 class Account {
-    async index(req,res){
-        try{     
-                        const user = await UserSchema.findById(req.user.id).select('-password');
-                        res.json(user);
-                    }catch(error){
-                        console.log(error.message);
-                        return res.status(500).json({ msg: "Server Error..."});
-                    }
-                }
+  async index(req, res) {
+    try {
+      const user = await UserSchema.findById(req.user.id).select("-password");
+      res.json(user);
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({ msg: "Server Error..." });
+    }
+  }
+  //x-auth-token
+  //   Register Account
+  async Register(req, res) {
+    try {
+      let { firstname, lastname, email, phone, password } = req.body;
+      let user = await UserSchema.findOne({ email });
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(401).json({ errors: errors.array() });
+      }
+      if (user) {
+        return res
+          .status(401)
+          .json({ msg: "There is already with this email" });
+      }
+      const salt = await bcryptjs.genSalt(10);
+      password = await bcryptjs.hash(password, salt);
+      user = new UserSchema({
+        firstname,
+        lastname,
+        email,
+        phone,
+        password,
+      });
+      await user.save();
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      });
+    } catch (error) {
+      // console.log(error.message);
+      return res.status(500).json({ msg: "Server Error..." });
+    }
+  }
+  // Login
+  async Login(req, res) {
+    try {
+      const { email, password } = req.body;
+      const errors = validationResult(req);
+      let user = await UserSchema.findOne({ email });
+      if (!errors.isEmpty()) {
+        return res.status(401).json({ errors: errors.array() });
+      }
+      if (!user) {
+        return res.status(401).json({ msg: "There is no user on this email" });
+      }
+      let isPasswordMatch = await bcryptjs.compare(password, user.password);
+      if (isPasswordMatch) {
+        const payload = {
+          user: {
+            id: user.id,
+          },
+        };
+        jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        });
+      } else return res.status(401).json({ msg: "Password Wrong" });
+    } catch (error) {
+      //  console.log(error.message);
+      return res.status(500).json({ msg: "Server Error" });
+    }
+  }
+  //Change password
+  async Changepassword(res,req){
+    let{id,password} = res.body
+    try{
+      const salt = await bcryptjs.genSalt(10);
+      password = await bcryptjs.hash(password, salt);
+      await UserSchema.updateOne({'_id':id},{'password':password})
+   } catch (error) {
+     console.log(error.message);
+    return res.status(500).json({ msg: "Server Error..." });
+   }
+  }
 
-    async LoginS(req,res){
-        User.getUserByUserName(req.params.username,(err,user)=>{
-            if(err)
-                return res.status(500).send("Server error!");
-            if(!user)
-                return res.status(422).send("User not found");
-            if(user){
-                //racunamo korisnikovu ukupnu ocenu
-                var cal=0;
-                Rating.findMine(user._id,(err,rating)=>{
-                    if(err)
-                        return res.status(500).send("Server error!");
-                    //racunanje srednje vrednosti
-                    var sum=0;var num=0;
-                    for(var i=0;i<rating.length;i++)
-                        if(rating[i].rate!=0){sum=sum+rating[i].rate; num=num+1;}
-                    cal=sum/num;
-                    //odgovor korisniku
-                    return res.status(200).json ({star:cal,user:{firstName:user.firstName,lastName:user.lastName,userName:user.userName,email:user.email,phone:user.phone,
-                    street:user.street,street2:user.street2,avatar:user.avatar},me:req.user.userName});
-                });
-            }
+  //Verify OTP Phone number
+  async Verify(req, res) {
+    const nexmo = new Nexmo({
+      apiKey: "9b22c8f1",
+      apiSecret: "we2SJx3KrGZTROPm",
+    });
+    let Phone = "84935432561";
+    var gen = await rn.generator({
+      min: 1000,
+      max: 9999,
+      integer: true,
+    });
+    var code = gen();
+    keyOTP.push(code);
+    const from = "HoroProject";
+    var text = " HoroProject Send OTP " + code + "Thank You ";
+    //Gửi mã OTP
+    console.log(keyOTP);
+    // nexmo.message.sendSms(from, Phone, text,(err,result)=>{
+    //     if(err) console.log(err);
+    //     console.log(parseInt(Phone,10) +   " ma xac minh   " +code);
+    //     res.json({
+    //         result:true,
+    //         message:"Đã gửi OTP thành công"
+    //     });
+    //  });
+    //  key_OTP se bi xoa trong vong 3 phut   =>>>>> bug then  2 acconut send OTP
+    setTimeout(() => {
+      keyOTP.splice(keyOTP.indexOf(code), 1);
+    }, 1000 * 60);
+  }
+  // Get OTP
+  async GetVerify(res, req) {
+    if (req.isAuthenticated()) {
+      let { key_OTP, number_phone } = req.body;
+      if (keyOTP.indexOf(parseInt(key_OTP)) === -1) {
+        res.json({
+          message:
+            "Vui lòng kiểu tra lại mã OTP hoặc OTP của bạn quá lâu! Bạn cần chờ 60 giây để nhập lại mã",
+          result: false,
+        });
+      } else {
+        await User.findByIdAndUpdate(
+          { _id: req.user.id },
+          { role: "CHUNHATRO", number_phone: number_phone },
+          (err, result) => {
+            if (err) console.log(err);
+            res.json({
+              message: "Xác thực thành công",
+              result: true,
+            });
+            // The key_OTP will be delete if process success
+            keyOTP.splice(keyOTP.indexOf(key_OTP), 1);
+          }
+        );
+      }
+    } else {
+      res.json({
+        message: "Bạn cần phải đăng nhập để thực hiện chức năng này",
+        result: false,
+      });
+    }
+  }
+
+  // FeedBack
+  async Feedback(res, req) {
+   
+  }
+  //List Feedback
+  async listFeedback(res, req) {
+   
+  }
+
+  //Get Information User By id
+  async getInforById(res,req){
+    try{
+        await UserSchema.findOne({'_id':res.params.slug},(err,result)=>{
+           if(err) console.log(err)
+           res.json={
+             data:result
+           }
+        })
+    }catch(err){
+        res.json({
+            result:false,
+            message:err 
         })
     }
-    async Register(req,res){
-        try {
-            let {firstname,lastname,email,phone,password}=req.body;
-            let user = await UserSchema.findOne({email})
-            const errors = validationResult(req);
-            if(!errors.isEmpty()){
-                return res.status(401).json({ errors: errors.array()});
-            }
-            if(user){
-                return res.status(401).json({ msg: "There is already with this email"});
-            }
-            const salt = await bcryptjs.genSalt(10);
-            password= await bcryptjs.hash(password,salt);
-            user= new UserSchema({   
-                firstname,    
-                lastname,
-                email,
-                phone,
-                password
-            })
-            await user.save();
-            const payload= {
-                user:{
-                    id: user.id
-                }
-            }
-            jwt.sign(
-                payload,
-                config.get('jwtSecret'),
-                ( err,token)=>{
-                    if(err) throw err;
-                    res.json({token});
-                } 
-            )
-        } catch(error){
-            // console.log(error.message);
-            return res.status(500).json({ msg: "Server Error..."});
-        }
-    }
+  }
 
-    async Login(req,res){
-        try{
-            const {email,password}=req.body;
-            const errors = validationResult(req);
-            let user = await UserSchema.findOne({email})
-            if(!errors.isEmpty()){
-             return res.status(401).json({ errors: errors.array()});
-             }
-            if(!user){
-                return res.status(401).json({msg:"There is no user on this email"});
-                }
-             let isPasswordMatch = await bcryptjs.compare(password,user.password);
-             if(isPasswordMatch){
-                 const payload= {
-                     user:{
-                         id: user.id
-                     }
-                 }
-                 jwt.sign(
-                     payload,
-                     config.get('jwtSecret'),
-                     (err,token)=>{
-                         if(err) throw err;
-                         res.json({token});
-                     }  
-                 )
-             }else return res.status(401).json({msg:"Password Wrong"})
-        }catch(error){
-            //  console.log(error.message);
-             return res.status(500).json({msg: "Server Error"});
-        }
+  // Submit Update
+  async SubmitUpdate(res,req){
+    let {id,firstname,lastname,phone}=res.body;
+    try{
+       const a= await UserSchema.updateOne({'_id':id},{'firstname':firstname,'lastname':lastname,'phone':phone}) 
+    } catch (error) {
+      console.log(error.message);
+     return res.status(500).json({ msg: "Server Error..." });
     }
+  }
+
 }
+
 module.exports = new Account();

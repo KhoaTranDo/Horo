@@ -18,4 +18,4 @@ let BackgroundSchema = mongoose.Schema({
     timestamps:true,
 });
 
-module.exports = BackgroundSchema  = mongoose.model('Background', BackgroundSchema);
+module.exports = BackgroundSchema  = mongoose.model('background', BackgroundSchema);

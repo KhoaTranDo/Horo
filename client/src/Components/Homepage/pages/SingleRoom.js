@@ -1,119 +1,139 @@
-import React, { Component } from 'react'
-import defaultBcg from '../images/room-1.jpeg'
-import Hero from '../Hero'
-import Banner from '../Banner'
-import {Link} from 'react-router-dom'
-import {RoomContext} from '../context'
-import StyleHero from '../StyleHero'
-import  NumberFormat from 'react-number-format';
+import React, { Component } from "react";
+import defaultBcg from "../images/room-1.jpeg";
+import DisplayMapClass from "./Gallery/Displaymap";
+import { RoomContext } from "../context";
+import Gallery from "./Gallery/Gallery";
+import axios from "axios";
+import "./SingleRoom.css";
 
-const formatter =new Intl.NumberFormat('en');
 export default class SingleRoom extends Component {
-    constructor(props) {
-        super(props);
-        console.log(this.props);
-        this.state = {
-          slug: this.props.match.params.slug,
-          defaultBcg: defaultBcg
-        };
-      }
-      static contextType = RoomContext;
-    
-      render() {
-        const { getRoom } = this.context;
-        const room = getRoom(this.state.slug);
-    
-        if (!room) {
-          return (
-            <div className="error">
-              <h3> no such room could be found...</h3>
-              <Link to="/rooms" className="btn-primary">
-                back to rooms
-              </Link>
+  constructor(props) {
+    super(props);
+    this.state = {
+      slug: this.props.match.params.slug,
+      defaultBcg: defaultBcg,
+      data: [],
+      address: [],
+      image: "",
+      position: "",
+    };
+  }
+  static contextType = RoomContext;
+
+  componentDidMount() {
+    axios
+      .get(`http://localhost:6001/room/detail/${this.props.match.params.slug}`)
+      .then((res) => {
+        // setData(res.data);
+        this.setState({ data: res.data.news[0].properties });
+        this.setState({ address: this.state.data.address });
+        this.setState({ image: this.state.data.image });
+        this.setState({ position: this.state.address.location });
+      })
+      .catch((err) => console.log(err));
+  }
+
+  render() {
+    return (
+      <>
+        <section className="single-room content">
+          {/* Image Show */}
+          <div className="w-10">
+            <Gallery image={this.state.image} />
+          </div>
+          {/* Content */}
+          <div>
+            {/* Title */}
+            <div className=" mb-8  grid-margin">
+              <div className="card content1">
+                <div class="widget-head">
+                  <h1>{this.state.data.title}</h1>
+                </div>
+                <ul className="extras"></ul>
+              </div>
             </div>
-          );
-        }
-        const {
-          name,
-          description,
-          capacity,
-          size,
-          price,
-          extras,
-          MayLanh,
-          TiVi,
-          MayGiat,
-          ChoDeXe,
-          CuaSo,
-          BanCong,
-          MayLocNuoc,
-          LoViSong,
-          BepGa,
-          TuLanh,
-          GacLung,
-          images
-        } = room;
-        const [main, ...defaultImages] = images;
-        console.log(defaultImages);
-    
-        return (
-          <>
-            <StyleHero img={images[0] || this.state.defaultBcg}>
-              <Banner title={`${name} `}>
-                <Link to="/rooms" className="btn-primary">
-                  back to rooms
-                </Link>
-              </Banner>
-            </StyleHero>
-            <section className="single-room">
-              <div className="single-room-images">
-                {defaultImages.map((item, index) => (
-                  <img key={index} src={item} alt={name} />
-                ))}
+            {/* room dcribe address */}
+            <div className=" mb-8  grid-margin">
+              <div className="card content1">
+                <div className="widget-head">
+                  <h1>Address Information:</h1>
+                </div>
+                <ul className="extras">
+                  <div className="w-1">
+                    <p className='mb-0'>Address:</p>
+                    <p>{this.state.address.address}</p>
+                  </div>
+                  <div className="w-1">
+                    <p>City:</p>
+                    <p>{this.state.address.country}</p>
+                  </div>
+                  <div className="w-1">
+                    <p>Dictrics:</p>
+                    <p>{this.state.address.City}</p>
+                  </div>
+                  <div className="w-1">
+
+                    <p>Area:</p>
+                    <p>{this.state.address.xa}</p>
+                  </div>
+                </ul>
               </div>
-              <div className="single-room-info">
-                <article className="desc">
+            </div>
+          </div>
+          {/* Information */}
+          <div className=" mb-8  grid-margin">
+            <div className="card  content1">
+              <div className="widget-head">
                 
-              <h6>Extras</h6>
-              <ul className="extras">
-                {extras.map((item, index) => (
-                  <li key={index}> {item}</li>
-                ))}
-              </ul>
-            
-                </article>
-                <article className="info">
-                  <h3>info</h3>
-                  <h6>{formatter.format(price)} VNĐ</h6>
-                  <h6>size : {size} M2</h6>
-                  <h6>
-                    max capacity :
-                    {capacity > 1 ? `${capacity} people` : `${capacity} person`}
-                  </h6>
-                  <h6>{MayLanh && "Air-Conditioner"}</h6>
-                  <h6>{TiVi && "Television"}</h6>
-                  <h6>{MayGiat && "Washing Machine"}</h6>
-                  <h6>{ChoDeXe && "Parking Space"}</h6>
-                  <h6>{CuaSo && "Window"}</h6>
-                  <h6>{BanCong && "Balcony"}</h6>
-                  <h6>{MayLocNuoc && "Water Purifier"}</h6>
-                  <h6>{LoViSong && "Microwave"}</h6>
-                  <h6>{BepGa && "Gas Stove"}</h6>
-                  <h6>{GacLung && "Mezzanine"}</h6>
-                  <h6>{TuLanh && "Fridge"}</h6>
-          
-                </article>
+                <h1>Information</h1>
               </div>
-            </section>
+              <article className="info">
+                <p>Acreage:{this.state.data.Size}</p>
+                <p>NumberRoom:{this.state.data.NumberRoom}</p>
+                <p>NumberPeople:{this.state.data.NumberPeople}</p>
+                <p>roomtype:{this.state.data.roomtype}</p>
+                <p>Acreage:{this.state.data.Size}</p>
+              </article>
+            </div>
+          </div>
+        </section>
+        <div className=" mb-8  grid-margin">
+          <div className="card  content1">
             <section className="room-extras">
-              <h6>Details</h6>
+              <div className="widget-head">
+                <h1>Details</h1>
+              </div>
               <ul className="details">
-                {description.map((item, index) => (
+                <h2>City:{this.state.data.describe}</h2>
+                <h2>City:{this.state.data.genderRules}</h2>
+                <h2>City:{this.state.data.describe}</h2>
+                {/* {description.map((item, index) => (
                   <li key={index}>- {item}</li>
-                ))}
+                ))} */}
               </ul>
             </section>
-          </>
-        );
-      }
+          </div>
+        </div>
+        {/* Map this room */}
+        <div className="mb-4 grid-margin ">
+          <div className=" card  content1 float-left col-lg-6 mb-5 grid-margin div-map">
+            <DisplayMapClass location={this.state.position} />
+          </div>
+          <div className=" float-left col-lg-6 mb-4 grid-margin">
+            <div className="card h-10">
+              <div>
+                <div className="widget-head">
+                  <h1>Lessor detail</h1>
+                </div>
+                <p>Name:</p>
+                <p>
+                  Contact: <button>Contact</button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 }

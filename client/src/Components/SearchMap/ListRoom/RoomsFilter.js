@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 import { RoomContext } from "./context";
-import Title from "./Title";
 import Extras from "./Extras";
 import NumberFormat from "react-number-format";
-
+import './Sliderbar.css'
 const formatter = new Intl.NumberFormat("en");
 
 const getUnique = (items, value) => {
@@ -41,8 +40,12 @@ const RoomsFilter = ({ rooms }) => {
     </option>
   ));
   return (
+    <>
     <section className="filter-container">
-      <Title title="search rooms" />
+    <div className="section-title">
+      <h4>Search Room</h4>
+      <div />
+    </div>
       <form className="filter-form">
         {/* select type */}
         <div>
@@ -119,6 +122,8 @@ const RoomsFilter = ({ rooms }) => {
         {/* end of extras type */}
       </form>
     </section>
+    
+    </>
   );
 };
 

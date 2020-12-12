@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { FaAlignRight } from "react-icons/fa";
 import { loadUser, logOut } from "../../action/auth";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { MemuItems } from "./menu";
-import axios from 'axios';
-
+import { NavLink, Link } from "react-router-dom";
+import axios from 'axios'
+import "./navbar.css";
 import {
   MDBDropdown,
   MDBDropdownToggle,
@@ -13,24 +12,27 @@ import {
   MDBDropdownItem,
   MDBIcon,
 } from "mdbreact";
+
 class Navbar extends Component {
   state = {
     isOpen: false,
     // old nav
     clicked: false,
-    name: ''
+    name: "",
   };
-  // componentWillMount(){
-  //   const a=localStorage.token;
-  //   const respone = axios.get(`http://localhost:6001/account`,{
-  //     'x-auth-token':a
-  //   }).then((respone)=> {this.setState({
-  //     name: respone.data.name
-  //   }) })
-   
-   
-  // }
-  
+  componentWillMount() {
+    const a = localStorage.getItem('token');
+    const respone = axios
+      .get(`http://localhost:6001/account`, {
+        "x-auth-token": a,
+      })
+      .then((respone) => {
+        this.setState({
+          name: respone.data.name,
+        });
+      });
+  }
+
   handleTooggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
   };
@@ -40,72 +42,106 @@ class Navbar extends Component {
     this.setState({ clicked: !this.state.clicked });
   };
 
-  render() {  
+  render() {
+  
     return (
       <>
-        <nav className="navbar">
-          <div className="nav-center" style={{ width: "100%" }}>
-            <div className="nav-header">
-              <div>
-                <h1> HORO </h1>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  className="nav-btn"
-                  onClick={this.handleTooggle}
-                >
-                  <FaAlignRight className="nav-icon" />
-                </button>
-              </div>
-            </div>
-            <ul
-              className={this.state.isOpen ? "nav-links show-nav" : "nav-links"}
+        <nav className="navbar navbar-expand-sm navbar-dark mb-7 py-2 fixed-top ">
+          <div className="container-fluid ">
+            <span className="navbar-brand font-weight-bolder">HORO</span>
+            <a
+              href="void(0)"
+              className="navbar-toggler border-0"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
             >
-              {MemuItems.map((item, index) => {
-                return (
-                  <li key={index}>
-                    <a className={item.cName} href={item.url}>
-                      {item.title}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {this.props.isLoggedIn ? (
-              <>
-              <a href='/addroom'>My Place</a>
-                <Link to="/">
-                  <MDBDropdown>
-                    <MDBDropdownToggle nav caret>
-                      <MDBIcon icon="user" />
-            <span> {this.state.name}</span>
-                      
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu className="dropdown-default">
-                      <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                      <MDBDropdownItem href="#!">
-                      <span>User Profile</span>
-                      </MDBDropdownItem>
-                      <MDBDropdownItem href="#!">
-                      <span>Your Bookmark</span>
-                      </MDBDropdownItem>
-                        <Link to="/" onClick={() => {localStorage.clear();this.props.logOut()}}>
-                      <MDBDropdownItem href="">
-                          <span>Log Out</span>
-                      </MDBDropdownItem>
-                        </Link>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </Link>
-                <button  onClick={() => {localStorage.clear();this.props.logOut()}}>asdasd</button>
-              </>
-            ) : (
-              <span className='login-span'>
-                <Link to="/account">Login</Link>
+              <span>
+                <FaAlignRight className="nav-icon" />
               </span>
-            )}
+            </a>
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <NavLink className="nav-link" exact to="/">
+                    Home
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" exact to="/rooms">
+                    Rooms
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" exact to="/about">
+                    About
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" exact to="/contact">
+                    Contact
+                  </NavLink>
+                </li>
+
+                {this.props.isLoggedIn ? (
+                  <>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" exact to="/room/addroom">
+                        My Place
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <MDBDropdown>
+                        <MDBDropdownToggle nav caret>
+                          <MDBIcon icon="user" />
+                          <span>{localStorage.getItem('name')}</span>
+                        </MDBDropdownToggle>
+                        <MDBDropdownMenu className="dropdown-default">
+                          <MDBDropdownItem href="#!">
+                            {this.state.name}
+                          </MDBDropdownItem>
+                          <MDBDropdownItem href="/profile">
+                            <span>User Profile</span>
+                          </MDBDropdownItem>
+                          <MDBDropdownItem href="#!">
+                            <span>Your Bookmark</span>
+                          </MDBDropdownItem>
+                          <Link
+                            to="/"
+                            onClick={() => {
+                              localStorage.clear();
+                              this.props.logOut();
+                            }}
+                          >
+                            <MDBDropdownItem href="">
+                              <span
+                                onClick={() => {
+                                  localStorage.clear();
+                                  this.props.logOut();
+                                }}
+                              >
+                                Log Out
+                              </span>
+                            </MDBDropdownItem>
+                          </Link>
+                        </MDBDropdownMenu>
+                      </MDBDropdown>
+                    </li>
+                  </>
+                ) : (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/account">
+                      Login
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
           </div>
         </nav>
       </>

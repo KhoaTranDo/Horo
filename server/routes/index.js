@@ -1,15 +1,11 @@
 const accountRouter = require('./users');
-const mainRouter = require('./Main');
-const router = require('./Detail');
-const Lessor = require('./Lessor')
+const mainRouter = require('./Homepage');
+const Manager = require('./Manager')
 const Room = require('./Room')
 function route(app) {
-  //c1
-  // app.get('/search', (req, res) => {
-  //   res.render('search');
-  // })
-  //c2
-  app.use('/lessor',Lessor);
+
+
+  app.use('/Manager',Manager);
   app.use('/account',accountRouter);
   app.use('/room',Room);
   app.use('/', mainRouter);

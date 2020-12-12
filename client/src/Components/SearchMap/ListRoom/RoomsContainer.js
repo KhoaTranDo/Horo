@@ -6,9 +6,10 @@ import RoomsList from "./RoomsList";
 
 function RoomContainer({ context }) {
   const { sortedRooms, rooms } = context;
- 
+
   return (
     <>
+     
       <RoomsFilter rooms={rooms} />
       <RoomsList rooms={sortedRooms} />
     </>

@@ -9,7 +9,7 @@ const fileUpload = require("express-fileupload")
 
 //Ket noi database
 connectToDatabase();
-const UploadImage = require('./controllers/AddImage')
+const UploadImage = require('./controllers/ImageControlller')
 
 //router
 const route = require('./routes');
@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.json({extended: false}));
+//public folde 
 app.use(express.static("uploads"));
 // app.use('/', require('./routes/users'));
 // make a post request
@@ -28,6 +29,7 @@ app.use('/upload-images',upload.array('image'),UploadImage.Upload)
         }))
 
 route(app);
+
 
 const PORT = process.env.PORT || 6001;
 

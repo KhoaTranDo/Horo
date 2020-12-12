@@ -15,10 +15,6 @@ class ListRoom extends Component {
      slug:'HHH'
     };
   }
-  
-
-
- 
   render() {
     return (
       // Div Main

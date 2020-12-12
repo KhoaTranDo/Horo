@@ -25,9 +25,7 @@ let UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    admin:{type:Number,default:0},
-    avatar:{type:String, default:'no'},
-    
+    roles:{type:Number,default:0},
 },
 {
     timestamps:true,

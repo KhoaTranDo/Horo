@@ -7,10 +7,10 @@ import {
     AUTH_ERROR,
     LOG_OUT
 } from '../constants/constants';
+
 import axios from 'axios';
 
 import {setToken} from '.././api/setToken';
-import { clearPrewarmedResources } from 'mapbox-gl';
 
 export const loadUser = () => async dispatch =>{
     if(localStorage.getItem('token'))
@@ -20,11 +20,12 @@ export const loadUser = () => async dispatch =>{
         dispatch({
             type: LOAD_USER,
             payload: response.data,
-            
+    
         },)
        localStorage.setItem('user',JSON.stringify(response.data._id))
-     
-      
+       localStorage.setItem('id',response.data._id)
+       localStorage.setItem('name',response.data.firstname+response.data.lastname)
+      console.log(localStorage.getItem('name'))
         
     } catch (error){
         dispatch({ type: AUTH_ERROR, payload:error});

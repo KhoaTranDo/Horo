@@ -9,7 +9,6 @@ function AddImage(props) {
   const [disable, setdisable] = useState(false);
   const formData = new FormData();
   const imageHandleChange = async (e) => {
-
     if (e.target.files) {
       const fileArray = URL.createObjectURL(e.target.files[0]);
       formData.append("picture", e.target.files[0]);
@@ -18,7 +17,6 @@ function AddImage(props) {
       setSelectedImage((prevImages) => prevImages.concat(fileArray));
       Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
     }
-
     //Limit imageimage
     setcount(count + 1);
     if (count === 3) {
@@ -42,7 +40,6 @@ function AddImage(props) {
   
   return (
     <div className="app">
-      <div className="heading">React Multiple Images Preview</div>
       <div className="result">{renderPhotos(selectedImages)}</div>
       <br />
       <div className="input-group mb-3">

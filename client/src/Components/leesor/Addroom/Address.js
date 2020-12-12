@@ -12,12 +12,14 @@ function Address(props) {
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState(null);
   const [result, setResult] = useState(null);
+  const [fullAddress,setFullAddress]= useState();
   // handle change event of the country dropdown
   const handleCountryChange = (obj) => {
     setCountry(obj);
     setcityList(obj.huyen);
     setcity(null);
     setResult({ ...result, country: obj.name });
+     setFullAddress(obj.name);
   };
   useEffect(() => {
     setResult({ ...result, location: position });
@@ -29,16 +31,18 @@ function Address(props) {
     setXaList(obj.xa);
     setXa(null);
     setResult({ ...result, City: obj.name });
+    setFullAddress(obj.name+', '+fullAddress);
   };
   const handleXaChange = (obj) => {
     setXa(obj);
     setLocation(obj.location);
     setResult({ ...result, xa: obj.name });
+    setFullAddress(obj.name+', '+fullAddress);
   };
   const handleAddress = (e) => {
     setAddress(e.target.value);
     setResult({ ...result, address: e.target.value });
-    console.log(address);
+   // setFullAddress(address+', '+fullAddress);
   };
  
   const getPosition = (item) => {
@@ -85,6 +89,10 @@ function Address(props) {
       <div className='col-md-12'>
         <span>Address:</span>
         <input type="text" className="form-control" onChange={handleAddress}></input>
+        </div>
+        <div className='col-md-12'>
+        <span>Full Address:</span>
+        <input type="text" value={fullAddress} className="form-control" onChange={handleAddress} disabled></input>
         </div>
        
     </div>

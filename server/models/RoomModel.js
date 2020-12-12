@@ -1,5 +1,9 @@
-const mongoose = require("mongoose");
-let RoomSchema = mongoose.Schema(
+var mongoose = require("mongoose");
+var slug = require('mongoose-slug-updater');
+    mongoose.plugin(slug),
+    Schema = mongoose.Schema,
+     
+ RoomSchema = new Schema(
   {
     type: Object,
     UserID: { type: String, required: true },
@@ -39,6 +43,10 @@ let RoomSchema = mongoose.Schema(
             type: String,
           },
         },
+      },
+      title: {
+        type: String,
+        required: true,
       },
       roomtype: {
         type: String,
@@ -86,7 +94,9 @@ let RoomSchema = mongoose.Schema(
           },
         },
       },
+      status:{type:Number,default:0},
       date: { type: Date, default: Date.now },
+      slug: { type: String, slug:"title", unique: true }
     },
   },
   {

@@ -5,7 +5,6 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoia2hvYXRyYW5kbyIsImEiOiJja2VjYjVwaXcwYTRzMnFwM2F1ajRubTZqIn0.lNjQnHcGloiZU3dZ9E_1-w";
-
 export default class MapBox extends React.Component {
   constructor(props) {
     super(props);

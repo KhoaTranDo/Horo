@@ -24,11 +24,11 @@
     letter-spacing: var(--mainSpacing);
     margin-bottom: 0.5rem;
   }
-  .form-control {
+  /* .form-control {
     width: 100%;
     background: transparent;
     font-size: 1rem;
-  }
+  } */
   .size-inputs {
     display: flex;
   }
@@ -531,11 +531,11 @@
     letter-spacing: var(--mainSpacing);
     margin-bottom: 0.5rem;
   }
-  .form-control {
+  /* .form-control {
     width: 100%;
     background: transparent;
     font-size: 1rem;
-  }
+  } */
   .size-inputs {
     display: flex;
   }

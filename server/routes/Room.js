@@ -2,29 +2,27 @@ const express = require('express');
 const router = express.Router();
 
 const roomControllers = require('../controllers/Room')
+const Image = require('../controllers/ImageControlller')
 const fileUpload = require("express-fileupload")
 
-router.post('/add',roomControllers.addRoom)
+// Address
+router.get("/Address")
+// Load All Room
 router.get('/PostAllRoom',roomControllers.postAllRoom)
-router.post("/picture", async (req, res) => {
-  try {
-    if(!req.files){
-      res.send({
-        status: false,
-        message: "No files"
-      })
-    } else {
-      const {picture} = req.files
+// 
+// PostName room Save Image
+router.post("/picture", Image.PostImageRoom )
+router.get("/add/Image=:imagename")
+router.get('/detail/:slug',roomControllers.RoomDetail)
+router.post("/picture/Delete")
+router.get('/LessorRoom',roomControllers.getRoomById)
+router.get('/LessorRoom/:slug',roomControllers.upDateRoomById)
+// Add New Room Finish
+router.post('/add',roomControllers.addRoom)
 
-      picture.mv("./uploads/" + picture.name)
+// Manager Room
+router.get("/ManagerRoom/ShowRoom")
+router.post("/ManagerRoom/HidenRoom")
 
-      res.send({
-        status: true,
-        message: "File is uploaded"
-      })
-    }
-  } catch (e) {
-    res.status(500).send(e)
-  }
-})
+
 module.exports = router;
