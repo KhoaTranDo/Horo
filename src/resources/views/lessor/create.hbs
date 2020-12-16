@@ -12,9 +12,11 @@
             <input class="form-control" placeholder="Author" type="text" name="slug" style="width: 80%;">
             <label for="price">Price : </label>
             <input class="form-control" placeholder="Price" type="text" name="price" style="width: 80%;">
+            <h1>Your Feedback</h1>
+            <input type="text" name="feedback">
             <label for="Image">Image : </label>
-            <input class="form-control" type="file" name="img">
-            
+            <input class="form-control" type="file" name="img" multiple>
+
 
         </div>
         {{!-- <h3>Loại phòng</h3>
@@ -31,10 +33,10 @@
                 </label>
                 </div>
         </div> --}}
-        
-        <a href="/lessor/store">
-            <button type="submit" class="btn btn-primary" style="width: 30%;">Đăng phòng</button>
-        </a>
+
+
+        <button type="submit" class="btn btn-primary" style="width: 30%;">Đăng phòng</button>
+
         <a class="btn btn-primary" href="/lessor">Quay về danh sách</a>
 
 

@@ -44,11 +44,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser())
 
-var problemMiddleware = function(request, response, next) {
-  response.setHeader("Content-Type", "text/html");
-  response.write("<p>Hello World</p>");
-  next();
-};
+
 //upload files
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -64,17 +60,13 @@ var upload = multer({
   storage: storage,
   fileFilter: function (req, file, cb) {
     console.log(file);
-    if (file.mimetype == "image/bmp" || file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+    if (file.mimetype == "image/docx" || file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
       cb(null, true)
     } else {
       return cb(new Error('Only image are allowed!'))
     }
   }
 }).single("img");
-
-app.get('/lessor/create', (req, res) => {
-  res.render('lessor/create')
-})
 
 // Khai báo và lấy dữ liệu trong mongodb
 app.post('/lessor/store', (req, res) => {
@@ -92,7 +84,7 @@ app.post('/lessor/store', (req, res) => {
         address: req.body.address,
         price: req.body.price,
         slug: req.body.slug,
-        image: req.file.filename
+        image: req.file.filename,
       })
       roles.save((err) => {
         if (err) {

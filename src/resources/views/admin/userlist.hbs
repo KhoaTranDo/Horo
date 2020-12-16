@@ -1,0 +1,74 @@
+<div class="mt-4">
+    <h3>Users profile list</h3>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username </th>
+                <th scope="col">Phone </th>
+                <th scope="col">Email </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.username}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.email}}</td>
+                <td>
+                    <a href="/admin/{{this._id}}/update" class="btn btn-link">Sửa</a>
+                    <a href="" class="btn btn-link" data-id={{this._id}} data-toggle="modal"
+                        data-target="#delete-rooms">Xóa</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/admin/userlist">Quay về danh sách</a>
+</div>
+
+{{!-- Attention --}}
+<div id="delete-rooms" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa phòng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa phòng này ?</p>
+            </div>
+            <div class="modal-footer">
+
+                <button id='btn-delete-rooms' type="button" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete form --}}
+{{!-- <form method="POST" name='delete-form'></form> --}}
+
+
+{{!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var btnDeleteRooms = document.getElementById('btn-delete-rooms')
+        var roomID
+        var deleteForm = document.forms['delete-form']
+        $('#delete-rooms').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            roomID = button.data('id')
+        })
+        btnDeleteRooms.onclick = function () {
+            deleteForm.action = '/lessor/' + roomID + '?_method=DELETE'
+            deleteForm.submit()
+        }
+    })
+
+
+</script> --}}

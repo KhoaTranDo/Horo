@@ -3,7 +3,9 @@ const router = express.Router();
 
 const roleControllers = require('../app/controllers/RoleControllers')
 
-router.get('/search',roleControllers.search)
+// router.get('/feedback',roleControllers.review)
+// router.put('/:slug', roleControllers.feedback)
+router.get('/search', roleControllers.search)
 router.delete('/:id', roleControllers.delete)
 router.put('/:id', roleControllers.edit)
 router.post('/store', roleControllers.store)

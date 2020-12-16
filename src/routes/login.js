@@ -7,8 +7,8 @@ const loginControllers = require('../app/controllers/LoginControllers')
 
 router.post('/', loginControllers.access)
 router.get('/cookie', (req, res, next) => {
-    // res.cookie()
-    // res.send()
+    res.cookie('email',12345)
+    res.send('hello')
 })
 router.get('/', loginControllers.login)
 

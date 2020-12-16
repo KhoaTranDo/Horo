@@ -4,23 +4,24 @@ var mongoose = require('mongoose')
 
 class LoginrControllers {
     login(req, res, next) {
+        //console.log(req.cookies)
         res.render('login')
     }
     async access(req, res, next) {
-        var email = req.body.email ? req.body.email : res.redirect('/login') // ?(if) have condition -> run
-        var password = req.body.password? req.body.password : res.redirect('/login')
+        var username = req.body.username ? req.body.username : res.redirect('/login') // ?(if) have condition -> run
+        var password = req.body.password ? req.body.password : res.redirect('/login')
 
-        await UserModel.findOne({ email: email }, (err, value) => {
-            try{
-                
+        await UserModel.findOne({ username: username }, (err, value) => {
+            try {
+
                 if (value.password != null) {
-                    
+
                     if (password === value.password && !err) {
 
-                        res.redirect("/lessor");
+                        res.redirect("/admin/userlist");
 
                     }
-                    else{
+                    else {
                         res.redirect('/login')
                     }
                 }
@@ -36,17 +37,8 @@ class LoginrControllers {
                 res.redirect('/login');
             }
         });
+        res.locals.username = username
 
-        // if (users.email) {
-        //     return res.render('lessor')
-        // }
-
-
-        // if (users.password !== password) {
-        //     return res.render('login')
-
-        // }
-        //res.redirect('/lessor')
 
     }
 }

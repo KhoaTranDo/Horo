@@ -1,0 +1,23 @@
+<div class="mt-4">
+    <h3>Update user account</h3>
+    <form method="POST" action="/admin/{{users._id}}?_method=PUT">
+        <div class="form-group">
+
+            <label for="room">User name : </label>
+            <input class="form-control" type="text" value="{{users.username}}" name="username" style="width: 80%;">
+            <label for="price">Phone number : </label>
+            <input class="form-control" type="text" value="{{users.phone}}" name="phone" style="width: 80%;">
+            <label for="img">Email : </label>
+            <input class="form-control" type="text" value="{{users.email}}" name="email" style="width: 80%;">
+
+
+        </div>
+
+
+        <a href="/admin/store">
+            <button type="submit" class="btn btn-primary" style="width: 30%;">Save</button>
+        </a>
+        <a class="btn btn-primary" href="/admin/userlist">Quay về danh sách chỉnh sửa</a>
+
+    </form>
+</div>

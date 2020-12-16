@@ -1,4 +1,5 @@
 <h1>List of your rental room</h1>
+<h1>Hello {{roles.email}}</h1>
 <div class="mt-4">
     <a class="btn" href="/lessor/create">
         <button>Đăng phòng</button>
@@ -8,7 +9,7 @@
     </a>
     <form action="/lessor/search" method="GET" class="form-inline">
         <div class="form-group">
-            <input type="text" name="slug" class="form-control">
+            <input type="text" name="room" class="form-control">
             <input type="submit" value="Search" class="btn btn-default">
         </div>
     </form>
@@ -26,7 +27,8 @@
                 <a href="lessor/{{this.slug}}">
                     <h5 class="card-title">Room's name : {{this.room}}</h5>
                 </a>
-                
+                <h1 class="card-title">Room's feedback : {{this.feedback}}</h1>
+
 
             </div>
         </div>

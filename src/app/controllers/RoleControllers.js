@@ -20,13 +20,17 @@ class RoleControllers {
     show(req, res, next) {
 
         Role.findOne({ slug: req.params.slug })
+
             .then(roles => res.render('lessor/show', { roles: mongooseToObject(roles) }))
             // .then(roles => { res.render('lessor', { roles: mongooseToObject(roles) }) })
             .catch(next)
-
-
-
     }
+    // feedback(req, res, next) {
+    //     Role.updateOne({ feedback: req.params.feedback }, req.body)
+    //         .then(() => res.redirect('/lessor'))
+    //         .catch(next)
+    // }
+
     create(req, res, next) {
         Role.findOne({ slug: req.params.slug })
             .then(roles => res.render('lessor/create', { roles: mongooseToObject(roles) }))
@@ -36,14 +40,11 @@ class RoleControllers {
 
 
     store(req, res, next) {
-        const formData = req.body
-        formData.image = `${req.body.image}`
+
         const role = new Role(req.body)
         role.save()
             .then(() => res.redirect('/lessor'))
-            .catch(error => {
-
-            })
+            .catch(error => { })
     }
     update(req, res, next) {
         Role.findById({ _id: req.params.id })
@@ -67,11 +68,13 @@ class RoleControllers {
     }
 
     search(req, res, next) {
-        Role.findOne({ slug: req.query.slug })
+        Role.findOne({ room: req.query.room })
             .then(roles => res.render('lessor/search', { roles: mongooseToObject(roles) }))
             // .then(roles => { res.render('lessor', { roles: mongooseToObject(roles) }) })
             .catch(next)
     }
+
+
 
 }
 
