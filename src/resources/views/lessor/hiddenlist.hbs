@@ -1,7 +1,7 @@
 <div class="mt-4">
     <div>
-        <h3>Rooms profile list</h3>
-        <a href="/lessor/hiddenlist/post">Danh sách ẩn phòng</a>
+        <h3>List of hidden rooms</h3>
+        <a href="/lessor/stores/post">Room List</a>
     </div>
     <table class="table mt-4">
         <thead>
@@ -20,16 +20,16 @@
                 <td>{{this.price}}</td>
                 <td>{{this.slug}}</td>
                 <td>
-                    <a href="/lessor/{{this._id}}/update" class="btn btn-link">Sửa</a>
-                    <a href="" class="btn btn-link" data-id={{this._id}} data-toggle="modal"
-                        data-target="#delete-rooms">Ẩn phòng</a>
+                    <a href="" class="btn btn-cancel" data-id={{this._id}} data-toggle="modal"
+                        data-target="#delete-rooms">
+                        Bỏ ẩn phòng
+                    </a>
                 </td>
             </tr>
             {{else}}
             <tr>
-                <td colspan="5" class="text-center">Bạn chưa có phòng đăng hoặc đã ẩn đi!!!
-                    </br>
-                    <a href="/lessor/create" class="btn btn-link">Hãy thử tạo một bài đăng phòng nào!</a>
+                <td colspan="5" class="text-center">
+                    Không có phòng nào được ẩn đi!!!
                 </td>
 
             </tr>
@@ -40,45 +40,45 @@
 </div>
 
 {{!-- Attention --}}
-<div id="delete-rooms" class="modal" tabindex="-1">
+<div id="cancel-hidden-rooms" class="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ẩn phòng</h5>
+                <h5 class="modal-title">Khôi phục phòng</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Bạn chắc chắn muốn ẩn phòng này ?</p>
+                <p>Bạn chắc chắn muốn bỏ ẩn phòng này ?</p>
             </div>
             <div class="modal-footer">
 
-                <button id='btn-delete-rooms' type="button" class="btn btn-danger">Ẩn</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy ẩn</button>
+                <button id='btn-cancel-hidden-rooms' type="button" class="btn btn-danger">Bỏ ẩn</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
 
             </div>
         </div>
     </div>
 </div>
-
-{{!-- Delete form --}}
-<form method="POST" name='delete-form'></form>
-
-
+<form name="cancel-hiddenroom-form" method="POST"></form>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var btnDeleteRooms = document.getElementById('btn-delete-rooms')
+        var cancelForm = document.forms['cancel-hiddenroom-form']
+        
         var roomID
-        var deleteForm = document.forms['delete-form']
-        $('#delete-rooms').on('show.bs.modal', function (event) {
+        var cancelBtn = $('.btn-cancel')
+
+        $('#cancel-hidden-rooms').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             roomID = button.data('id')
         })
-        btnDeleteRooms.onclick = function () {
-            deleteForm.action = '/lessor/' + roomID + '?_method=DELETE'
-            deleteForm.submit()
-        }
+
+        cancelBtn.click(function (){
+            var roomID = $(this).data('id')
+            cancelForm.action = '/lessor/' + roomID + '/cancel?_method=PATCH'
+            cancelForm.submit()
+        })
     })
 
 

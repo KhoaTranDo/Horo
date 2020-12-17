@@ -7,11 +7,17 @@ class LessorControllers {
     // url
     storesPost(req, res, next) {
         Role.find({})
-        .then(roles => res.render('lessor/list',{
-            roles : multipleMongooseToObject(roles)
-        }) )
-        .catch(next)
-        
+            .then(roles => res.render('lessor/list', {
+                roles: multipleMongooseToObject(roles)
+            }))
+            .catch(next)
+
+    }
+    hiddenPost(req, res, next) {
+        Role.findDeleted({})
+            .then((roles) => res.render('lessor/hiddenlist', {
+                roles: multipleMongooseToObject(roles)
+            }))
     }
 
 

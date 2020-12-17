@@ -62,7 +62,7 @@ class RoleControllers {
 
     //DELETE
     delete(req, res, next) {
-        Role.deleteOne({ _id: req.params.id })
+        Role.delete({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next)
     }
@@ -73,6 +73,13 @@ class RoleControllers {
             // .then(roles => { res.render('lessor', { roles: mongooseToObject(roles) }) })
             .catch(next)
     }
+    cancel(req, res, next) {
+        Role.restore({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next)
+    }
+
+    
 
 
 

@@ -12,7 +12,7 @@ const Schema = mongoose.Schema
 
 const User = new Schema({
 
-    email: { type: String, minlength: 6, required: true },
+    email: { type: String, minlength: 6, maxlength: 20, required: true , unique:true},
     password: { type: String, minlength: 6, required: true },
     username: { type: String, minlength: 6, required: true },
     phone: { type: Number, minlength: 6, required: true, unique: true },
