@@ -1,30 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { logOut } from "../../action/auth";
 import { connect } from "react-redux";
-import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { Gallery } from "./Gallery";
-import axios from "axios";
 import "./style.css";
 import Listroom from "./Listroom";
 import Caterology from "./Caterology";
 import Service from "./Services";
 
 const Homepage = ({ isLoggedIn, logOut }) => {
-  const [data, setData] = useState([]);
-
-  //Get Ads from Json Nodejs
-  useEffect(() => {
-    axios
-      .get("http://localhost:6001/Add")
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
+   let[typeRoom,setTypeRoom]= useState(null)
+    const getType =(item)=>{
+        setTypeRoom(item)
+    }
   return (
     <>
+    
       {/* Page Content */}
       <div className="row  ">
         {/* /.col-lg-3 */}
@@ -35,13 +26,13 @@ const Homepage = ({ isLoggedIn, logOut }) => {
               <Gallery />
             </div>
           </div>
-          <div className="row" style={{ float: "left" }}>
-            <div className="col-lg-3 sidebar">
-              <Caterology />
+            <div >
+              <Caterology typeroom={getType.bind(this)} />
             </div>
-            <div className="col-lg-9">
+          <div className="row col-lg-12" >
+            <div className="col-lg-12 ">
               <div className="row">
-                <Listroom />
+                <Listroom typeRoom={typeRoom} />
               </div>
             </div>
           </div>

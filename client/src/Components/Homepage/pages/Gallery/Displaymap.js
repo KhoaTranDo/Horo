@@ -1,9 +1,8 @@
 import React from "react";
 import mapboxgl from "mapbox-gl";
-import markerIcon from '../../images/img/marker.png';
+import markerIcon from "../../images/img/marker.png";
 mapboxgl.accessToken =
-  "pk.eyJ1Ijoia2hvYXRyYW5kbyIsImEiOiJja2VjYjVwaXcwYTRzMnFwM2F1ajRubTZqIn0.lNjQnHcGloiZU3dZ9E_1-w";
-
+  "pk.eyJ1Ijoia2hvYTgxMiIsImEiOiJja2ltamhmc3owdHQ2MnlxaXpzNzVzczQ0In0.lunzbuC8Lii8pl_Ktfv3UA";
 export default class DisplayMapClass extends React.Component {
   constructor(props) {
     super(props);
@@ -13,37 +12,53 @@ export default class DisplayMapClass extends React.Component {
       zoom: 13,
     };
   }
+  componentWillReceiveProps(){
+    console.log(this.props.location[0])
+    //this.setState={lng:this.props.location[0]}
+    
+  }
   componentDidMount() {
+    console.log(this.state)
     let map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom,
     });
-    map.loadImage(
-      markerIcon,
-      // Add an image to use as a custom marker
-      function (error, image) {
-        if (error) throw error;
-        map.addImage("custom-marker", image);
-        map.addSource("places", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                geometry: {
-                  type: "Point",
-                  coordinates: [0, 0],
+    map.on("load", function () {
+      map.loadImage(
+        markerIcon,
+        function (error, image) {
+          if (error) throw error;
+          map.addImage("marker", image);
+          map.addSource("point", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [
+                {
+                  type: "Feature",
+                  geometry: {
+                    type: "Point",
+                    coordinates: [108.22363,16.07465]
+                  },
                 },
-              },
-            ],
-          },
-        });
-      }
-    );
-
+              ],
+            },
+          });
+          map.addLayer({
+            id: "points",
+            type: "symbol",
+            source: "point",
+            layout: {
+              "icon-image": "marker",
+              "icon-size": 0.1,
+            },
+          });
+        }
+      );
+    });
+  
     // Load ban do mac dih
     map.on("move", () => {
       this.setState({
@@ -63,7 +78,6 @@ export default class DisplayMapClass extends React.Component {
   }
 
   render() {
-    console.log(this.props.location[0]);
     return (
       <div style={{ width: "30%", height: "500px" }}>
         <div className="sidebarStyle"></div>

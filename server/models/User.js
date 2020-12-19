@@ -31,4 +31,4 @@ let UserSchema = mongoose.Schema({
     timestamps:true,
 });
 
-module.exports = UserSchema = mongoose.model('user', UserSchema);
+module.exports = UserSchema = mongoose.model('UserProfile', UserSchema);

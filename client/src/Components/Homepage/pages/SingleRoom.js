@@ -16,6 +16,9 @@ export default class SingleRoom extends Component {
       address: [],
       image: "",
       position: "",
+      Lessor: "",
+      id:'',
+      name:''
     };
   }
   static contextType = RoomContext;
@@ -24,15 +27,20 @@ export default class SingleRoom extends Component {
     axios
       .get(`http://localhost:6001/room/detail/${this.props.match.params.slug}`)
       .then((res) => {
-        // setData(res.data);
         this.setState({ data: res.data.news[0].properties });
         this.setState({ address: this.state.data.address });
         this.setState({ image: this.state.data.image });
+        this.setState({ id: res.data.news[0].UserID });
         this.setState({ position: this.state.address.location });
+        axios
+          .get(`http://localhost:6001/account/UserProfile/${this.state.id}`)
+          .then((res) => {
+            this.setState({name:res.data.result.firstname})
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   }
-
   render() {
     return (
       <>
@@ -47,8 +55,9 @@ export default class SingleRoom extends Component {
             <div className=" mb-8  grid-margin">
               <div className="card content1">
                 <div class="widget-head">
-                  <h1>{this.state.data.title}</h1>
+                  <h1>Title:</h1>
                 </div>
+                <h1>{this.state.data.title}</h1>
                 <ul className="extras"></ul>
               </div>
             </div>
@@ -60,7 +69,7 @@ export default class SingleRoom extends Component {
                 </div>
                 <ul className="extras">
                   <div className="w-1">
-                    <p className='mb-0'>Address:</p>
+                    <p className="mb-0">Address:</p>
                     <p>{this.state.address.address}</p>
                   </div>
                   <div className="w-1">
@@ -72,7 +81,6 @@ export default class SingleRoom extends Component {
                     <p>{this.state.address.City}</p>
                   </div>
                   <div className="w-1">
-
                     <p>Area:</p>
                     <p>{this.state.address.xa}</p>
                   </div>
@@ -84,7 +92,6 @@ export default class SingleRoom extends Component {
           <div className=" mb-8  grid-margin">
             <div className="card  content1">
               <div className="widget-head">
-                
                 <h1>Information</h1>
               </div>
               <article className="info">
@@ -125,7 +132,7 @@ export default class SingleRoom extends Component {
                 <div className="widget-head">
                   <h1>Lessor detail</h1>
                 </div>
-                <p>Name:</p>
+                <p>Name:{this.state.name}</p>
                 <p>
                   Contact: <button>Contact</button>
                 </p>

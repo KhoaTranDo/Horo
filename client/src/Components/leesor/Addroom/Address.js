@@ -24,7 +24,7 @@ function Address(props) {
   useEffect(() => {
     setResult({ ...result, location: position });
     props.address(result);
-  }, [position,address]);
+  }, [position,address,props.price]);
   // handle change event of the language dropdown
   const handleCityChange = (obj) => {
     setcity(obj);

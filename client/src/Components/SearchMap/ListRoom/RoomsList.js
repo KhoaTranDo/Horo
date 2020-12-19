@@ -1,6 +1,4 @@
 import React, { useState,useEffect } from "react";
-import Room from "./Room";
-import data from "./data";
 import axios from 'axios'
 import { Link } from "react-router-dom";
 export default function Listroom() {
@@ -28,8 +26,6 @@ export default function Listroom() {
               <div className="cardhome">
                 <img
                   className="card-img"
-                  // src={item.fields.images[1].fields.file.url}//http://localhost:6001/${item.properties.image[0]}
-                  //http://localhost:6001/img1.jpg
                   src={`http://localhost:6001/${item.properties.image[0]}`}
                   alt="Card"
                 />

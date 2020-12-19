@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Footer from "./Components/footer/footer";
 import Navbar from "./Components/navbar/navbar";
 import "./App.css";
 import store from "./store";
@@ -14,7 +13,7 @@ import NoMatch from "./Components/nomatch";
 import { MainSearch } from "./Components/SearchMap/MainSearch";
 import SingleRoom from "./Components/Homepage/pages/SingleRoom";
 import Rooms from "./Components/Homepage/pages/Rooms";
-import Profile from "./Components/Profile/Profile";
+import Profile from "./Components/Profile/MainProfile";
 import About from "./Components/Homepage/pages/About";
 import Contact from "./Components/Homepage/pages/Contact";
 // demo

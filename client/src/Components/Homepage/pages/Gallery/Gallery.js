@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ActiveGallery from "./ActiveGallery";
 import GalleryGrid from "./galleryGrid";
-import axios from "axios";
 
 export default class Gallery extends Component {
   state = {
@@ -10,9 +9,6 @@ export default class Gallery extends Component {
     image:''
   };
   renderGallery = () => {
-   
- 
-     //const { gallery, activeIndex} = this.state;
      if (this.props.image.length) {
       return (
         <>

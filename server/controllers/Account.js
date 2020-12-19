@@ -88,16 +88,28 @@ class Account {
     }
   }
   //Change password
-  async Changepassword(res,req){
-    let{id,password} = res.body
+  async Changepassword(req,res){
+    let{id,password} = req.body
     try{
       const salt = await bcryptjs.genSalt(10);
       password = await bcryptjs.hash(password, salt);
       await UserSchema.updateOne({'_id':id},{'password':password})
-   } catch (error) {
-     console.log(error.message);
-    return res.status(500).json({ msg: "Server Error..." });
-   }
+      res.json({msg:"Change Success"})
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({ msg: "Server Error..." });
+    }
+  }
+  // Submit Update
+  async SubmitUpdate(req,res){
+    let {id,firstname,lastname,phone}=req.body;
+    try{
+       await UserSchema.updateOne({'_id':id},{'firstname':firstname,'lastname':lastname,'phone':phone}) 
+       res.json({msg:"Update profile success"})
+    } catch (error) {
+      console.log(error.message);
+     return res.status(500).json({ msg: "Server Error..." });
+    }
   }
 
   //Verify OTP Phone number
@@ -175,31 +187,25 @@ class Account {
 
   //Get Information User By id
   async getInforById(res,req){
+    let id =res.params.slug
+ 
     try{
-        await UserSchema.findOne({'_id':res.params.slug},(err,result)=>{
+        await UserSchema.findOne({'_id':id},(err,result)=>{
            if(err) console.log(err)
-           res.json={
-             data:result
-           }
-        })
+           req.json({
+             result        
+           })
+          })
+
     }catch(err){
         res.json({
             result:false,
             message:err 
         })
     }
+    
   }
 
-  // Submit Update
-  async SubmitUpdate(res,req){
-    let {id,firstname,lastname,phone}=res.body;
-    try{
-       const a= await UserSchema.updateOne({'_id':id},{'firstname':firstname,'lastname':lastname,'phone':phone}) 
-    } catch (error) {
-      console.log(error.message);
-     return res.status(500).json({ msg: "Server Error..." });
-    }
-  }
 
 }
 

@@ -15,8 +15,8 @@ const UploadImage = require('./controllers/ImageControlller')
 const route = require('./routes');
 const { url } = require('inspector');
 
-app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:false}))
 app.use(cors())
 app.use(express.json({extended: false}));
 //public folde 

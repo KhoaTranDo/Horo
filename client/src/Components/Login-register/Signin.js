@@ -14,7 +14,8 @@ const Signin = ({ isLoggedIn, loginUser }) => {
   let [tb, setTb] = useState({
     email: "Mess Alert",
     password: "Mess Alert",
-    mess: "",
+    messEmail: "",
+    messPassword: "",
   });
   if (isLoggedIn === true) {
     return <Redirect to="/" />;
@@ -28,97 +29,74 @@ const Signin = ({ isLoggedIn, loginUser }) => {
   };
   const onchange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    if (e.target.value === "") {
-      setTb({ ...tb, email: "Mess" });
-    } else {
-      setTb({ ...tb, email: "Mess Alert" });
-    }
   };
   const loginAccount = (e) => {
     e.preventDefault();
+    if (data.email === "" || data.password === "")
+      document.getElementById("error-login").innerHTML =
+        "Please field all information";
+    else {
+      if (!data.email.includes("@"))
+        document.getElementById("error-login").innerHTML =
+          "Please enter valid email address.";
+      else {
+        if (data.email !== "" && data.password !== "") {
+          // errormsg();
 
-    if (data.password === "") {
-      setTb({ ...tb, password: "Mess" });
-    } else {
-      setTb({ ...tb, password: "Mess Alert" });
-    }
-
-    if (data.email !== "" && data.password !== "") {
-      // errormsg();
-
-      loginUser(email, password);
-      if (isLoggedIn === false) {
-        const errormsg = axios
-          .post("http://localhost:6001/account/login", errms)
-          .then((response) => {})
-          .catch((error) => {
-            document.getElementById("error-login").innerHTML =
-              error.response.data.msg;
-          });
+          loginUser(email, password);
+          if (isLoggedIn === false) {
+            axios
+              .post("http://localhost:6001/account/login", errms)
+              .then((response) => {})
+              .catch((error) => {
+                document.getElementById("error-login").innerHTML =
+                  error.response.data.msg;
+              });
+          }
+        }
       }
     }
   };
 
   return (
-    <div className='signup'>
-      <div className='signup-connect'>
-        <img src='./img/background.jpg' style={{width:'100%'}}></img>
-      </div>
-      <div className='signup-classic'>
-      <h3>Sign In</h3>
+    <div className="signup">
+      <div className="signup-connect"></div>
+      <div className="signup-classic">
+        <h3>Sign In</h3>
 
-      <div className="form-group">
-        <label>email</label>
-        <input
-          type="email"
-          className="form-control"
-          name="email"
-          placeholder="email "
-          onChange={(e) => onchange(e)}
-        />
-        <span className={tb.email} name="name" id="Validation">
-          Vui lòng nhập số điện thoại{" "}
-        </span>
-      </div>
-
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          type="password"
-          className="form-control"
-          name="password"
-          placeholder="password"
-          onChange={(e) => onchange(e)}
-        />
-        <span className={tb.password} name="name" id="Validation">
-          Vui lòng nhập mật khẩu{" "}
-        </span>
-      </div>
-
-      <div className="form-group">
-        <div className="custom-control custom-checkbox">
+        <div className="form-group">
+          <label>email</label>
           <input
-            type="checkbox"
-            className="custom-control-input"
-            id="customCheck1"
+            type="email"
+            className="form-control"
+            name="email"
+            placeholder="email "
+            onChange={(e) => onchange(e)}
           />
-          {/* <label className="custom-control-label" htmlFor="customCheck1">
-              Remember me
-            </label> */}
         </div>
-      </div>
-      <span name="name">{tb.mess}</span>
-      <p id="error-login"></p>
-      <button
-        onClick={(e) => loginAccount(e)}
-        className="btn btn-primary btn-block"
-      >
-        Submit
-      </button>
-      <a href="/#">Forgot your password?</a>
-      <p className="forgot-password text-left">
-       <a href="/register">Sign up</a>
-      </p>
+
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            placeholder="password"
+            onChange={(e) => onchange(e)}
+          />
+        {/* <a href="/#">Forgot your password?</a> */}
+        <p className="forgot-password text-left">
+          <a href="/register">Sign up</a>
+        </p>
+        </div>
+        <span name="name">{tb.mess}</span>
+        <p id="error-login" style={{ color: "red" }}></p>
+        <button
+          onClick={(e) => loginAccount(e)}
+          className="btn btn-primary btn-block"
+        >
+          Submit
+        </button>
       </div>
     </div>
   );

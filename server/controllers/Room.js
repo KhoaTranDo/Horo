@@ -55,13 +55,29 @@ class Room {
     async getAddress(req,res){
 
     }
+    //Get room by Main room
     async getRoomById(req,res){
-        // let {id}=req.body.id
+         let id=req.params.slug
         try{
-           const Room= await RoomSchema.find({'UserID':'5fc9c761664ad617f42d76c6'},(err,result)=>{
+           await RoomSchema.find({'UserID':id},(err,result)=>{
+                if(err) console.log(err)
+                res.json(result)
+            })
+        }catch(err){
+            res.json({
+                result:false,
+                message:err
+            })
+        }
+      
+    }
+    async getRoomByType(req,res){
+         let {type}=res.body
+        try{
+           const Room= await RoomSchema.find({'properties.roomtype':type},(err,result)=>{
                 if(err) console.log(err)
             })
-            console.log(Room)
+            // console.log(Room)
         }catch(err){
             res.json({
                 result:false,
@@ -69,13 +85,15 @@ class Room {
             })
         }
     }
+    // Load Room by Room id
     async upDateRoomById(req,res){
-        // let {id}=req.body.id
+        let id= req.params.id
         try{
-           const Room= await RoomSchema.updateOne({'_id':req.params.slug},{'properties.NumberRoom':'200'},(err,result)=>{
+           const Room= await RoomSchema.findById(id,(err,result)=>{
                 if(err) console.log(err)
-            })
-            console.log(Room)
+                res.json(result)
+                console.log(result)
+         })
         }catch(err){
             res.json({
                 result:false,
@@ -83,19 +101,33 @@ class Room {
             })
         }
     }
-    async UpdateRoomById(req,res){
-        // let {id}=req.body.id
-        try{
-            await RoomSchema.find({'UserID':'5fc9c761664ad617f42d76c6'},(err,result)=>{
-                if(err) console.log(err)
-                console.log(result)
-            })
-        }catch(err){
-            res.json({
-                result:false,
-                message:err
-            })
-        }
+    //Let update Room
+    async updateRoom(req,res){
+        RoomSchema.findById(req.params.id,(err,room)=>{
+            if(err) console.log(err)
+            else{
+                console.log(room)
+                console.log(room.properties.title)
+                //result.properties.title = new value(req.body.title)
+                //result.save().then(up=>{res.json("Update Success")})
+                //.catch(err=>{res.status(400).send("unable to update the database");})
+            }
+        })
+    }
+
+    //Remove Room
+    async removeRoomById(req,res){
+        RoomSchema.findByIdAndRemove({_id:req.params.id},(err,room)=>{
+            if(err) res.json(err)
+            else res.json("Successfully Remove")
+        })
+    }
+    //Hiden Room
+    async hidenRoomById(req,res){
+        RoomSchema.findByIdAndUpdate({},{},(err,room)=>{
+            if(err) res.json(err)
+            else res.json("Successfully Remove")
+        })
     }
    
 }

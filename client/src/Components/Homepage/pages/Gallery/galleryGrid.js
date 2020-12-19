@@ -3,7 +3,7 @@ import Listphoto from '../listphoto'
 
 const GalleryGrid = ({gallery,handleClick}) =>{
 // Load Gallery
-    console.log(gallery)
+
     return(
         <div className='grid-image'>
             {

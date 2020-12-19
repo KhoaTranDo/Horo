@@ -11,7 +11,6 @@ module.exports = function(req,res,next){
         req.user = verifiedUser.user;
         next();
     }catch(error){
-        console.log(error.message);
         return res.status(500).json({msg: "Server Error..."});
     }
 }

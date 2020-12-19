@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FaAlignRight } from "react-icons/fa";
-import { loadUser, logOut } from "../../action/auth";
+import {logOut } from "../../action/auth";
 import { connect } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import axios from 'axios'
@@ -22,7 +22,7 @@ class Navbar extends Component {
   };
   componentWillMount() {
     const a = localStorage.getItem('token');
-    const respone = axios
+    axios
       .get(`http://localhost:6001/account`, {
         "x-auth-token": a,
       })
@@ -73,11 +73,6 @@ class Navbar extends Component {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" exact to="/rooms">
-                    Rooms
-                  </NavLink>
-                </li>
-                <li className="nav-item">
                   <NavLink className="nav-link" exact to="/about">
                     About
                   </NavLink>
@@ -99,11 +94,10 @@ class Navbar extends Component {
                       <MDBDropdown>
                         <MDBDropdownToggle nav caret>
                           <MDBIcon icon="user" />
-                          <span>{localStorage.getItem('name')}</span>
                         </MDBDropdownToggle>
                         <MDBDropdownMenu className="dropdown-default">
-                          <MDBDropdownItem href="#!">
-                            {this.state.name}
+                          <MDBDropdownItem>
+                          <span>{localStorage.getItem('name')}</span>
                           </MDBDropdownItem>
                           <MDBDropdownItem href="/profile">
                             <span>User Profile</span>

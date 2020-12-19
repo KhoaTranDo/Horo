@@ -41,12 +41,9 @@ const RoomsFilter = ({ rooms }) => {
   ));
   return (
     <>
-    <section className="filter-container">
-    <div className="section-title">
-      <h4>Search Room</h4>
-      <div />
-    </div>
-      <form className="filter-form">
+    {/* <section className="filter-container"> */}
+ 
+      <form>
         {/* select type */}
         <div>
           <div className="form-group">
@@ -121,7 +118,7 @@ const RoomsFilter = ({ rooms }) => {
         <Extras />
         {/* end of extras type */}
       </form>
-    </section>
+    {/* </section> */}
     
     </>
   );

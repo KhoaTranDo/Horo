@@ -12,4 +12,5 @@ router.put('/:id', roleControllers.edit)
 router.post('/store', roleControllers.store)
 router.get('/:slug', roleControllers.show)
 router.get('/', roleControllers.index)
+
 module.exports = router;

@@ -21,6 +21,7 @@ const fileFilter = (req,file,cb)=>{
         cb({message:'Unsupported File Format'},false)
     }
 }
+
 const upload = multer({
     storage: storage,
     limits: { fileSize: 1024*1024},

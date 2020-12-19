@@ -7,7 +7,7 @@ import axios from "axios";
 
 import markerIcon from "../img/marker.png";
 mapboxgl.accessToken =
-  "pk.eyJ1Ijoia2hvYXRyYW5kbyIsImEiOiJja2VjYjVwaXcwYTRzMnFwM2F1ajRubTZqIn0.lNjQnHcGloiZU3dZ9E_1-w";
+  "pk.eyJ1Ijoia2hvYXRyYW5kbyIsImEiOiJja2lsN2RuOXQwMmlzMndwM250eDd6cXQ5In0.pHcPyhmSVW8Uh3WVGepnBA";
   const formatNumber = (num) => {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
    

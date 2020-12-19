@@ -33,8 +33,8 @@ router.post("/Verify/phone-number/keyOTP");
 router.get("/UserProfile/:slug", AccountController.getInforById);
 router.post("/UpdateProfile/", AccountController.SubmitUpdate);
 //router.post("/UpdateProfile/");
-router.post("UpdateProfile/Image");
-router.post("ChangePassword", AccountController.Changepassword);
+router.post("/UpdateProfile/Image");
+router.post("/ChangePassword", AccountController.Changepassword);
 
 // FeedBack
 router.post("Feedback");

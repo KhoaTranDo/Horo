@@ -1,7 +1,5 @@
 // src/DisplayMapClass.js
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import axios from "axios";
 import Roomprovide from "./ListRoom/context";
 import MapBox from "./MapAcction/MapBox";
 import Rooms from "./ListRoom/RoomsContainer";
@@ -13,8 +11,12 @@ export class MainSearch extends Component {
         <div className='map'>
           {/* <DisplayMapClass/> */}
           <Roomprovide>
+            <div>
             <MapBox style={{ zIndex: -1 }} />
+            </div>
+            <div>
             <Rooms />
+            </div>
           </Roomprovide>
         </div>
       </>

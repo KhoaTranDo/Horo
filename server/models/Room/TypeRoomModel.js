@@ -1,20 +1,17 @@
 var mongoose = require('mongoose');
 
-var TypeNewsNewsSchema = new mongoose.Schema(
+var TypeRoomSchema = new mongoose.Schema(
     {
-        idnews:{
+        id:{
             type:String,
             required:true
         },
-        nametype:{
+        name:{
             type:String,
             required:true
         }
       
-    },{
-        versionKey:false
     }
 );
 
-var TypeNews= mongoose.model('TypeNews',TypeNewsNewsSchema,'TypeNews')
-module.exports=TypeNews;
+module.exports=TypeRoomSchema= mongoose.model('TypeRoom',TypeRoomSchema)
