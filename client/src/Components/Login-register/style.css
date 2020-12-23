@@ -121,19 +121,19 @@ form {
 }
 .Alert{
 	display: none;
-}	
-input {
+}	*/
+/* input {
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
-}
+} */
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-} */
+}
 .signup {
  
   position: absolute;

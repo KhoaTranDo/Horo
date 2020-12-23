@@ -3,6 +3,8 @@ import { RoomContext } from "./context";
 import Extras from "./Extras";
 import NumberFormat from "react-number-format";
 import './Sliderbar.css'
+import {TypeRoom} from "../../typeRoom";
+import {Capacity} from "../../typeRoom";
 const formatter = new Intl.NumberFormat("en");
 
 const getUnique = (items, value) => {
@@ -24,19 +26,17 @@ const RoomsFilter = ({ rooms }) => {
 
   //types
   let types = getUnique(rooms, "type");
-  // add all
-  types = ["all", ...types];
 
-  types = types.map((item, index) => (
-    <option key={index} value={item}>
-      {item}
+  types = TypeRoom.map((item, index) => (
+    <option key={index} value={item.value}>
+      {item.name}
     </option>
   ));
   // get unique capacity
   let people = getUnique(rooms, "capacity");
-  people = people.map((item, index) => (
-    <option key={index} value={item}>
-      {item}
+  people = Capacity.map((item, index) => (
+    <option key={index} value={item.value}>
+      {item.value}
     </option>
   ));
   return (
@@ -61,7 +61,7 @@ const RoomsFilter = ({ rooms }) => {
           {/* end of select type */}
           {/* guests  */}
           <div className="form-group">
-            <label htmlFor="capacity">Guests</label>
+            <label htmlFor="capacity">Capacity</label>
             <select
               name="capacity"
               id="capacity"

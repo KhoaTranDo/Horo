@@ -40,6 +40,6 @@ router.post("/add", roomControllers.addRoom);
 
 // Manager Room
 router.get("/ManagerRoom/ShowRoom");
-router.post("/ManagerRoom/HidenRoom");
+router.post("/ManagerRoom/HidenRoom",roomControllers.hidenRoomById);
 
 module.exports = router;

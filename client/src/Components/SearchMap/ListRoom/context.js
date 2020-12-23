@@ -1,7 +1,6 @@
 import React, {createContext, Component } from 'react'
 import items from './data'
-
-
+import TypeRoom from "../../typeRoom";
 const RoomContext= createContext()
 
 export default class RoomProvider extends Component {

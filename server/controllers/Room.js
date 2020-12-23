@@ -3,7 +3,7 @@ const path = require('path')
 class Room { 
     async addRoom(req,res){
         try{     
-            let {Size,NumberRoom,NumberPeople,address,roomtype,image,feature,genderRules,describe,firstprice,prices,UserID,title}=req.body;
+            let {Size,NumberRoom,NumberPeople,address,roomtype,image,feature,genderRules,describe,prices,UserID,title}=req.body;
            const room= new RoomSchema({UserID,properties:{
                     Size,
                     NumberRoom,
@@ -15,7 +15,6 @@ class Room {
                     feature,
                     genderRules,
                     describe,
-                    firstprice,
                     prices,
                     image
            }
@@ -62,7 +61,7 @@ class Room {
            await RoomSchema.find({'UserID':id},(err,result)=>{
                 if(err) console.log(err)
                 res.json(result)
-            })
+            }) .sort( {'timestamp': -1})
         }catch(err){
             res.json({
                 result:false,
@@ -124,11 +123,17 @@ class Room {
     }
     //Hiden Room
     async hidenRoomById(req,res){
-        RoomSchema.findByIdAndUpdate({},{},(err,room)=>{
+    
+        let{id,status}=req.body
+        try{
+       await RoomSchema.updateOne({'_id':id},{'properties.status':status},(err,room)=>{
             if(err) res.json(err)
-            else res.json("Successfully Remove")
+            else res.json("Change Successfully ")
         })
+    }catch (error) {
+        console.log(error.message);
+       return res.status(500).json({ msg: "Server Error..." });
+      }
     }
-   
 }
 module.exports = new Room();

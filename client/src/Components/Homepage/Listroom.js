@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { MDBIcon } from "mdbreact";
 export default function Listroom(props) {
   //format prices
   const formatNumber = (num) => {
@@ -24,6 +25,7 @@ export default function Listroom(props) {
             item.properties.roomtype === props.typeRoom ||
             props.typeRoom === null
           ) {
+            if(item.properties.status===0){
             return (
               <div className="col-12 col-sm-6 col-md-4 col-xl-4" key={index}>
                 <div className="Card wow fadeInUp" data-wow-delay="0.3s">
@@ -49,19 +51,20 @@ export default function Listroom(props) {
                       to={`/rooms/detail/${item.properties.slug}`}
                       className="Link-detail-news"
                     >
-                      <i class="fad fa-house-day"></i>
-                      {item.properties.title}
+                      <i className="fa fa-home" aria-hidden="true"></i> {item.properties.title}
                     </Link>
                     <div className="taghome-location">
-                      <span> {item.properties.address.address}</span>
+                      <ul><i className="fa fa-map-marker" aria-hidden="true"></i>  {item.properties.address.address} , {item.properties.address.xa} , {item.properties.address.City} , {item.properties.address.country}</ul>
+                      <p> <MDBIcon icon="ruler" /> {item.properties.Size} M2</p>
+                      <p><i className="far fa-users"></i>  {item.properties.genderRules}</p>
+                      
                     </div>
-                    <div className="taghome-location">
-                      <span> {item.properties.describe}</span>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
             );
+          }
           }
         })}
       </div>

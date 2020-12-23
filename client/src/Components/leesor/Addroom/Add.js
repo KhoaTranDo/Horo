@@ -3,35 +3,15 @@ import "./Addstyle.css";
 import AddImage from "./AddImage";
 import Adress from "./Address";
 import Select from "react-select/creatable";
-import Sliderbar from "../Sliderbar";
 import axios from "axios";
-import{Redirect} from 'react-router-dom'
+import { Redirect } from "react-router-dom";
+import { extend } from "../../typeRoom";
+import { TypeRoom } from "../../typeRoom";
+import { GenderRules } from "../../typeRoom";
 // Create Tran Do Anh Khoa
 // Date: 25/11/2020
 
-const roomtype = [
-  { id: 1, name: "room" },
-  { id: 2, name: "Full House" },
-  { id: 3, name: "Bedsit" },
-  { id: 4, name: "Dorm" },
-  { id: 5, name: "Apartment" },
-];
-const options = [
-  { value: "Male", label: "Male" },
-  { value: "Female", label: "Female" },
-  { value: "Other", label: "Other" },
-];
-const extend = [
-  { id: 1, name: "Wifi" },
-  { id: 2, name: "Air-Conditioner" },
-  { id: 3, name: "Washing Machine" },
-  { id: 4, name: "Television" },
-  { id: 5, name: "Parking Space" },
-  { id: 4, name: "Balcony" },
-  { id: 5, name: "Water Purifier" },
-  { id: 4, name: "Microwave" },
-  { id: 5, name: "Fridge" },
-];
+const roomtype = TypeRoom.slice(1);
 
 class Add extends Component {
   constructor(props) {
@@ -46,7 +26,6 @@ class Add extends Component {
       feature: "",
       genderRules: "",
       describe: "",
-      firstprice: "",
       prices: "",
       UserID: "",
       title: "",
@@ -114,145 +93,143 @@ class Add extends Component {
     }
   };
   render() {
-    if(localStorage.getItem('user')===null){
-      alert('login babe');
-      return <Redirect to='/account' /> 
+    //Remove Scroll input Number
+    var inputTypeNumbers = document.querySelectorAll("input[type=number]");
+    for (var a = 0; a < inputTypeNumbers.length; a++) {
+      inputTypeNumbers[a].onwheel = function (event) {
+        event.target.blur();
+      };
     }
-    else{
-    return (
-      // Div Main
-      <div id="layoutSidenav">
-        {/* div navbar left */}
-        <Sliderbar />
-        {/* div containt */}
-        <div id="layoutSidenav_content">
-          <main>
-            <div className="container-fluid">
-              {/* Add image */}
-              <div className="row">
-                {/* Add address */}
-                <div
-                  className="col-md-4 order-md-2 mb-4 "
-                  style={{ marginTop: "50px" }}
-                >
-                  <Adress
-                    address={this.getAddress.bind(this)}
-                    price={this.state.prices}
-                  />
+    if (localStorage.getItem("user") === null) {
+      alert("Login before use this function");
+      return <Redirect to="/account" />;
+    } else {
+      return (
+        // Div Main
+
+        <main>
+          <div className="container-fluid">
+            {/* Add image */}
+            <div className="row">
+              {/* Add address */}
+              <div
+                className="col-md-4 order-md-2 mb-4 "
+                style={{ marginTop: "50px" }}
+              >
+                <Adress
+                  address={this.getAddress.bind(this)}
+                  price={this.state.prices}
+                />
+              </div>
+              <div className="col-md-8 order-md-1">
+                <div>
+                  <AddImage image={this.state.image} />
                 </div>
-                <div className="col-md-8 order-md-1">
-                  <div>
-                    <AddImage image={this.state.image} />
-                  </div>
-                  {/* Add place detail */}
-                  <div>
-                    {/* Title */}
-                    <span>Title</span>
-                    <input
-                      type="text"
-                      name="title"
-                      className="form-control"
-                      onChange={this.handleChange}
-                    ></input>
-                    {/* AreaArea */}
-                    <span>Area</span>
-                    <input
-                      type="number"
-                      name="Size"
-                      className="form-control"
-                      onChange={this.handleChange}
-                      min="0"
-                    ></input>
-                    {/* Tyle of room */}
-                    <span>Types of residential rental</span>
-                    <ul>
-                      <Select
-                        name="roomtype"
-                        options={roomtype}
-                        getOptionLabel={(x) => x.name}
-                        getOptionValue={(x) => x.name}
-                        onChange={this.handleType}
-                      />
-                    </ul>
-                    {/* Number of room */}
-                    <span>Number of Room</span>
-                    <input
-                      type="number"
-                      name="NumberRoom"
-                      className="form-control"
-                      onChange={this.handleChange}
-                    ></input>
-                    {/* People */}
-                    <span>Quanlity</span>
-                    <input
-                      type="number"
-                      name="NumberPeople"
-                      className="form-control"
-                      onChange={this.handleChange}
-                    ></input>
-                    <span>Features of Place</span>
+                {/* Add place detail */}
+                <div>
+                  {/* Title */}
+                  <span>Title</span>
+                  <input
+                    type="text"
+                    name="title"
+                    className="form-control"
+                    onChange={this.handleChange}
+                  ></input>
+                  {/* AreaArea */}
+                  <span>Area</span>
+                  <input
+                    type="number"
+                    name="Size"
+                    className="number form-control"
+                    onChange={this.handleChange}
+                    min="0"
+                  ></input>
+                  {/* Tyle of room */}
+                  <span>Types of residential rental</span>
+                  <ul>
                     <Select
-                      closeMenuOnSelect={false}
-                      isMulti
-                      name="feature"
-                      options={extend}
-                      className="basic-multi-select"
+                      name="roomtype"
+                      options={roomtype}
                       getOptionLabel={(x) => x.name}
                       getOptionValue={(x) => x.name}
-                      onChange={this.handleFeature}
-                      classNamePrefix="select"
+                      onChange={this.handleType}
                     />
-                  </div>
+                  </ul>
+                  {/* Number of room */}
+                  <span>Room Number</span>
+                  <input
+                    type="number"
+                    name="NumberRoom"
+                    className="number form-control"
+                    onChange={this.handleChange}
+                    max="10"
+                    min="0"
+                  ></input>
+                  {/* People */}
+                  <span>Capacity</span>
+                  <input
+                    type="number"
+                    name="NumberPeople"
+                    className="number form-control"
+                    onChange={this.handleChange}
+                    max="10"
+                    min="0"
+                  ></input>
 
-                  {/* Rental conditions */}
-                  <div>
-                    <span>Gender</span>
-                    <Select options={options} onChange={this.handleGender} />
-
-                    <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">
-                        More Describe
-                      </label>
-                      <textarea
-                        className="form-control"
-                        id="exampleFormControlTextarea1"
-                        rows="3"
-                        name="describe"
-                        onChange={this.handleChange}
-                        style={{ resize: "none" }}
-                      ></textarea>
-                    </div>
-                  </div>
-                  {/* price:*/}
-                  <div>
-                    <span>First Prices</span>
-                    <input
-                      type="number"
-                      name="firstprice"
-                      onChange={this.handleChange}
-                      className="form-control"
-                    ></input>
-                    <span>Prices/month</span>
-                    <input
-                      type="number"
-                      name="prices"
-                      onChange={this.handleChange}
-                      className="form-control"
-                    ></input>
-                  </div>
-                  <button
-                    className="btn btn-outline-primary"
-                    onClick={this.postRoom}
-                  >
-                    Post this Room
-                  </button>
+                  <span>Features of Place</span>
+                  <Select
+                    closeMenuOnSelect={false}
+                    isMulti
+                    name="feature"
+                    options={extend}
+                    className="basic-multi-select"
+                    getOptionLabel={(x) => x.name}
+                    getOptionValue={(x) => x.name}
+                    onChange={this.handleFeature}
+                    classNamePrefix="select"
+                  />
                 </div>
+
+                {/* Rental conditions */}
+                <div>
+                  <span>Gender</span>
+                  <Select options={GenderRules} onChange={this.handleGender} />
+
+                  <div className="form-group">
+                    <label htmlFor="exampleFormControlTextarea1">
+                      More Describe
+                    </label>
+                    <textarea
+                      className="form-control"
+                      id="exampleFormControlTextarea1"
+                      rows="3"
+                      name="describe"
+                      onChange={this.handleChange}
+                      style={{ resize: "none" }}
+                    ></textarea>
+                  </div>
+                </div>
+                {/* price:*/}
+                <div>
+                  <span>Prices/month</span>
+                  <input
+                    type="number"
+                    name="prices"
+                    onChange={this.handleChange}
+                    className="form-control"
+                  ></input>
+                </div>
+                <button
+                  className="btn btn-outline-primary"
+                  onClick={this.postRoom}
+                >
+                  Post this Room
+                </button>
               </div>
             </div>
-          </main>
-        </div>
-      </div>
-    );
+          </div>
+        </main>
+      );
     }
   }
 }

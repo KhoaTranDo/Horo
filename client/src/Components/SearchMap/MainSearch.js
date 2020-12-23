@@ -14,7 +14,7 @@ export class MainSearch extends Component {
             <div>
             <MapBox style={{ zIndex: -1 }} />
             </div>
-            <div>
+            <div style={{marginTop: '200px'}}>
             <Rooms />
             </div>
           </Roomprovide>

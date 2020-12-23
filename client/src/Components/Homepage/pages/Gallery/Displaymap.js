@@ -10,55 +10,62 @@ export default class DisplayMapClass extends React.Component {
       lng: 108.22363,
       lat: 16.07465,
       zoom: 13,
+      location:[]
     };
   }
-  componentWillReceiveProps(){
-    console.log(this.props.location[0])
-    //this.setState={lng:this.props.location[0]}
-    
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.location !== nextProps.location;    
   }
-  componentDidMount() {
-    console.log(this.state)
+  componentWillUpdate(nextProps){
+    // this.setState({location:nextProps.location})
     let map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [this.state.lng, this.state.lat],
+      center: nextProps.location,
       zoom: this.state.zoom,
     });
+    const getStore = () => {
+      // Render on Map
+      const stores = [
+        {
+          link: "",
+          type: "Feature",
+          properties: {
+            description: "",
+          },
+          geometry: {
+            type: "Point",
+            coordinates: [this.props.location[0], this.props.location[1]],
+          },
+        },
+      ];
+
+      return stores;
+    };
     map.on("load", function () {
-      map.loadImage(
-        markerIcon,
-        function (error, image) {
-          if (error) throw error;
-          map.addImage("marker", image);
-          map.addSource("point", {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: [
-                {
-                  type: "Feature",
-                  geometry: {
-                    type: "Point",
-                    coordinates: [108.22363,16.07465]
-                  },
-                },
-              ],
-            },
-          });
-          map.addLayer({
-            id: "points",
-            type: "symbol",
-            source: "point",
-            layout: {
-              "icon-image": "marker",
-              "icon-size": 0.1,
-            },
-          });
-        }
-      );
+      map.loadImage(markerIcon, function (error, image) {
+        if (error) throw error;
+        map.addImage("custom-marker", image);
+        map.addSource("places", {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: getStore(),
+          },
+        });
+        map.addLayer({
+          id: "points",
+          type: "symbol",
+          source: "places",
+          layout: {
+            "icon-image": "custom-marker",
+            "icon-allow-overlap": true,
+            "icon-size": 0.1,
+          },
+        });
+      });
     });
-  
+
     // Load ban do mac dih
     map.on("move", () => {
       this.setState({
@@ -75,6 +82,15 @@ export default class DisplayMapClass extends React.Component {
         trackUserLocation: true,
       })
     );
+  }
+  componentDidMount() {
+    let map = new mapboxgl.Map({
+      container: this.mapContainer,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [this.state.lng,this.state.lat],
+      zoom: this.state.zoom,
+    });
+
   }
 
   render() {

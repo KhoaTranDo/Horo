@@ -44,6 +44,7 @@ function AddImage(props) {
   return (
     <div className="app">
       <div className="result">{renderPhotos(selectedImages)}</div>
+
       <br />
       <div className="input-group mb-3">
         <div className="custom-file">

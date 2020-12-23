@@ -14,7 +14,7 @@ function RoomContainer({ context }) {
       <RoomsFilter rooms={rooms} />
       </div>
       <div className='col-9'>
-      <RoomsList rooms={sortedRooms} />
+      <RoomsList rooms={rooms} />
       </div>
       </div>
     </>

@@ -4,7 +4,6 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./Mapstyle.css";
 import axios from "axios";
-
 import markerIcon from "../img/marker.png";
 mapboxgl.accessToken =
   "pk.eyJ1Ijoia2hvYXRyYW5kbyIsImEiOiJja2lsN2RuOXQwMmlzMndwM250eDd6cXQ5In0.pHcPyhmSVW8Uh3WVGepnBA";
@@ -35,9 +34,18 @@ export default class MapBox extends React.Component {
       .catch((err) => console.log(err));
 
     const getStore = () => {
-      const stores = this.state.data.map((room) => {
+        // Filter Room hiden
+      var data = this.state.data.filter(function(item) {
+        if (item.properties.status=== 1) {
+          return false; // skip
+        }
+        return true;
+      }).map(function(item) { return item });
+      // Render on Map
+      const stores = data.map((room) => {
+        if(room.properties.status===0){
         return {
-          link: room.id,
+          link: room._id,
           type: "Feature",
           properties: {
             description:
@@ -53,7 +61,9 @@ export default class MapBox extends React.Component {
               room.properties.address.location[1],
             ],
           },
-        };
+        };}else{
+          
+        }
       });
       return stores;
     };

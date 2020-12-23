@@ -29,14 +29,6 @@ class BookRoom extends Component {
                       <th>Size</th>
                       {/* <td>{size} sqft.</td> */}
                     </tr>
-                    <tr>
-                      <th>Breakfast</th>
-                      {/* <td>{breakfast === true ? `Included`: `Not Included`}</td> */}
-                    </tr>
-                    <tr>
-                      <th>Pets</th>
-                      {/* <td>{pets ===true ? `Allowed` : `Not Allowed`}</td> */}
-                    </tr>
                   </thead>
                 </table>
               </div>
