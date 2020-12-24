@@ -54,7 +54,7 @@ function Address(props) {
     <div className="row">
       <h1>Address:</h1>
         <div className=' col-md-12'>
-        <b>Province:</b>
+        <b>City:</b>
         <Select
           value={country}
           options={data}
@@ -65,7 +65,7 @@ function Address(props) {
         </div>
         <br />
         <div className='col-md-12'>
-        <b>City:</b>
+        <b>District:</b>
         <Select
           placeholder="Select City"
           value={city}
@@ -76,7 +76,7 @@ function Address(props) {
         />
         </div>
         <div className='col-md-12'>
-        <b>Dictric:</b>
+        <b>Ward:</b>
         <Select
           placeholder="Select Area"
           value={xa}
@@ -90,10 +90,10 @@ function Address(props) {
         <span>Address:</span>
         <input type="text" className="form-control" onChange={handleAddress}></input>
         </div>
-        <div className='col-md-12'>
+        {/* <div className='col-md-12'>
         <span>Full Address:</span>
         <input type="text" value={fullAddress} className="form-control" onChange={handleAddress} disabled></input>
-        </div>
+        </div> */}
        
     </div>
       <div className="row">

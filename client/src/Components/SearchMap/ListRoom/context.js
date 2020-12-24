@@ -10,7 +10,7 @@ export default class RoomProvider extends Component {
         featuredRooms: [],
         loading: true,
         type: "all",
-        capacity: 1,
+        capacity: 100,
         price: 0,
         minPrice: 0,
         maxPrice: 0,
@@ -33,13 +33,11 @@ export default class RoomProvider extends Component {
     componentDidMount() {
         // this.getData();
         let rooms = this.formatData(items);
-        let featuredRooms = rooms.filter(room => room.featured === true);
         
-        let maxPrice = Math.max(...rooms.map(item => item.price));
+        let maxPrice = 5000000;
         let maxSize = Math.max(...rooms.map(item => item.size));
         this.setState({
-          rooms,
-          featuredRooms,
+          rooms,       
           sortedRooms: rooms,
           loading: false,
           price: maxPrice,
@@ -81,22 +79,10 @@ export default class RoomProvider extends Component {
       filterRooms = () => {
         let {
           rooms,
-          type,
           capacity,
           price,
           minSize,
-          maxSize,
-          MayLanh,
-          TiVi,
-          MayGiat,
-          ChoDeXe,
-          CuaSo,
-          BanCong,
-          MayLocNuoc,
-          LoViSong,
-          BepGa,
-          GacLung,
-          TuLanh
+          maxSize,       
         } = this.state;
     
         let tempRooms = [...rooms];
@@ -104,59 +90,7 @@ export default class RoomProvider extends Component {
         // get capacity
         capacity = parseInt(capacity);
         price = parseInt(price);
-        // filter by type
-        if (type !== "all") {
-          tempRooms = tempRooms.filter(room => room.type === type);
-        }
-        // filter by capacity
-        if (capacity !== 1) {
-          tempRooms = tempRooms.filter(room => room.capacity >= capacity);
-        }
-        // filter by price
-        tempRooms = tempRooms.filter(room => room.price <= price);
-        //filter by size
-        tempRooms = tempRooms.filter(
-          room => room.size >= minSize && room.size <= maxSize
-        );
-        //extras 
-        if (MayLanh) {
-          tempRooms = tempRooms.filter(room => room.MayLanh === true);
-        }
-        
-        if (TiVi) {
-          tempRooms = tempRooms.filter(room => room.TiVi === true);
-        }
-        
-        if (MayGiat) {
-          tempRooms = tempRooms.filter(room => room.MayGiat === true);
-        }
-        
-        if (ChoDeXe) {
-          tempRooms = tempRooms.filter(room => room.ChoDeXe === true);
-        }
-        if (CuaSo) {
-          tempRooms = tempRooms.filter(room => room.CuaSo === true);
-        }
-        if (BanCong) {
-          tempRooms = tempRooms.filter(room => room.BanCong === true);
-        }
-        if (MayLocNuoc) {
-          tempRooms = tempRooms.filter(room => room.MayLocNuoc === true);
-        }
-        if (LoViSong) {
-          tempRooms = tempRooms.filter(room => room.LoViSong === true);
-        }
-        if (BepGa) {
-          tempRooms = tempRooms.filter(room => room.BepGa === true);
-        }
-        if (GacLung) {
-          tempRooms = tempRooms.filter(room => room.GacLung === true);
-        }
-        if (TuLanh) {
-          tempRooms = tempRooms.filter(room => room.TuLanh === true);
-        }
 
-        
         this.setState({
           sortedRooms: tempRooms
         });

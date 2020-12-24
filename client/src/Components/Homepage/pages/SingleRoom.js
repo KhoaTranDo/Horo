@@ -4,7 +4,6 @@ import { RoomContext } from "../context";
 import Gallery from "./Gallery/Gallery";
 import axios from "axios";
 import "./SingleRoom.css";
-import { Redirect } from "react-router-dom";
 
 export default class SingleRoom extends Component {
   constructor(props) {
@@ -37,7 +36,7 @@ export default class SingleRoom extends Component {
         axios
           .get(`http://localhost:6001/account/UserProfile/${this.state.id}`)
           .then((res) => {
-            this.setState({name:res.data.result.firstname})
+            this.setState({name:res.data.result.firstname+' '+res.data.result.lastname})
             this.setState({phone:res.data.result.phone})
           })
           .catch((err) => console.log(err));
@@ -46,7 +45,8 @@ export default class SingleRoom extends Component {
   }
   Contact=()=>{
       if(localStorage.getItem("user")===null)
-      this.props.history.push("/account");
+      document.getElementById("show-Phone").innerHTML =
+      'Please Login before contact'
       else
       document.getElementById("show-Phone").innerHTML =
        'Phone Number: '+this.state.phone
@@ -67,7 +67,10 @@ export default class SingleRoom extends Component {
             <div className=" mb-8  grid-margin">
               <div className="card content1">
                 <div className="widget-head">
-                  <h1>Title:</h1>
+                  <h1><span style={{"fontSize": "30px" , "color": "brown"}}> <i className="fa fa-home" aria-hidden="true"></i>&ensp;</span><b>Title</b>
+                  <hr/>
+                  </h1>
+                  
                 </div>
                 <h1>{this.state.data.title}</h1>
                 <ul className="extras"></ul>
@@ -77,26 +80,14 @@ export default class SingleRoom extends Component {
             <div className=" mb-8  grid-margin">
               <div className="card content1">
                 <div className="widget-head">
-                  <h1><span style={{"fontSize": "30px" }}><i className="far fa-map-marked-alt" style={{"color": "brown"}}></i>&ensp; Address Information:</span> </h1>
+                  <h1><b><span style={{"fontSize": "30px" }}><i className="far fa-map-marked-alt" style={{"color": "brown"}}></i>&ensp; Address Information</span><hr/></b> </h1>
                 </div>
                 <ul className="extras">
                   <div className="w-1">
-                    <p className="mb-0">Address:</p>
-                    <p>{this.state.address.address}</p>
+                    <h1 className="mb-0"><span style={{"fontSize": "30px" , "color": "brown"}}><i className="fad fa-city"></i> </span></h1>
+                    <h1> {this.state.address.address},{this.state.address.xa},{this.state.address.City},{this.state.address.country}<small/></h1>
                   </div>
-                  <div className="w-1">
-                
-                    <p>  <span style={{"fontSize": "30px" , "color": "brown"}}><i className="fad fa-city"></i> </span>City:</p>
-                    <p>{this.state.address.country}</p>
-                  </div>
-                  <div className="w-1">
-                    <p>Dictrics:</p>
-                    <p>{this.state.address.City}</p>
-                  </div>
-                  <div className="w-1">
-                    <p>Area:</p>
-                    <p>{this.state.address.xa}</p>
-                  </div>
+                  
                 </ul>
               </div>
             </div>
@@ -105,14 +96,15 @@ export default class SingleRoom extends Component {
           <div className=" mb-8  grid-margin">
             <div className="card  content1">
               <div className="widget-head">
-                <h1>Information</h1>
+                <h1><b>Information</b>
+                <hr/>
+                </h1>
               </div>
               <article className="info">
                 <p>Acreage:{this.state.data.Size}</p>
                 <p>Room Number:{this.state.data.NumberRoom}</p>
                 <p>Capacity:{this.state.data.NumberPeople} {this.state.data.genderRules}</p>
                 <p>Room Type:{this.state.data.roomtype}</p>
-                <p>Acreage:{this.state.data.Size}</p>
               </article>
             </div>
           </div>
@@ -121,10 +113,12 @@ export default class SingleRoom extends Component {
           <div className="card  content1">
             <section className="room-extras">
               <div className="widget-head">
-                <h1>Details</h1>
+                <h1><b>Details</b>
+                <hr/>
+
+                </h1>
               </div>
               <ul className="details">
-                
                 <h2>City:{this.state.data.describe}</h2>
                 <h2>City:{this.state.data.genderRules}</h2>
                 <h2>City:{this.state.data.describe}</h2>
@@ -144,11 +138,11 @@ export default class SingleRoom extends Component {
             <div className="pl-5 pr-5 card h-10">
               <div>
                 <div className="widget-head">
-                  <h1> <span style={{"fontSize": "30px" , "color": "brown"}}><i className="fad fa-id-card"></i></span> Lessor detail  <hr/></h1>
+                  <h1> <span style={{"fontSize": "30px" , "color": "brown"}}><i className="fad fa-id-card"></i></span><b> Lessor detail</b>  <hr/></h1>
               
                 </div>
                 <p style={{"fontSize": "30px"}}>Name:{this.state.name}</p>
-                <p id='show-Phone'></p>
+                <p style={{"fontSize": "20px"}} id='show-Phone'></p>
                 <p>
                 <button className="btn btn-primary btn-block" onClick={this.Contact}>Contact</button>
                 </p>

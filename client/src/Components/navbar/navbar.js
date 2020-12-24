@@ -86,7 +86,7 @@ class Navbar extends Component {
                 {this.props.isLoggedIn ? (
                   <>
                     <li className="nav-item">
-                      <NavLink className="nav-link" exact to="/room/addroom">
+                      <NavLink className="nav-link" exact to="/room">
                         My Place
                       </NavLink>
                     </li>
@@ -101,9 +101,6 @@ class Navbar extends Component {
                           </MDBDropdownItem>
                           <MDBDropdownItem href="/profile">
                             <span>User Profile</span>
-                          </MDBDropdownItem>
-                          <MDBDropdownItem href="#!">
-                            <span>Your Bookmark</span>
                           </MDBDropdownItem>
                           <Link
                             to="/"

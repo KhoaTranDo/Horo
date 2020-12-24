@@ -5,7 +5,7 @@ import RoomsFilter from "./RoomsFilter";
 import RoomsList from "./RoomsList";
 
 function RoomContainer({ context }) {
-  const { sortedRooms, rooms } = context;
+  const {rooms} = context;
 
   return (
     <>

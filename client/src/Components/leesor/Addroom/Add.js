@@ -86,10 +86,12 @@ class Add extends Component {
   };
   postRoom = () => {
     if (!this.state.address || !this.state.address.location) {
-      alert("Field address");
+      document.getElementById("error-post").innerHTML =
+      "Please field all information";
     } else {
       this.postServerRoom(this.state);
-      this.props.history.push("/");
+      //this.props.history.push("/room");
+      //window.location.reload();
     }
   };
   render() {
@@ -106,9 +108,10 @@ class Add extends Component {
     } else {
       return (
         // Div Main
-
+        <div className="card">
+        <div className="card-body">
         <main>
-          <div className="container-fluid">
+          <div style={{width:'90%'}}>
             {/* Add image */}
             <div className="row">
               {/* Add address */}
@@ -219,6 +222,8 @@ class Add extends Component {
                     className="form-control"
                   ></input>
                 </div>
+                <p id="error-post" style={{ color: "red" }}></p>
+                <hr/>
                 <button
                   className="btn btn-outline-primary"
                   onClick={this.postRoom}
@@ -229,6 +234,7 @@ class Add extends Component {
             </div>
           </div>
         </main>
+        </div></div>
       );
     }
   }

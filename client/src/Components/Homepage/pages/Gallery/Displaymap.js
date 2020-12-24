@@ -83,15 +83,7 @@ export default class DisplayMapClass extends React.Component {
       })
     );
   }
-  componentDidMount() {
-    let map = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [this.state.lng,this.state.lat],
-      zoom: this.state.zoom,
-    });
-
-  }
+ 
 
   render() {
     return (

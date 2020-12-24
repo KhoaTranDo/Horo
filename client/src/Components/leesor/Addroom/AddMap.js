@@ -79,14 +79,6 @@ export default class MapBox extends React.Component {
       this.props.position(this.state.location);
     });
 
-    map.addControl(
-      new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        countries: "vn", //Vietnam only
-        mapboxgl: mapboxgl,
-      }),
-      "top-left"
-    );
     // Marker
     // Create a popup, but don't add it to the map yet.
     var popup = new mapboxgl.Popup({

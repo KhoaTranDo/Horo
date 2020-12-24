@@ -28,6 +28,7 @@ class MainEditRoom extends Component {
       slug: this.props.match.params.slug,
       data: [],
       image: [],
+      newImage:[],
       Lessor: "",
       id:'',
       name:''
@@ -38,13 +39,17 @@ class MainEditRoom extends Component {
     axios
     .get(`http://localhost:6001/room/detail/${this.props.match.params.slug}`)
     .then((res) => {
+      this.setState({ id: res.data.news[0]._id });
       this.setState({ data: res.data.news[0].properties });
       this.setState({Size: this.state.data.Size});
       this.setState({NumberPeople: this.state.data.NumberPeople});
       this.setState({NumberRoom: this.state.data.NumberRoom});
+      this.setState({roomtype: this.state.data.roomtype});
       this.setState({image: this.state.data.image });
       this.setState({title: this.state.data.title});
       this.setState({describe: this.state.data.describe});
+      this.setState({genderRules: this.state.data.genderRules});
+      this.setState({feature: this.state.data.feature});
       this.setState({prices: this.state.data.prices});
       axios
         .get(`http://localhost:6001/account/UserProfile/${this.state.id}`)
@@ -56,7 +61,8 @@ class MainEditRoom extends Component {
     .catch((err) => console.log(err));
   }
   postServerRoom = (obj) => {
-    var img = [];
+    if(obj.image.length!==0){
+      var img=[]
     obj.image.map(async (i) => {
       img.push(i.name);
       const formData = new FormData();
@@ -67,6 +73,10 @@ class MainEditRoom extends Component {
         body: formData,
       }).then((res) => res.json());
     });
+    obj.image=img
+    }else{
+      obj.image=this.state.image
+    }
     try {
       const config = {
         headers: {
@@ -76,10 +86,11 @@ class MainEditRoom extends Component {
       // Get name image
       this.state.image = img;
       const body = JSON.stringify(obj);
-      axios.post(`http://localhost:6001/LessorRoom/update/${this.state.data._id}`, body, config);
+      axios.post(`http://localhost:6001/room/LessorRoom/update/${this.state.id}`, body, config);
     } catch (error) {
       console.log("error");
     }
+  
   };
   // Action
   handleChange = (e) => {
@@ -106,12 +117,21 @@ class MainEditRoom extends Component {
     console.log(files[0]);
   };
   postRoom = () => {
-    if (!this.state.address || !this.state.address.location) {
-      alert("Field address");
-    } else {
-      this.postServerRoom(this.state);
-      this.props.history.push("/");
+
+    const newData ={
+      title: this.state.title,
+      image : this.state.newImage,
+      Size : this.state.Size,
+      roomtype : this.state.roomtype,
+      NumberRoom: this.state.NumberRoom,
+      NumberPeople:this.state.NumberPeople,
+      feature: this.state.feature,
+      genderRules: this.state.genderRules,
+      describe: this.state.describe,
+      prices: this.state.prices,
     }
+      this.postServerRoom(newData);
+      this.props.history.push("/room");
   };
   render() {
     if (localStorage.getItem("user") === null) {
@@ -119,8 +139,8 @@ class MainEditRoom extends Component {
       return <Redirect to="/account" />;
     } else {
       return (
-        
-        // Div Main
+        <div className="card">
+        <div className="card-body">
         <div id="layoutSidenav">
           {/* div containt */}
           <div id="layoutSidenav_content">
@@ -128,14 +148,11 @@ class MainEditRoom extends Component {
               <div className="container-fluid">
                 {/* Add image */}
                 <div className="row">
-                  <div
-                    className="col-md-4 order-md-2 mb-4 "
-                    style={{ marginTop: "50px" }}
-                  ></div>
-                  <div className="col-md-8 order-md-1">
-                    <span>
+               
+                  <div className="col-md-10 order-md-1 mx-auto">
+                    <h2>
                       Image Current
-                    </span>
+                    </h2>
                     <div>
                       {this.state.image.map((item,index)=>{
                         return(
@@ -151,11 +168,11 @@ class MainEditRoom extends Component {
                       })}
                     </div>
                     <hr/>
-                    <span>
+                    <h2>
                       New Image
-                    </span>
+                    </h2>
                     <div>
-                      <AddImage image={this.state.image} />
+                      <AddImage image={this.state.newImage} />
                     </div>
                     {/* Add place detail */}
                     <div>
@@ -267,6 +284,8 @@ class MainEditRoom extends Component {
               </div>
             </main>
           </div>
+        </div>
+        </div>
         </div>
       );
     }

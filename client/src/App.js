@@ -9,7 +9,7 @@ import { loadUser } from "./action/auth";
 import { setToken } from "./api/setToken";
 import rootRoutes from "./Components/admin/rootRoutes";
 import NoMatch from "./Components/nomatch";
-
+import MainRoom from "./Components/leesor/MainRoom"
 import { MainSearch } from "./Components/SearchMap/MainSearch";
 import SingleRoom from "./Components/Homepage/pages/SingleRoom";
 import Profile from "./Components/Profile/MainProfile";
@@ -48,6 +48,7 @@ function App() {
               <Route exact path="/contact" component={Contact} />
               {/* Leesorr */}
               <Route exact path="/room/addroom" component={Add} />
+              <Route exact path="/room/" component={MainRoom} />
               <Route exact path="/room/edit/:slug" component={EditRoom} />
        
               <Route exact path="/searchmap" component={MainSearch} />

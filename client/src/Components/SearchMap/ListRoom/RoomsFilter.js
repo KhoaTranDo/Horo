@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { RoomContext } from "./context";
 import Extras from "./Extras";
 import NumberFormat from "react-number-format";
@@ -23,7 +23,6 @@ const RoomsFilter = ({ rooms }) => {
     minSize,
     maxSize,
   } = context;
-
   //types
   let types = getUnique(rooms, "type");
 
@@ -115,7 +114,7 @@ const RoomsFilter = ({ rooms }) => {
           </div>
         </div>
         {/* extras */}
-        <Extras />
+        {/* <Extras /> */}
         {/* end of extras type */}
       </form>
     {/* </section> */}

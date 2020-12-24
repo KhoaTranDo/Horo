@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { loginUser } from "../../action/auth";
-
+import image1  from './img/img1.jpeg'
 const Signin = ({ isLoggedIn, loginUser }) => {
   let [data, setData] = useState({
     email: "",
@@ -60,9 +60,11 @@ const Signin = ({ isLoggedIn, loginUser }) => {
 
   return (
     <div className="signup">
-      <div className="signup-connect"></div>
+      <div className="signup-connect">
+      <img src={image1} style={{maxWidth:'100%'}}></img>
+      </div>
       <div className="signup-classic">
-        <h3>Sign In</h3>
+        <h1>Sign In</h1>
 
         <div className="form-group">
           <label>email</label>

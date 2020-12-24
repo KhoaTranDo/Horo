@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { Component } from "react";
-import Demo from "../leesor/Addroom/Add";
 import ChangePassword from "./ChangePassword";
 import Profile from "./Profile";
 import ListRoom from './ListRoom'
@@ -64,27 +63,6 @@ class Addroom extends Component {
               >
                 Room Manager
               </a>
-              <a
-                class="list-group-item list-group-item-action"
-                id="list-feedback-list"
-                data-toggle="list"
-                href="#list-feedback"
-                role="tab"
-                aria-controls="profile"
-              >
-                Feedback
-              </a>
-
-              <a
-                class="list-group-item list-group-item-action"
-                id="list-settings-list"
-                data-toggle="list"
-                href="#list-settings"
-                role="tab"
-                aria-controls="settings"
-              >
-                Settings
-              </a>
             </div>
           </div>
           <div class="col-8">
@@ -96,7 +74,7 @@ class Addroom extends Component {
                 aria-labelledby="list-room-list"
               >
                 <ListRoom/>
-                {/* <Demo /> */}
+
               </div>
               <div
                 class="tab-pane fade show active"

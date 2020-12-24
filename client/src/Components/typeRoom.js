@@ -35,5 +35,5 @@ export const extend = [
 export const GenderRules = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
-    { value: "Other", label: "Other" },
+    { value: "Both", label: "Both" },
   ];

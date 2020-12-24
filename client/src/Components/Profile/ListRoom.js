@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 const moment = require("moment");
 export default function ListRoom(props) {
   let [Room, setRoom] = useState([]);
+
+  let [countActive, setCountActive] = useState(null);
   useEffect(() => {
     axios
       .get(
@@ -12,7 +14,13 @@ export default function ListRoom(props) {
       .then((res) => {
         //  document.getElementById("error-changPassword").innerHTML =
         //  res.data.msg;
+
         setRoom(res.data);
+        var count = 0;
+        res.data.map((room) => {
+          if (room.properties.status === 0) count++;
+        });
+        setCountActive(count);
       })
       .catch((error) => {
         //  document.getElementById("error-changPassword").innerHTML =
@@ -22,52 +30,65 @@ export default function ListRoom(props) {
   const formatNumber = (num) => {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   };
-  const status = (status,id) => {
+  const status = (status, id) => {
     if (status === 0) {
-      return <button className="mj_btn btn btn-success" onClick={()=>ChangeStatus(status,id)}>Active</button>;
+      return (
+        <button
+          className="mj_btn btn btn-success"
+          onClick={() => ChangeStatus(status, id)}
+        >
+          Active
+        </button>
+      );
     } else {
-      return <button className="mj_btn btn btn-warning" onClick={()=>ChangeStatus(status,id)}>Hiden</button>;
+      return (
+        <button
+          className="mj_btn btn btn-warning"
+          onClick={() => ChangeStatus(status, id)}
+        >
+          Hiden
+        </button>
+      );
     }
   };
-  const ChangeStatus =(status,id)=>{
+  const ChangeStatus = (status, id) => {
     var result = window.confirm("Do you want to continue?");
-    if(result)  {
-      if(status===0){
-      const body = {
-        id: id,
-        status: 1,
-      };
-      axios
-        .post("http://localhost:6001/room/ManagerRoom/HidenRoom", body)
-        .then((res)=>{
-          document.getElementById("error-changPassword").innerHTML =
-          res.data.msg;
-        })
-        .catch((error) => {
-          document.getElementById("error-changPassword").innerHTML =
-            error.response.data.msg;
-        });
+    if (result) {
+      if (status === 0) {
+        const body = {
+          id: id,
+          status: 1,
+        };
+        axios
+          .post("http://localhost:6001/room/ManagerRoom/HidenRoom", body)
+          .then((res) => {
+            document.getElementById("error-changPassword").innerHTML =
+              res.data.msg;
+          })
+          .catch((error) => {
+            document.getElementById("error-changPassword").innerHTML =
+              error.response.data.msg;
+          });
         window.location.reload();
-      }
-       else{
+      } else {
         const body = {
           id: id,
           status: 0,
         };
         axios
           .post("http://localhost:6001/room/ManagerRoom/HidenRoom", body)
-          .then((res)=>{
+          .then((res) => {
             document.getElementById("error-changPassword").innerHTML =
-            res.data.msg;
+              res.data.msg;
           })
           .catch((error) => {
             document.getElementById("error-changPassword").innerHTML =
               error.response.data.msg;
           });
-          window.location.reload();
-       }
+        window.location.reload();
+      }
     }
-  }
+  };
   return (
     <>
       {/* List Room */}
@@ -79,7 +100,7 @@ export default function ListRoom(props) {
               <h2 className="mt-30 page-title">Dashboard</h2>
 
               <div className="row">
-                <div className="col-xl-3 col-md-6">
+                <div className="col-xl-4 col-md-6">
                   <div className="dashboard-report-card purple">
                     <div className="card-content">
                       <span className="card-title">Your Room </span>
@@ -90,36 +111,28 @@ export default function ListRoom(props) {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-md-6">
-                  <div className="dashboard-report-card red">
+
+                <div className="col-xl-4 col-md-6">
+                  <div className="dashboard-report-card info">
                     <div className="card-content">
-                      <span className="card-title">Order Cancel</span>
-                      <span className="card-count">0</span>
+                      <span className="card-title">Room Active</span>
+                      <span className="card-count">{countActive}</span>
                     </div>
                     <div className="card-media">
                       <i className="far fa-times-circle" />
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-md-6">
-                  <div className="dashboard-report-card info">
+                <div className="col-xl-4 col-md-6">
+                  <div className="dashboard-report-card red">
                     <div className="card-content">
-                      <span className="card-title">Order Process</span>
-                      <span className="card-count">5</span>
+                      <span className="card-title">Room Hidden</span>
+                      <span className="card-count">
+                        {Room.length - countActive}
+                      </span>
                     </div>
                     <div className="card-media">
                       <i className="fas fa-sync-alt rpt_icon" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-xl-3 col-md-6">
-                  <div className="dashboard-report-card success">
-                    <div className="card-content">
-                      <span className="card-title">Today Income</span>
-                      <span className="card-count">50,000,000 VNĐ</span>
-                    </div>
-                    <div className="card-media">
-                      <i className="fas fa-money-bill rpt_icon" />
                     </div>
                   </div>
                 </div>
@@ -127,10 +140,7 @@ export default function ListRoom(props) {
                 <div className="col-xl-12 col-md-12">
                   <div className="card card-static-2 mb-30">
                     <div className="card-title-2">
-                      <h4>Recent Orders</h4>
-                      <a href="orders.html" className="view-btn hover-btn">
-                        View All
-                      </a>
+                      <h4>All your room</h4>
                     </div>
                     <div className="card-body-table">
                       <div className="table-responsive">
@@ -138,7 +148,7 @@ export default function ListRoom(props) {
                           <thead>
                             <tr>
                               <th style={{ width: 130 }}>Title</th>
-                              <th style={{ width: 130 }}>Describe</th>
+
                               <th style={{ width: 200 }}>Date Create</th>
                               <th style={{ width: 200 }}>Type Room</th>
                               <th style={{ width: 130 }}>Price</th>
@@ -151,7 +161,7 @@ export default function ListRoom(props) {
                               <>
                                 <tr>
                                   <td>{item.properties.title}</td>
-                                  <td>{item.properties.describe}</td>
+
                                   <td>
                                     {moment(item.properties.date).format(
                                       "dddd, MMMM Do YYYY, h:mm:ss"
@@ -163,8 +173,8 @@ export default function ListRoom(props) {
                                       "VND"}
                                   </td>
                                   <td>
-                                    {status(item.properties.status,item._id)}
-                                    </td>
+                                    {status(item.properties.status, item._id)}
+                                  </td>
                                   <td>
                                     <Link
                                       to={`/room/edit/${item.properties.slug}`}

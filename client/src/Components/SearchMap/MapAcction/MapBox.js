@@ -49,10 +49,10 @@ export default class MapBox extends React.Component {
           type: "Feature",
           properties: {
             description:
-              `<img src="http://localhost:6001/${room.properties.image[0]}"  width="100%"></img>` +
-              `<a href='/rooms/detail/${room.properties.slug}' class='Link-detail-news''><h3>${room.properties.address.address}</h3></a>` +
-              formatNumber(room.properties.prices) +
-              " VND",
+              `<img src="http://localhost:6001/${room.properties.image[0]}"  width="100%" ></img>` +
+              `<a href='/rooms/detail/${room.properties.slug}' class='Link-detail-news''><h3>${room.properties.title}<small/></h3></a>` +
+              `<h3>${room.properties.address.address},${room.properties.address.xa},${room.properties.address.City}<small/></h3>`+
+              `<h3> ${formatNumber(room.properties.prices)} VNĐ<small/></h3>`
           },
           geometry: {
             type: "Point",

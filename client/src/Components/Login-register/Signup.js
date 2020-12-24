@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { registerUser } from "../../action/auth";
 import { connect } from "react-redux";
 import axios from "axios";
-
+import image1  from './img/img1.jpeg'
 const SignUp = ({ isLoggedIn, registerUser }) => {
   let [data, setData] = useState({
     firstname: "",
@@ -49,7 +49,9 @@ const SignUp = ({ isLoggedIn, registerUser }) => {
   return (
     <>
       <div className="signup">
-        <div className="signup-connect"></div>
+        <div className="signup-connect">
+          <img src={image1} style={{width:'100%'}}></img>
+        </div>
         <div className="signup-classic">
           <h1>Create Account</h1>
           {/* <div className="social-container"></div>

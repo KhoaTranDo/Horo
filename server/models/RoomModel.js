@@ -75,10 +75,6 @@ var slug = require('mongoose-slug-updater');
         type: String,
         required: true,
       },
-      firstprice: {
-        type: String,
-        required: true,
-      },
       prices: {
         type: String,
         required: true,

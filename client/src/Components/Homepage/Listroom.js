@@ -54,9 +54,9 @@ export default function Listroom(props) {
                       <i className="fa fa-home" aria-hidden="true"></i> {item.properties.title}
                     </Link>
                     <div className="taghome-location">
-                      <ul><i className="fa fa-map-marker" aria-hidden="true"></i>  {item.properties.address.address} , {item.properties.address.xa} , {item.properties.address.City} , {item.properties.address.country}</ul>
-                      <p> <MDBIcon icon="ruler" /> {item.properties.Size} M2</p>
-                      <p><i className="far fa-users"></i>  {item.properties.genderRules}</p>
+                      <h4><i className="fa fa-map-marker" aria-hidden="true"></i>  {item.properties.address.address} , {item.properties.address.xa} , {item.properties.address.City} , {item.properties.address.country}<small/></h4>
+                      <h4> <MDBIcon icon="ruler" /> {item.properties.Size} M<sup>2</sup><small/></h4>
+                      <h4><i className="far fa-users"></i> Capacity: {item.properties.NumberPeople} {item.properties.genderRules}<small/></h4>
                       
                     </div>
                     

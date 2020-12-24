@@ -21,7 +21,7 @@ export function Gallery() {
               style={{ width: "1237px", height: "700px" }}
             />
             <Carousel.Caption>
-              <Banner title="Rent a home in Da Nang city">
+              <Banner title="Rent a home in the best cities in VietNam">
                 <Link to="/searchmap" className="btn-primary">
                   Search On Map
                 </Link>
